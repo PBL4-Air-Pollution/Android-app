@@ -11,14 +11,8 @@ import androidx.annotation.Nullable;
 
 import com.example.airquality.R;
 
-public class InfoFragment extends Fragment {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+class InfoFragment extends Fragment {
 
-        }
-    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
