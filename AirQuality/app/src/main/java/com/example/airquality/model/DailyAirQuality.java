@@ -12,13 +12,8 @@ public class DailyAirQuality {
     private int id;
 
     @ColumnInfo
-<<<<<<< Updated upstream
-    private Date datetime;
-
-=======
     private String datetime;
-    
->>>>>>> Stashed changes
+  
     @ColumnInfo
     private double AQI;
 
