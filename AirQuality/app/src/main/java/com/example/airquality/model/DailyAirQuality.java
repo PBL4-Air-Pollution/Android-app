@@ -12,7 +12,7 @@ public class DailyAirQuality {
     private int id;
 
     @ColumnInfo
-    private String datetime;
+    private Date datetime;
   
     @ColumnInfo
     private double AQI;

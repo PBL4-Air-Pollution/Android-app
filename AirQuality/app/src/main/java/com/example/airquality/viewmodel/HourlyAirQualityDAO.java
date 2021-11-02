@@ -17,12 +17,12 @@ public interface HourlyAirQualityDAO {
     @Query("SELECT * FROM HourlyAirQuality WHERE id = :id")
     HourlyAirQuality getOneByID(int id);
 
-    @Query("SELECT * FROM HourlyAirQuality WHERE date >= :date AND date < DATEADD(day,1,:date)")
+    @Query("SELECT * FROM HourlyAirQuality WHERE CAST(datetime as DATE) = :date")
     List<HourlyAirQuality> getAllByDate(Date date);
 
     @Insert
     void insertAll(HourlyAirQuality... hourlyAirQualities);
 
-    @Query("DELETE FROM HourlyAirQuality WHERE date >= :date AND date < DATEADD(day,1,:date)")
+    @Query("DELETE FROM HourlyAirQuality WHERE CAST(datetime as DATE) = :date")
     void deleteByDate(Date date);
 }

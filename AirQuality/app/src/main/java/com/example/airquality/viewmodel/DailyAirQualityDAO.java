@@ -20,6 +20,6 @@ public interface DailyAirQualityDAO {
     @Insert
     void insertAll(DailyAirQuality... dailyAirQualities);
 
-    @Query("DELETE FROM DailyAirQuality WHERE date = :date")
+    @Query("DELETE FROM DailyAirQuality WHERE CAST(datetime as DATE) = :date")
     void deleteByDate(Date date);
 }

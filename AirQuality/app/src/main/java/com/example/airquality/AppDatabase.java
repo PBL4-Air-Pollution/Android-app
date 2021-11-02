@@ -5,8 +5,11 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
 import com.example.airquality.model.DailyAirQuality;
+import com.example.airquality.model.DateConverter;
 import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.model.Location;
 import com.example.airquality.viewmodel.DailyAirQualityDAO;
@@ -14,6 +17,7 @@ import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 
 @Database(entities = {DailyAirQuality.class, HourlyAirQuality.class, Location.class}, version = 1, exportSchema = false)
+@TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract HourlyAirQualityDAO hourlyAirQualityDAO();
     public abstract DailyAirQualityDAO dailyAirQualityDAO();
@@ -24,7 +28,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase Instance(Context context){
         if (_instance == null){
             _instance = Room.databaseBuilder(context,
-                    AppDatabase.class, "AirQualityDatabase").build();
+                    AppDatabase.class, "AirQualityDatabase").addTypeConverter(DateConverter.class).build();
         }
         return _instance;
     }
