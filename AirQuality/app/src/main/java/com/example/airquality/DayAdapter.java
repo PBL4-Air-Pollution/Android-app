@@ -34,7 +34,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DailyAirQuality day=dayArrayList.get(position);
-        holder.tvDatetime.setText(day.getDatetime());
+        holder.tvDatetime.setText(day.getDatetime().toString());
         holder.tvAQI.setText(Double.toString(day.getAQI()));
         holder.tvRate.setText(day.getRate());
     }

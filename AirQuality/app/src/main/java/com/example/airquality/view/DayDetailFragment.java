@@ -20,7 +20,9 @@ import com.example.airquality.DayDetailAdapter;
 import com.example.airquality.R;
 import com.example.airquality.model.HourlyAirQuality;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,20 +52,20 @@ public class DayDetailFragment extends Fragment {
         rvDayDetail.setLayoutManager(layoutManager);
         hourArrayList = new ArrayList<HourlyAirQuality>();
         dayDetailAdapter = new DayDetailAdapter(hourArrayList);
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","1AM", 50,25 ,30,20,20,20,50,"Tốt"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","2AM", 50,25 ,30,20,20,20,100,"Xấu"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","3AM", 50,25 ,30,20,20,20,50,"Tốt"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","4AM", 50,25 ,30,20,20,20,100,"Xấu"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","5AM", 50,25 ,30,20,20,20,50,"Tốt"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","6AM", 50,25 ,30,20,20,20,100,"Xấu"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","7AM", 50,25 ,30,20,20,20,50,"Tốt"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","8AM", 50,25 ,30,20,20,20,100,"Xấu"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","6AM", 50,25 ,30,20,20,20,100,"Xấu"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","7AM", 50,25 ,30,20,20,20,50,"Tốt"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","8AM", 50,25 ,30,20,20,20,100,"Xấu"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","6AM", 50,25 ,30,20,20,20,100,"Xấu"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","7AM", 50,25 ,30,20,20,20,50,"Tốt"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","8AM", 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,50,"Tốt"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,50,"Tốt"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,50,"Tốt"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,50,"Tốt"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,50,"Tốt"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,50,"Tốt"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
 
         dayDetailAdapter.notifyDataSetChanged();
         rvDayDetail.setAdapter(dayDetailAdapter);

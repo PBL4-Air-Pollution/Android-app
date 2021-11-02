@@ -35,7 +35,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HourlyAirQuality hour=hourArrayList.get(position);
-        holder.tvHour.setText(hour.getDatetime());
+        holder.tvHour.setText(hour.getDatetime().toString());
         holder.tvAQI.setText(Double.toString(hour.getAQI()));
         holder.tvRate.setText(hour.getRate());
 //        if(Integer.parseInt(hour.getAQI().toString())<=50)

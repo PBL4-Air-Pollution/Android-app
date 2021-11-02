@@ -3,6 +3,7 @@ package com.example.airquality.view;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,6 +17,10 @@ import android.view.ViewGroup;
 
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentHourDetailBinding;
+import com.example.airquality.model.HourlyAirQuality;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class HourDetailFragment extends Fragment {
 
@@ -35,20 +40,23 @@ public class HourDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         binding=FragmentHourDetailBinding.inflate(getLayoutInflater());
         return binding.getRoot();
-//        HourlyAirQuality hour=new HourlyAirQuality("Hòa Khánh Bắc","1AM", 50,25 ,30,20,20,20,50,"Tốt");
-//
-//        binding.tvLocation.setText(hour.getLocation());
-//        binding.tvHour.setText(hour.getDatetime());
-//        binding.tvAqi.setText(Double.toString(hour.getAQI()));
-//        binding.tvPM25.setText(Double.toString(hour.getPM25()));
-//        binding.tvPM10.setText(Double.toString(hour.getPM10()));
-//        binding.tvNO2.setText(Double.toString(hour.getNO2()));
-//        binding.tvCO.setText(Double.toString(hour.getCO()));
-//        binding.tvSO2.setText(Double.toString(hour.getSO2()));
-//        binding.tvO3.setText(Double.toString(hour.getO3()));
-
-
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        HourlyAirQuality hour = new HourlyAirQuality("Hòa Khánh Bắc", new Timestamp(new Date().getTime()), 50, 25, 30, 20, 20, 20, 50, "Tốt");
+        binding.tvLocation.setText(hour.getLocation());
+        binding.tvHour.setText(hour.getDatetime().toString());
+        binding.tvAqi.setText(Double.toString(hour.getAQI()));
+        binding.tvPM25.setText(Double.toString(hour.getPM25()));
+        binding.tvPM10.setText(Double.toString(hour.getPM10()));
+        binding.tvNO2.setText(Double.toString(hour.getNO2()));
+        binding.tvCO.setText(Double.toString(hour.getCO()));
+        binding.tvSO2.setText(Double.toString(hour.getSO2()));
+        binding.tvO3.setText(Double.toString(hour.getO3()));
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();

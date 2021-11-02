@@ -21,7 +21,9 @@ import com.example.airquality.R;
 import com.example.airquality.model.DailyAirQuality;
 import com.example.airquality.model.HourlyAirQuality;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HomeFragment extends Fragment {
     private RecyclerView rvHours;
@@ -77,14 +79,14 @@ public class HomeFragment extends Fragment {
             }
         };
         hoursAdapter = new HourAdapter(hourArrayList, hourClickListener);
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","1AM", 50,25 ,30,20,20,20,50,"Tốt"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","2AM", 50,25 ,30,20,20,20,100,"Xấu"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","3AM", 50,25 ,30,20,20,20,50,"Tốt"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","4AM", 50,25 ,30,20,20,20,100,"Xấu"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","5AM", 50,25 ,30,20,20,20,50,"Tốt"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","6AM", 50,25 ,30,20,20,20,100,"Xấu"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","7AM", 50,25 ,30,20,20,20,50,"Tốt"));
-        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc","8AM", 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,50,"Tốt"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,50,"Tốt"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,50,"Tốt"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,50,"Tốt"));
+        hourArrayList.add(new HourlyAirQuality("Hòa Khánh Bắc",new Timestamp(new Date().getTime()), 50,25 ,30,20,20,20,100,"Xấu"));
 
         hoursAdapter.notifyDataSetChanged();
         rvHours.setAdapter(hoursAdapter);
@@ -104,16 +106,16 @@ public class HomeFragment extends Fragment {
             }
         };
         daysAdapter = new DayAdapter(dayArrayList,dayClickListener);
-        dayArrayList.add(new DailyAirQuality("29/10/2021", 50, "Tốt"));
-        dayArrayList.add(new DailyAirQuality("28/10/2021", 100, "B.thường"));
-        dayArrayList.add(new DailyAirQuality("29/10/2021", 50, "Tốt"));
-        dayArrayList.add(new DailyAirQuality("28/10/2021", 100, "B.thường"));
-        dayArrayList.add(new DailyAirQuality("29/10/2021", 50, "Tốt"));
-        dayArrayList.add(new DailyAirQuality("28/10/2021", 100, "B.thường"));
-        dayArrayList.add(new DailyAirQuality("29/10/2021", 50, "Tốt"));
-        dayArrayList.add(new DailyAirQuality("28/10/2021", 100, "B.thường"));
-        dayArrayList.add(new DailyAirQuality("29/10/2021", 50, "Tốt"));
-        dayArrayList.add(new DailyAirQuality("28/10/2021", 100, "B.thường"));
+        dayArrayList.add(new DailyAirQuality(new Timestamp(new Date().getTime()), 50, "Tốt"));
+        dayArrayList.add(new DailyAirQuality(new Timestamp(new Date().getTime()), 100, "B.thường"));
+        dayArrayList.add(new DailyAirQuality(new Timestamp(new Date().getTime()), 50, "Tốt"));
+        dayArrayList.add(new DailyAirQuality(new Timestamp(new Date().getTime()), 100, "B.thường"));
+        dayArrayList.add(new DailyAirQuality(new Timestamp(new Date().getTime()), 50, "Tốt"));
+        dayArrayList.add(new DailyAirQuality(new Timestamp(new Date().getTime()), 100, "B.thường"));
+        dayArrayList.add(new DailyAirQuality(new Timestamp(new Date().getTime()), 50, "Tốt"));
+        dayArrayList.add(new DailyAirQuality(new Timestamp(new Date().getTime()), 100, "B.thường"));
+        dayArrayList.add(new DailyAirQuality(new Timestamp(new Date().getTime()), 50, "Tốt"));
+        dayArrayList.add(new DailyAirQuality(new Timestamp(new Date().getTime()), 100, "B.thường"));
         daysAdapter.notifyDataSetChanged();
         rvDays.setAdapter(daysAdapter);
     }
