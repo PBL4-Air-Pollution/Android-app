@@ -8,11 +8,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.airquality.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_day_detailFragment"
-            app:destination="@id/day_detailFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.airquality.view.MapsFragment"
@@ -27,11 +23,6 @@
             android:id="@+id/action_locationFragment_to_addEditLocationFragment"
             app:destination="@id/addEditLocationFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/day_detailFragment"
-        android:name="com.example.airquality.view.day_detailFragment"
-        android:label="fragment_day_detail"
-        tools:layout="@layout/fragment_day_detail" />
     <fragment
         android:id="@+id/addEditLocationFragment"
         android:name="com.example.airquality.view.AddEditLocationFragment"

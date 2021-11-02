@@ -15,7 +15,7 @@ public class HourlyAirQuality {
     private String location;
 
     @ColumnInfo
-    private Date datetime;
+    private String datetime;
 
     @ColumnInfo
     private double PM25;
@@ -41,7 +41,7 @@ public class HourlyAirQuality {
     @ColumnInfo
     private String rate;
 
-    public HourlyAirQuality(String location, Date datetime, double PM25, double PM10, double NO2, double CO, double SO2, double O3, double AQI, String rate) {
+    public HourlyAirQuality(String location, String datetime, double PM25, double PM10, double NO2, double CO, double SO2, double O3, double AQI, String rate) {
         this.location = location;
         this.datetime = datetime;
         this.PM25 = PM25;
@@ -70,11 +70,11 @@ public class HourlyAirQuality {
         this.location = location;
     }
 
-    public Date getDatetime() {
+    public String getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Date datetime) {
+    public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
 

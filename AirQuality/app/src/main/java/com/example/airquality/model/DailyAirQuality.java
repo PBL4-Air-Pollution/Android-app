@@ -20,7 +20,7 @@ public class DailyAirQuality {
     @ColumnInfo
     private String rate;
 
-    public DailyAirQuality(Date datetime, double AQI, String rate) {
+    public DailyAirQuality(String datetime, double AQI, String rate) {
         this.datetime = datetime;
         this.AQI = AQI;
         this.rate = rate;
@@ -34,11 +34,11 @@ public class DailyAirQuality {
         this.id = id;
     }
 
-    public Date getDatetime() {
+    public String getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Date datetime) {
+    public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
 
