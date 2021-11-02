@@ -11,9 +11,9 @@ public class DailyAirQuality {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-//    @ColumnInfo
-//    private Date datetime;
+    @ColumnInfo
     private String datetime;
+    
     @ColumnInfo
     private double AQI;
 
