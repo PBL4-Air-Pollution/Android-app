@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.InfoFragment">
+    tools:context=".view.InfoFragment"
+    android:id="@+id/sv">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <TextView
             android:layout_width="match_parent"
@@ -27,22 +28,28 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:lineSpacingExtra="2dp"
+            android:clickable="true"
+            android:focusable="true"
             android:text="  Theo Health, bụi mịn (PM 2.5) kết hợp với khí CO hay SO2, NO2 có trong không khí sẽ gây kích ứng niêm mạc đồng thời cản trở hemoglobin kết hợp oxi khiến tế bào thiếu oxi dẫn đến suy giảm chức năng phổi và làm nặng thêm tình trạng bệnh hen và bệnh tim.\n
 Các chất trên cũng nằm trong danh sách 6 chất chính gây ô nhiễm không khí ảnh hưởng đến sức khoẻ con người gồm: bụi mịn, khí CO, SO2, NO2, chì và ozon tầng mặt đất, được liệt kê theo WHO."
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-black"
+            android:textSize="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/black"
+            android:justificationMode="inter_word"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:fontFamily="sans-serif-black"
             android:lineSpacingExtra="2dp"
             android:text="  Bên cạnh đó, các hạt bụi mịn và siêu mịn đã được Cơ quan Nghiên cứu Ung thư Quốc tế xếp vào nhóm chất gây ung thư cho con người.\n
 Bụi mịn được chia theo kích thước: PM10 là những hạt bụi có đường kính dưới 10 micron (tương đương kích thước của đa số vi khuẩn); PM2.5 là bụi có đường kính dưới 2,5 micron (bằng khoảng 1/30 sợi tóc), thường chỉ được phát hiện bằng kính hiển vi.
 "
-            android:textSize="20dp" />
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:justificationMode="inter_word"
+            android:fontFamily="sans-serif-light"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -52,8 +59,10 @@ Bụi mịn được chia theo kích thước: PM10 là những hạt bụi có 
             android:text="  Chỉ số chất lượng không khí (AQI) là chỉ số được tính toán từ các thông số quan trắc các chất ô nhiễm trong không khí, nhằm cho biết tình trạng chất lượng không khí và mức độ ảnh hưởng đến sức khỏe con người, được biểu diễn qua một thang điểm.
 AQI được tính toán bao gồm AQI giờ và AQI ngày. Số liệu sử dụng để tính toán là giá trị quan trắc trung bình 1 giờ, trung bình 8 giờ và trung bình 24 giờ.
 AQI tính toán cho từng trạm quan trắc không khí tự động liên tục trong môi trường không khí xung quanh. Mỗi trạm, AQI được tính cho từng thông số, giá trị AQI cuối cùng là giá trị lớn nhất trong các giá trị AQI của mỗi thông số.\n  Các thông số được sử dụng để tính toán AQI bao gồm: SO2, CO, NO2, O3, PM10 và PM2.5."
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-black"/>
+            android:textSize="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/black"
+            android:justificationMode="inter_word"/>
 
         <ImageView
             android:id="@+id/img_view"
@@ -73,6 +82,4 @@ AQI tính toán cho từng trạm quan trắc không khí tự động liên t�
             android:fontFamily="sans-serif"
             />
     </LinearLayout>
-
-
 </androidx.core.widget.NestedScrollView>
