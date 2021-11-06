@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/SwipeRevealLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:mode="same_level"
+    app:dragEdge="right"
+    android:layout_height="match_parent">
+    <!-- Your secondary layout here -->
+    <LinearLayout
+        android:id="@+id/lo_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/img_del"
+            android:layout_width="70dp"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_delete_forever_24"
+            android:layout_height="match_parent">
+
+        </ImageView>
+    </LinearLayout>
+    <!-- Your main layout here -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="@dimen/cardview_compat_inset_shadow"
+            app:cardBackgroundColor="#00FF7F"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:layout_gravity="center_vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/ic_baseline_person_outline_24"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+
+                    <LinearLayout
+                        android:layout_width="223dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="50dp"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="Hòa khánh Bắc"
+                            android:textSize="25dp"
+                            android:textStyle="bold"></TextView>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="AQI: "
+                                android:textSize="20dp"></TextView>
+
+                            <TextView
+                                android:id="@+id/tv_aqi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="32"
+                                android:textSize="20dp"></TextView>
+
+                            <TextView
+                                android:id="@+id/tv_condition"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:hint="Good"
+                                android:textSize="20dp">
+
+                            </TextView>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Main pollution: "
+                                android:textSize="20dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/tv_mp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="PM2.5"
+                                android:textSize="20dp">
+
+                            </TextView>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Label : "
+                                android:textSize="20dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/tv_detail_location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="My home"
+                                android:textSize="20dp">
+
+                            </TextView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+
+</com.chauthai.swipereveallayout.SwipeRevealLayout>
