@@ -21,9 +21,10 @@ public class MapsFragment extends Fragment {
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            LatLng DaNang = new LatLng(16, 108); //vi do va kinh do
+            googleMap.addMarker(new MarkerOptions().position(DaNang).title(" DaNang"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(DaNang));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
         }
     };
 
