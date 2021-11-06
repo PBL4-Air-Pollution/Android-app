@@ -5,10 +5,42 @@
     android:layout_height="match_parent"
     tools:context=".view.AddEditLocationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Spinner
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:id="@+id/spn_location"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mo ta: "
+                android:textSize="20dp"
+                android:textStyle="bold">
+
+            </TextView>
+            <TextView
+                android:id="@+id/tv_mota"
+                android:layout_width="wrap_content"
+                android:textSize="20dp"
+                android:layout_height="wrap_content"
+                android:hint="ex's house">
+
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>
