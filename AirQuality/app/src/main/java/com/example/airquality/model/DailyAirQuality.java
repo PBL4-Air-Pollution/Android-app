@@ -1,9 +1,13 @@
 package com.example.airquality.model;
 
+import android.util.Log;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(tableName = "DailyAirQuality")
@@ -35,7 +39,8 @@ public class DailyAirQuality {
     }
 
     public Date getDatetime() {
-        return datetime;
+
+        return this.datetime;
     }
 
     public void setDatetime(Date datetime) {
@@ -57,4 +62,5 @@ public class DailyAirQuality {
     public void setRate(String rate) {
         this.rate = rate;
     }
+
 }

@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airquality.model.DailyAirQuality;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder>{
     private ArrayList<DailyAirQuality> dayArrayList;
@@ -34,7 +37,8 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DailyAirQuality day=dayArrayList.get(position);
-        holder.tvDatetime.setText(day.getDatetime().toString());
+        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        holder.tvDatetime.setText(format.format(day.getDatetime()));
         holder.tvAQI.setText(Double.toString(day.getAQI()));
         holder.tvRate.setText(day.getRate());
     }

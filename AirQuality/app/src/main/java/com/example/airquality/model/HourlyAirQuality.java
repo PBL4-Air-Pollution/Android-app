@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(tableName = "HourlyAirQuality")
@@ -71,9 +73,8 @@ public class HourlyAirQuality {
     }
 
     public Date getDatetime() {
-        return datetime;
+        return this.datetime;
     }
-
     public void setDatetime(Date datetime) {
         this.datetime = datetime;
     }

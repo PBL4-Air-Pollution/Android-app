@@ -20,6 +20,7 @@ import com.example.airquality.databinding.FragmentHourDetailBinding;
 import com.example.airquality.model.HourlyAirQuality;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class HourDetailFragment extends Fragment {
@@ -47,7 +48,8 @@ public class HourDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         HourlyAirQuality hour = new HourlyAirQuality("Hòa Khánh Bắc", new Timestamp(new Date().getTime()), 50, 25, 30, 20, 20, 20, 50, "Tốt");
         binding.tvLocation.setText(hour.getLocation());
-        binding.tvHour.setText(hour.getDatetime().toString());
+        SimpleDateFormat format=new SimpleDateFormat("HH:mm");
+        binding.tvHour.setText(format.format(hour.getDatetime()));
         binding.tvAqi.setText(Double.toString(hour.getAQI()));
         binding.tvPM25.setText(Double.toString(hour.getPM25()));
         binding.tvPM10.setText(Double.toString(hour.getPM10()));
