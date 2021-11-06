@@ -1,19 +1,13 @@
 package com.example.airquality.view;
 
-
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.airquality.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,21 +18,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsFragment extends Fragment {
-
-    private OnMapReadyCallback callback;
-
-    {
-        callback = new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                LatLng DaNang = new LatLng(16, 108); //vi do va kinh do
-                googleMap.addMarker(new MarkerOptions().position(DaNang).title(" DaNang"));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(DaNang));
-                googleMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
-            }
-
-        };
-    }
+    private OnMapReadyCallback callback = new OnMapReadyCallback() {
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
+            LatLng sydney = new LatLng(-34, 151);
+            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        }
+    };
 
     @Nullable
     @Override
@@ -56,9 +43,5 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
-
-
     }
-
-
 }
