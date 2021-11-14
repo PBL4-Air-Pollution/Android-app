@@ -15,8 +15,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.airquality.DayAdapter;
-import com.example.airquality.HourAdapter;
+import com.example.airquality.Adapters.DayAdapter;
+import com.example.airquality.Adapters.HourAdapter;
 import com.example.airquality.R;
 import com.example.airquality.model.DailyAirQuality;
 import com.example.airquality.model.HourlyAirQuality;

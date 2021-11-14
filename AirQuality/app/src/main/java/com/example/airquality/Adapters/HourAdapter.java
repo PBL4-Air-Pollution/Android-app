@@ -1,4 +1,4 @@
-package com.example.airquality;
+package com.example.airquality.Adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.airquality.R;
+import com.example.airquality.databinding.ItemHourBinding;
 import com.example.airquality.model.HourlyAirQuality;
 
 import java.text.SimpleDateFormat;
@@ -18,11 +20,12 @@ import java.util.ArrayList;
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
     private ArrayList<HourlyAirQuality> hourArrayList;
     private HourClickListener onClickListener;
-    public HourAdapter(ArrayList<HourlyAirQuality> hourArrayList, HourClickListener onClickListener) {
 
+    public HourAdapter(ArrayList<HourlyAirQuality> hourArrayList, HourClickListener onClickListener) {
         this.hourArrayList = hourArrayList;
         this.onClickListener=onClickListener;
     }
+
     @SuppressLint("ResourceAsColor")
     @NonNull
     @Override
@@ -31,19 +34,19 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
                 .inflate(R.layout.item_hour, parent, false);
         return  new ViewHolder(view);
     }
+
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HourlyAirQuality hour=hourArrayList.get(position);
         SimpleDateFormat format=new SimpleDateFormat("HH:mm");
-        holder.tvHour.setText(format.format(hour.getDatetime()));
-        holder.tvAQI.setText(Double.toString(hour.getAQI()));
-        holder.tvRate.setText(hour.getRate());
+        holder.binding.tvHour.setText(format.format(hour.getDatetime()));
+        holder.binding.tvAqi.setText(Double.toString(hour.getAQI()));
+        holder.binding.tvRate.setText(hour.getRate());
 //        if(Integer.parseInt(hour.getAQI().toString())<=50)
 //            holder.llCard.setBackgroundColor(R.color.red);
 //        else if(Integer.parseInt(hour.getAQI().toString())>50)
 //            holder.llCard.setBackgroundColor(R.color.red);
-
     }
 
     @Override
@@ -52,20 +55,13 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
-        public TextView tvHour;
-        public  TextView tvAQI;
-        public  TextView tvRate;
-        public LinearLayout llCard;
+        public ItemHourBinding binding;
 
         @SuppressLint("ResourceAsColor")
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvHour=itemView.findViewById(R.id.tv_hour);
-            tvAQI=itemView.findViewById(R.id.tv_aqi);
-            tvRate=itemView.findViewById(R.id.tv_rate);
-            llCard=itemView.findViewById(R.id.ll_card);
+            binding = ItemHourBinding.bind(itemView);
             itemView.setOnClickListener(this);
-
         }
 
         @Override
@@ -73,8 +69,8 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
             onClickListener.onCLick(view,getAdapterPosition());
         }
     }
+
     public interface HourClickListener{
         void onCLick(View view,int i);
-
     }
 }

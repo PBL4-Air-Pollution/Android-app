@@ -1,4 +1,4 @@
-package com.example.airquality;
+package com.example.airquality.Adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -10,18 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.airquality.R;
+import com.example.airquality.databinding.ItemDayBinding;
 import com.example.airquality.model.DailyAirQuality;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder>{
     private ArrayList<DailyAirQuality> dayArrayList;
     private DayClickListener listener;
     public DayAdapter(ArrayList<DailyAirQuality> dayArrayList, DayClickListener listener) {
-
         this.dayArrayList = dayArrayList;
         this.listener=listener;
     }
@@ -38,9 +37,9 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DailyAirQuality day=dayArrayList.get(position);
         SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
-        holder.tvDatetime.setText(format.format(day.getDatetime()));
-        holder.tvAQI.setText(Double.toString(day.getAQI()));
-        holder.tvRate.setText(day.getRate());
+        holder.binding.tvDate.setText(format.format(day.getDatetime()));
+        holder.binding.tvAqi.setText(Double.toString(day.getAQI()));
+        holder.binding.tvRate.setText(day.getRate());
     }
 
     @Override
@@ -49,16 +48,11 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView tvDatetime;
-        public  TextView tvAQI;
-        public  TextView tvRate;
-        public LinearLayout llCard;
+        public ItemDayBinding binding;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvDatetime=itemView.findViewById(R.id.tv_date);
-            tvAQI=itemView.findViewById(R.id.tv_aqi);
-            tvRate=itemView.findViewById(R.id.tv_rate);
-            llCard=itemView.findViewById(R.id.ll_card);
+            binding = ItemDayBinding.bind(itemView);
             itemView.setOnClickListener(this);
         }
 

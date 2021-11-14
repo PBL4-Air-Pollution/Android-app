@@ -1,4 +1,4 @@
-package com.example.airquality;
+package com.example.airquality.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,8 +20,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0:
-                return new HomeFragment();
             case 1:
                 return new MapsFragment();
             case 2:

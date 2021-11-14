@@ -1,17 +1,15 @@
-package com.example.airquality;
+package com.example.airquality.Adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
+import com.example.airquality.R;
+import com.example.airquality.databinding.CardviewItemsBinding;
 import com.example.airquality.model.Location;
 
 import java.util.ArrayList;
@@ -40,12 +38,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
             return;
         }
         //viewBinderHelper.bind(holder.swipeRevealLayout,String.valueOf(locations.getId()));
-        holder.tvLocation.setText(locations.getName());
-        holder.tvAqi.setText("37");
-        holder.tvCondition.setText("Good");
-        holder.tvMp.setText("PM2.5");
-        holder.tvDetail.setText(locations.getLabel());
-
+        holder.binding.tvLocation.setText(locations.getName());
+        holder.binding.tvAqi.setText("37");
+        holder.binding.tvCondition.setText("Good");
+        holder.binding.tvMp.setText("PM2.5");
+        holder.binding.tvDetailLocation.setText(locations.getLabel());
 //        holder.linearLayoutDelete.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -62,24 +59,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private SwipeRevealLayout swipeRevealLayout;
-        private LinearLayout linearLayoutDelete;
-        private TextView tvLocation;
-        private TextView tvAqi;
-        private TextView tvCondition;
-        private TextView tvMp;
-        private TextView tvDetail;
+        public CardviewItemsBinding binding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            //swipeRevealLayout =itemView.findViewById(R.id.SwipeRevealLayout);
-            linearLayoutDelete=itemView.findViewById(R.id.lo_delete);
-            tvLocation=itemView.findViewById(R.id.tv_location);
-            tvAqi=itemView.findViewById(R.id.tv_aqi);
-            tvCondition=itemView.findViewById(R.id.tv_condition);
-            tvMp=itemView.findViewById(R.id.tv_mp);
-            tvDetail=itemView.findViewById(R.id.tv_detail_location);
+            binding = CardviewItemsBinding.bind(itemView);
         }
     }
-
-
 }

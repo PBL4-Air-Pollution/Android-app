@@ -17,10 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.airquality.DayDetailAdapter;
+import com.example.airquality.Adapters.DayDetailAdapter;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentDayDetailBinding;
-import com.example.airquality.databinding.FragmentHourDetailBinding;
 import com.example.airquality.model.HourlyAirQuality;
 
 import java.sql.Timestamp;
@@ -44,7 +43,6 @@ public class DayDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //View view= inflater.inflate(R.layout.fragment_day_detail, container, false);
         binding= FragmentDayDetailBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
