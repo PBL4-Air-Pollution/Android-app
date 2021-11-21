@@ -14,7 +14,8 @@ import java.util.Date;
 public class DailyAirQuality {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
+    @ColumnInfo
+    private String location;
     @ColumnInfo
     private Date datetime;
   
@@ -24,10 +25,19 @@ public class DailyAirQuality {
     @ColumnInfo
     private String rate;
 
-    public DailyAirQuality(Date datetime, double AQI, String rate) {
+    public DailyAirQuality(String location,Date datetime, double AQI, String rate) {
+        this.location=location;
         this.datetime = datetime;
         this.AQI = AQI;
         this.rate = rate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public int getId() {

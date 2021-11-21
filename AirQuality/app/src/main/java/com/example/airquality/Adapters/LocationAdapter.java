@@ -6,8 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.chauthai.swipereveallayout.ViewBinderHelper;
+//import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.airquality.R;
 import com.example.airquality.databinding.CardviewItemsBinding;
 import com.example.airquality.model.Location;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder>{
     private ArrayList<Location> mlistLocation;
-    private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
+    //private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public LocationAdapter(ArrayList<Location> mlistLocation) {
         this.mlistLocation = mlistLocation;
@@ -43,13 +42,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         holder.binding.tvCondition.setText("Good");
         holder.binding.tvMp.setText("PM2.5");
         holder.binding.tvDetailLocation.setText(locations.getLabel());
-//        holder.linearLayoutDelete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mlistLocation.remove(holder.getAbsoluteAdapterPosition());
-//                notifyItemRemoved(holder.getAbsoluteAdapterPosition());
-//            }
-//        });
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.airquality;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,16 +15,32 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.airquality.Adapters.ViewPagerAdapter;
 import com.example.airquality.databinding.ActivityMainBinding;
+import com.example.airquality.model.DailyAirQuality;
+import com.example.airquality.model.HourlyAirQuality;
+import com.example.airquality.model.Location;
+import com.example.airquality.viewmodel.DailyAirQualityDAO;
+import com.example.airquality.viewmodel.HourlyAirQualityDAO;
+import com.example.airquality.viewmodel.LocationDAO;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabase;
     private ActivityMainBinding binding;
+
+    private AppDatabase appDatabase;
+    private HourlyAirQualityDAO hourlyAirQualityDAO;
+    private DailyAirQualityDAO dailyAirQualityDAO;
+    private LocationDAO locationDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         if (firebaseAuth.getCurrentUser() != null) {
             mDatabase = FirebaseDatabase.getInstance().getReference();
         }
-
+        HourlyAirQualityDAO hourlyAirQualityDAO;
         setUpViewPager();
         binding.navBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -68,10 +85,95 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        //TaoDuLieu();
 
 
     }
+    public void TaoDuLieu()
+    {
 
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                appDatabase = AppDatabase.Instance(getApplicationContext().getApplicationContext());
+                LocationDAO locationDAO= appDatabase.locationDAO();
+                locationDAO.insertLocations(new Location("Hoa Khanh Bac","School",true));
+                locationDAO.insertLocations(new Location("Hai Chau","Home",true));
+
+            }
+        });
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                appDatabase = AppDatabase.Instance(getApplicationContext());
+                dailyAirQualityDAO= appDatabase.dailyAirQualityDAO();
+
+                try {
+                    dailyAirQualityDAO.insertAll(new DailyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy").parse("12/11/2021"), 20, "Totb"));
+                    dailyAirQualityDAO.insertAll(new DailyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy").parse("13/11/2021"), 50, "Totb"));
+                    dailyAirQualityDAO.insertAll(new DailyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy").parse("14/11/2021"), 60, "TBb"));
+                    dailyAirQualityDAO.insertAll(new DailyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy").parse("15/11/2021"), 70, "TBb"));
+                    dailyAirQualityDAO.insertAll(new DailyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy").parse("16/11/2021"), 100, "TBb"));
+
+                    dailyAirQualityDAO.insertAll(new DailyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy").parse("12/11/2021"), 25, "Totc"));
+                    dailyAirQualityDAO.insertAll(new DailyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy").parse("13/11/2021"), 55, "Totc"));
+                    dailyAirQualityDAO.insertAll(new DailyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy").parse("14/11/2021"), 65, "TBc"));
+                    dailyAirQualityDAO.insertAll(new DailyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy").parse("15/11/2021"), 75, "TBc"));
+                    dailyAirQualityDAO.insertAll(new DailyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy").parse("16/11/2021"), 105, "TBc"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                appDatabase = AppDatabase.Instance(getApplicationContext());
+                hourlyAirQualityDAO= appDatabase.hourlyAirQualityDAO();
+                try {
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("12/11/2021 01:00"), 111,11,12,13,14,15,50,"Tốt50c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("12/11/2021 02:00"), 112,11,12,13,14,15,51,"Xấu51c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("12/11/2021 03:00"), 113,11,12,13,14,15,52,"Xấu52c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("13/11/2021 01:00"), 114,11,12,13,14,15,60,"Xấu53c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("13/11/2021 02:00"), 115,11,12,13,14,15,61,"Xấu61c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("13/11/2021 03:00"), 116,11,12,13,14,15,62,"Xấu62c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("14/11/2021 01:00"), 117,11,12,13,14,15,70,"Xấu70c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("14/11/2021 02:00"), 118,11,12,13,14,15,71,"Xấu71c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("14/11/2021 03:00"), 119,11,12,13,14,15,72,"Xấu72c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("15/11/2021 01:00"), 120,11,12,13,14,15,80,"Xấu80c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("15/11/2021 02:00"), 121,11,12,13,14,15,81,"Xấu81c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("15/11/2021 03:00"), 122,11,12,13,14,15,82,"Xấu82c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("16/11/2021 01:00"), 123,11,12,13,14,15,90,"Xấu90c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("16/11/2021 02:00"), 124,11,12,13,14,15,91,"Xấu91c"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hai Chau", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("16/11/2021 03:00"), 125,11,12,13,14,15,92,"Xấu92c"));
+
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("12/11/2021 01:00"), 11,11,12,13,14,15,50,"Tốt50b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("12/11/2021 02:00"), 12,11,12,13,14,15,51,"Xấu51b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("12/11/2021 03:00"), 13,11,12,13,14,15,52,"Xấu52b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("13/11/2021 01:00"), 14,11,12,13,14,15,60,"Xấu53b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("13/11/2021 02:00"), 15,11,12,13,14,15,61,"Xấu61b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("13/11/2021 03:00"), 16,11,12,13,14,15,62,"Xấu62b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("14/11/2021 01:00"), 17,11,12,13,14,15,70,"Xấu70b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("14/11/2021 02:00"), 18,11,12,13,14,15,71,"Xấu71b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("14/11/2021 03:00"), 19,11,12,13,14,15,72,"Xấu72b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("15/11/2021 01:00"), 20,11,12,13,14,15,80,"Xấu80b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("15/11/2021 02:00"), 21,11,12,13,14,15,81,"Xấu81b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("15/11/2021 03:00"), 22,11,12,13,14,15,82,"Xấu82b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("16/11/2021 01:00"), 23,11,12,13,14,15,90,"Xấu90b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("16/11/2021 02:00"), 24,11,12,13,14,15,91,"Xấu91b"));
+                    hourlyAirQualityDAO.insertAll(new HourlyAirQuality("Hoa Khanh Bac", new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("16/11/2021 03:00"), 25,11,12,13,14,15,92,"Xấu92b"));
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+
+    }
     private void setUpViewPager() {
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         binding.viewPager.setAdapter(viewPagerAdapter);

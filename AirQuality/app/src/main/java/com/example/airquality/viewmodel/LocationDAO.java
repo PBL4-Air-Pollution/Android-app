@@ -14,11 +14,12 @@ public interface LocationDAO {
     @Query("SELECT * FROM Location")
     List<Location> getAll();
 
-    @Query("SELECT * FROM Location WHERE marked = 1")
-    List<Location> getMarked();
-
+    @Query("SELECT * FROM Location WHERE marked = 1 AND name=:name")
+    List<Location> getListByName(String name);
+    @Query("SELECT name FROM Location WHERE marked = 1")
+    List<String> getListNameByHasMark();
     @Insert
-    void insertLocations(Location... locations);
+    void insertLocations(Location...locations);
 
     @Update
     void updateLocations(Location... locations);
