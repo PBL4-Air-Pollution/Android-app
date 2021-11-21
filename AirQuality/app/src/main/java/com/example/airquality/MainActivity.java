@@ -3,6 +3,7 @@ package com.example.airquality;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +18,11 @@ import com.example.airquality.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
@@ -31,45 +35,16 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        FirebaseApp.initializeApp(this);
-        firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() != null) {
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-        }
+        setUpFirebaseConnection();
 
         setUpViewPager();
-        binding.navBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                FragmentManager fragmentManager=getSupportFragmentManager();
+        setUpBottomNavBar();
+    }
 
-                Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
-                if(fragment!=null){
-                    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                    fragmentTransaction.remove(fragment);
-                    fragmentTransaction.commit();
-                }
-                switch (item.getItemId()){
-                    case R.id.action_home:
-
-                        binding.viewPager.setCurrentItem(0);
-                        break;
-                    case R.id.action_map:
-                        binding.viewPager.setCurrentItem(1);
-                        break;
-                    case R.id.action_info:
-                        binding.viewPager.setCurrentItem(2);
-                        break;
-                    case R.id.action_location:
-                        binding.viewPager.setCurrentItem(3);
-                        break;
-                }
-                return true;
-            }
-        });
-
-
+    private void setUpFirebaseConnection(){
+        FirebaseApp.initializeApp(this);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     private void setUpViewPager() {
@@ -80,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
             @Override
             public void onPageSelected(int position) {
                 switch (position){
@@ -98,12 +72,40 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
 
             }
         });
+    }
 
+    private void setUpBottomNavBar(){
+        binding.navBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentManager fragmentManager=getSupportFragmentManager();
+                Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
+                if(fragment!=null){
+                    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                    fragmentTransaction.remove(fragment);
+                    fragmentTransaction.commit();
+                }
+                switch (item.getItemId()){
+                    case R.id.action_home:
+                        binding.viewPager.setCurrentItem(0);
+                        break;
+                    case R.id.action_map:
+                        binding.viewPager.setCurrentItem(1);
+                        break;
+                    case R.id.action_info:
+                        binding.viewPager.setCurrentItem(2);
+                        break;
+                    case R.id.action_location:
+                        binding.viewPager.setCurrentItem(3);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 }
