@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-//import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.airquality.R;
 import com.example.airquality.databinding.CardviewItemsBinding;
 import com.example.airquality.model.Location;
@@ -15,11 +14,9 @@ import java.util.ArrayList;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder>{
     private ArrayList<Location> mlistLocation;
-    //private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public LocationAdapter(ArrayList<Location> mlistLocation) {
         this.mlistLocation = mlistLocation;
-
     }
 
     @NonNull
@@ -48,7 +45,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     public int getItemCount() {
         return mlistLocation.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public CardviewItemsBinding binding;
