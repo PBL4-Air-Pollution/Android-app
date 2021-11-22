@@ -11,6 +11,8 @@ import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.airquality.R;
 import com.example.airquality.databinding.CardviewItemsBinding;
 import com.example.airquality.model.Location;
+import com.example.airquality.view.AddEditLocationFragment;
+import com.example.airquality.view.LocationDetailFragment;
 
 import java.util.ArrayList;
 
@@ -43,13 +45,25 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         holder.binding.tvCondition.setText("Good");
         holder.binding.tvMp.setText("PM2.5");
         holder.binding.tvDetailLocation.setText(locations.getLabel());
-//        holder.linearLayoutDelete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mlistLocation.remove(holder.getAbsoluteAdapterPosition());
-//                notifyItemRemoved(holder.getAbsoluteAdapterPosition());
-//            }
-//        });
+        holder.binding.locationDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mlistLocation.remove(holder.getBindingAdapterPosition());
+                notifyItemRemoved(holder.getBindingAdapterPosition());
+            }
+        });
+        holder.binding.locationEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddEditLocationFragment addEditLocationFragment = new AddEditLocationFragment();
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.fl_home, addEditLocationFragment)
+//                        .addToBackStack(null)
+//                        .commit();
+            }
+        });
+
     }
 
     @Override

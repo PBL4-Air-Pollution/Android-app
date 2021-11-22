@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -17,56 +16,64 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.airquality.Adapters.DayDetailAdapter;
 import com.example.airquality.Adapters.LocationAdapter;
 import com.example.airquality.Adapters.SpinnerAdapter;
-import com.example.airquality.MainActivity;
 import com.example.airquality.R;
+import com.example.airquality.databinding.FragmentDayDetailBinding;
 import com.example.airquality.databinding.FragmentLocationBinding;
+import com.example.airquality.databinding.FragmentLocationDetailBinding;
+import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.model.Location;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class LocationFragment extends Fragment {
-    private RecyclerView rcvLocation;
+public class LocationDetailFragment extends Fragment {
     private ArrayList<Location> listLocation;
-    private LocationAdapter locationAdapter;
-
+    private SpinnerAdapter spinnerAdapter;
+    private FragmentLocationDetailBinding binding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
+        super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
         }
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        binding= FragmentLocationDetailBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rcvLocation = view.findViewById(R.id.rcv_location);
-        rcvLocation.setLayoutManager(new LinearLayoutManager(getContext()));
         listLocation = new ArrayList<Location>();
         listLocation = getListLocation();
-        locationAdapter = new LocationAdapter(listLocation);
-        locationAdapter.notifyDataSetChanged();
-        rcvLocation.setAdapter(locationAdapter);
+        spinnerAdapter = new SpinnerAdapter(getActivity(),R.layout.spinner_items_selected,getListLocation());
+        binding.spnLocation.setAdapter(spinnerAdapter);
+        binding.spnLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(),spinnerAdapter.getItem(position).getName(),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_location, container, false);
-
-
-        return view;
-    }
-
     private ArrayList<Location> getListLocation() {
         ArrayList<Location> list = new ArrayList<Location>();
         list.add(new Location("Hoa Khanh Bac", "Home A", true));
@@ -75,22 +82,24 @@ public class LocationFragment extends Fragment {
         list.add(new Location("Hoa Khanh Nam", "Home D", true));
         return list;
     }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_location, menu);
+        menu.clear();
+        inflater.inflate(R.menu.add_location_menu, menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_add) {
-            LocationDetailFragment locationDetailFragment = new LocationDetailFragment();
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fl_home, locationDetailFragment)
-                    .addToBackStack(null)
-                    .commit();
+        if(item.getItemId()==R.id.action_back_location){
+            FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+
+            Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
+            if(fragment!=null){
+                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                fragmentTransaction.remove(fragment);
+                fragmentTransaction.commit();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 }
+
