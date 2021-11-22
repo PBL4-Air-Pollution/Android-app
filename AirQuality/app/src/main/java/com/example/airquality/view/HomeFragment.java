@@ -87,26 +87,26 @@ public class HomeFragment extends Fragment {
         hourArrayList = new ArrayList<HourlyAirQuality>();
         dayArrayList = new ArrayList<DailyAirQuality>();
 
-        ArrayList<String> locationString=new ArrayList<String>();
-        locationString.addAll(locationDAO.getListNameHasMark());
-        locationName=locationString.get(0);
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(),R.layout.spinner_items_category,locationString);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        binding.snLocation.setAdapter(adapter);
-        binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                locationName=locationString.get(position);
-                binding.tvLocation.setText(locationName);
-                loadHome();
-                loadDays();
-                loadHours();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        ArrayList<String> locationString=new ArrayList<String>();
+//        locationString.addAll(locationDAO.getListNameHasMark());
+//        locationName = locationString.get(0);
+//        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(),R.layout.spinner_items_category,locationString);
+//        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+//        binding.snLocation.setAdapter(adapter);
+//        binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+//                locationName=locationString.get(position);
+//                binding.tvLocation.setText(locationName);
+//                loadHome();
+//                loadDays();
+//                loadHours();
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
         loadHome();
         loadDays();
         loadHours();

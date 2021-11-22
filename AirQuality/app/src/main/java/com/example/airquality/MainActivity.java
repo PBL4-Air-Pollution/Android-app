@@ -104,19 +104,18 @@ public class MainActivity extends AppCompatActivity {
     }
     public void TaoDuLieu()
     {
-
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                appDatabase = AppDatabase.Instance(getApplicationContext().getApplicationContext());
-                LocationDAO locationDAO= appDatabase.locationDAO();
-                locationDAO.insertLocations(new Location("Hoa Khanh Bac","School",true));
-                locationDAO.insertLocations(new Location("Hai Chau","Home",true));
-                locationDAO.insertLocations(new Location("Nui Thanh","",false));
-                locationDAO.insertLocations(new Location("Hoa Xuan","",false));
-
-            }
-        });
+//        AsyncTask.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                appDatabase = AppDatabase.Instance(getApplicationContext().getApplicationContext());
+//                LocationDAO locationDAO= appDatabase.locationDAO();
+//                locationDAO.insertLocations(new Location("Hoa Khanh Bac","School",true));
+//                locationDAO.insertLocations(new Location("Hai Chau","Home",true));
+//                locationDAO.insertLocations(new Location("Nui Thanh","",false));
+//                locationDAO.insertLocations(new Location("Hoa Xuan","",false));
+//
+//            }
+//        });
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {

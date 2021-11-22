@@ -14,15 +14,16 @@ import java.util.List;
 public interface LocationDAO {
     @Query("SELECT * FROM Location")
     List<Location> getAll();
-    @Query("SELECT * FROM Location WHERE marked = 0 AND name=:name")
+    @Query("SELECT * FROM Location WHERE marked = 0 AND stationName=:name")
     List<Location> getListByNameNoMark(String name);
 
     @Query("SELECT * FROM Location WHERE marked = 1 ")
     List<Location> getListHasMark();
-    @Query("SELECT name FROM Location WHERE marked = 1")
+    @Query("SELECT stationName FROM Location WHERE marked = 1")
     List<String> getListNameHasMark();
-    @Query("SELECT name FROM Location WHERE marked = 0")
+    @Query("SELECT stationName FROM Location WHERE marked = 0")
     List<String> getListNameHasNotMark();
+
     @Insert
     void insertLocations(Location...locations);
 
