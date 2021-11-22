@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
         dayArrayList = new ArrayList<DailyAirQuality>();
 
         ArrayList<String> locationString=new ArrayList<String>();
-        locationString.addAll(locationDAO.getListNameByHasMark());
+        locationString.addAll(locationDAO.getListNameHasMark());
         locationName=locationString.get(0);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(),R.layout.spinner_items_category,locationString);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -113,10 +113,9 @@ public class HomeFragment extends Fragment {
     }
     private  void loadHome(){
         hourList.clear();
-        hourList.addAll(hourlyAirQualityDAO.getListByLocation(locationName));
         Date day,today;
         try {
-            for(HourlyAirQuality i: hourList){
+            for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(locationName)){
                 day=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dayHourFormat.format(i.getDatetime()));
                 today= new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(stringToday);
                 if(day.compareTo(today)==0){
@@ -158,8 +157,6 @@ public class HomeFragment extends Fragment {
         };
         hourArrayList.clear();
         hoursAdapter = new HourAdapter(hourArrayList, hourClickListener);
-        appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
-        hourlyAirQualityDAO  = appDatabase.hourlyAirQualityDAO();
         Date hour1,hour2;
         try {
             for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(locationName)){

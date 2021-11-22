@@ -5,5 +5,14 @@
         android:id="@+id/action_save"
         android:icon="@drawable/ic_baseline_check_circle_outline_24"
         android:title="Save"
+        android:orderInCategory="2"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_back_location"
+        android:icon="@drawable/ic_baseline_arrow_back_24"
+        android:title="Back"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom">
+
+    </item>
 </menu>

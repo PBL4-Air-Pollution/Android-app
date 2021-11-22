@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:id="@+id/SwipeRevealLayout"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:mode="same_level"
-    app:dragEdge="right"
-    android:layout_height="match_parent">
-    <!-- Your secondary layout here -->
-    <LinearLayout
-        android:id="@+id/lo_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/img_del"
-            android:layout_width="70dp"
-            android:clickable="true"
-            android:src="@drawable/ic_baseline_delete_forever_24"
-            android:layout_height="match_parent">
-
-        </ImageView>
-    </LinearLayout>
-    <!-- Your main layout here -->
-    <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="0pt"
+    app:cardCornerRadius="10dp">
+    <com.chauthai.swipereveallayout.SwipeRevealLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:id="@+id/SwipeRevealLayout"
+        android:layout_margin="10dp"
+        app:mode="same_level"
+        app:dragEdge="right"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="100dp"
+                android:background="#FFFFCC"
+                android:id="@+id/location_edit"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_edit_24">
+            </ImageView>
+            <ImageView
+                android:layout_width="100dp"
+                android:background="#FFFFCC"
+                android:layout_height="match_parent"
+                android:id="@+id/location_delete"
+                android:src="@drawable/ic_baseline_delete_forever_24"
+                android:clickable="true"
+                ></ImageView>
+        </LinearLayout>
         <androidx.cardview.widget.CardView
+            android:id="@+id/cv_locationItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="@dimen/cardview_compat_inset_shadow"
-            app:cardBackgroundColor="#00FF7F"
-            android:layout_margin="10dp"
-            android:padding="5dp"
-            android:layout_gravity="center_vertical">
+            app:cardCornerRadius="10pt"
+            app:cardElevation="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,9 +81,9 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="70dp"
                                 android:layout_height="wrap_content"
-                                android:text="AQI: "
+                                android:text="AQI :"
                                 android:textSize="20dp"></TextView>
 
                             <TextView
@@ -85,10 +94,10 @@
                                 android:textSize="20dp"></TextView>
 
                             <TextView
-                                android:id="@+id/tv_condition"
+                                android:id="@+id/tv_rate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
+                                android:layout_marginLeft="30dp"
                                 android:hint="Good"
                                 android:textSize="20dp">
 
@@ -96,42 +105,21 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Main pollution: "
-                                android:textSize="20dp">
-
-                            </TextView>
-
-                            <TextView
-                                android:id="@+id/tv_mp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint="PM2.5"
-                                android:textSize="20dp">
-
-                            </TextView>
-                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="70dp"
                                 android:layout_height="wrap_content"
-                                android:text="Label : "
+                                android:text="Mô tả :"
                                 android:textSize="20dp">
 
                             </TextView>
 
                             <TextView
-                                android:id="@+id/tv_detail_location"
+                                android:id="@+id/tv_lable"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:hint="My home"
@@ -151,7 +139,7 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-    </FrameLayout>
 
 
-</com.chauthai.swipereveallayout.SwipeRevealLayout>
+    </com.chauthai.swipereveallayout.SwipeRevealLayout>
+</androidx.cardview.widget.CardView>
