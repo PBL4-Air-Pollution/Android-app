@@ -23,17 +23,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airquality.Adapters.LocationAdapter;
 import com.example.airquality.Adapters.SpinnerAdapter;
+import com.example.airquality.AppDatabase;
 import com.example.airquality.MainActivity;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentLocationBinding;
 import com.example.airquality.model.Location;
+import com.example.airquality.viewmodel.LocationDAO;
 
 import java.util.ArrayList;
 
 public class LocationFragment extends Fragment {
+    private FragmentLocationBinding binding;
+
     private RecyclerView rcvLocation;
-    private ArrayList<Location> listLocation;
+    private ArrayList<Location> locationArrayList;
     private LocationAdapter locationAdapter;
+    private AppDatabase appDatabase;
+    private LocationDAO locationDAO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,40 +50,30 @@ public class LocationFragment extends Fragment {
 
         }
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        rcvLocation = view.findViewById(R.id.rcv_location);
-        rcvLocation.setLayoutManager(new LinearLayoutManager(getContext()));
-        listLocation = new ArrayList<Location>();
-        listLocation = getListLocation();
-        locationAdapter = new LocationAdapter(listLocation);
-        locationAdapter.notifyDataSetChanged();
-        rcvLocation.setAdapter(locationAdapter);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_location, container, false);
+        binding=FragmentLocationBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        binding.rcvLocation.setLayoutManager(new LinearLayoutManager(getContext()));
+        locationArrayList = new ArrayList<Location>();
+        locationAdapter = new LocationAdapter(locationArrayList);
+        appDatabase=AppDatabase.Instance(getContext().getApplicationContext());
+        locationDAO=appDatabase.locationDAO();
+        locationArrayList.addAll(locationDAO.getListHasMark());
 
-
-        return view;
+        locationAdapter.notifyDataSetChanged();
+        binding.rcvLocation.setAdapter(locationAdapter);
     }
 
-    private ArrayList<Location> getListLocation() {
-        ArrayList<Location> list = new ArrayList<Location>();
-        list.add(new Location("Hoa Khanh Bac", "Home A", true));
-        list.add(new Location("Hoa Khanh Nam", "Home B", true));
-        list.add(new Location("Hoa Khanh Bac", "Home C", true));
-        list.add(new Location("Hoa Khanh Nam", "Home D", true));
-        return list;
-    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.menu_location, menu);
     }
 

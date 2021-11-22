@@ -6,42 +6,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.LocationDetailFragment">
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        android:padding="5dp"
-        android:elevation="1dp"
-        android:layout_margin="10dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ : "
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
             <Spinner
-                android:layout_width="match_parent"
                 android:id="@+id/spn_location"
-                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
             </Spinner>
-            <LinearLayout
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Mô tả   : "
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mô tả: "
-                    android:textSize="20dp"
-                    android:textStyle="bold"></TextView>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_label"
-                    ></EditText>
-            </LinearLayout>
+                android:id="@+id/tv_label"
+                ></EditText>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/bts_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:text="Lưu"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/light_green">
+
+        </Button>
+
+    </LinearLayout>
 
 </FrameLayout>

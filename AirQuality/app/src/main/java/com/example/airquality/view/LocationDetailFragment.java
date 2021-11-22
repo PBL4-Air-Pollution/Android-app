@@ -1,6 +1,8 @@
 package com.example.airquality.view;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -8,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -22,21 +25,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.airquality.Adapters.DayDetailAdapter;
 import com.example.airquality.Adapters.LocationAdapter;
 import com.example.airquality.Adapters.SpinnerAdapter;
+import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentDayDetailBinding;
 import com.example.airquality.databinding.FragmentLocationBinding;
 import com.example.airquality.databinding.FragmentLocationDetailBinding;
 import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.model.Location;
+import com.example.airquality.viewmodel.LocationDAO;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class LocationDetailFragment extends Fragment {
-    private ArrayList<Location> listLocation;
-    private SpinnerAdapter spinnerAdapter;
     private FragmentLocationDetailBinding binding;
+    private LocationDAO locationDAO;
+    private AppDatabase appDatabase;
+    private ArrayList<Location> listLocation;
+    private ArrayList<String> listLocationName;
+    private String locationName;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -48,7 +56,6 @@ public class LocationDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding= FragmentLocationDetailBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
@@ -56,42 +63,63 @@ public class LocationDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listLocation = new ArrayList<Location>();
-        listLocation = getListLocation();
-        spinnerAdapter = new SpinnerAdapter(getActivity(),R.layout.spinner_items_selected,getListLocation());
-        binding.spnLocation.setAdapter(spinnerAdapter);
+        listLocationName = new ArrayList<String>();
+        appDatabase=AppDatabase.Instance(getContext().getApplicationContext());
+        locationDAO=appDatabase.locationDAO();
+        listLocationName.addAll(locationDAO.getListNameHasNotMark());
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(),R.layout.spinner_items_category,listLocationName);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        binding.spnLocation.setAdapter(adapter);
         binding.spnLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(),spinnerAdapter.getItem(position).getName(),Toast.LENGTH_SHORT).show();
-            }
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                locationName=listLocationName.get(position);
 
+            }
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+        binding.btsSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        listLocation=new ArrayList<Location>();
+                        listLocation.addAll(locationDAO.getListByNameNoMark(locationName));
+                        Location location=listLocation.get(0);
+                        if(location!=null){
+                            location.setMarked(true);
+                            location.setLabel(binding.tvLabel.getText().toString());
+                            locationDAO.updateLocations(location);
+                        }
+
+                   }
+                });
+                LocationFragment hourDetailFragment=new LocationFragment();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fl_home,hourDetailFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+
+        });
 
 
-    }
-    private ArrayList<Location> getListLocation() {
-        ArrayList<Location> list = new ArrayList<Location>();
-        list.add(new Location("Hoa Khanh Bac", "Home A", true));
-        list.add(new Location("Hoa Khanh Nam", "Home B", true));
-        list.add(new Location("Hoa Khanh Bac", "Home C", true));
-        list.add(new Location("Hoa Khanh Nam", "Home D", true));
-        return list;
+
     }
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.add_location_menu, menu);
+        inflater.inflate(R.menu.menu_back, menu);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.action_back_location){
+        if(item.getItemId()==R.id.action_back){
             FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-
             Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
             if(fragment!=null){
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();

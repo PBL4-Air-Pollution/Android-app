@@ -43,10 +43,6 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
         holder.binding.tvHour.setText(format.format(hour.getDatetime()));
         holder.binding.tvAqi.setText(Double.toString(hour.getAQI()));
         holder.binding.tvRate.setText(hour.getRate());
-//        if(Integer.parseInt(hour.getAQI().toString())<=50)
-//            holder.llCard.setBackgroundColor(R.color.red);
-//        else if(Integer.parseInt(hour.getAQI().toString())>50)
-//            holder.llCard.setBackgroundColor(R.color.red);
     }
 
     @Override
@@ -66,7 +62,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
 
         @Override
         public void onClick(View view) {
-            onClickListener.onCLick(view,getAdapterPosition());
+            onClickListener.onCLick(view,getBindingAdapterPosition());
         }
     }
 

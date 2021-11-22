@@ -16,7 +16,7 @@ import com.example.airquality.viewmodel.DailyAirQualityDAO;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 
-@Database(entities = {DailyAirQuality.class, HourlyAirQuality.class, Location.class}, version = 1, exportSchema = false)
+@Database(entities = {DailyAirQuality.class, HourlyAirQuality.class, Location.class}, version = 2, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract HourlyAirQualityDAO hourlyAirQualityDAO();
@@ -28,7 +28,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase Instance(Context context){
         if (_instance == null){
             _instance = Room.databaseBuilder(context,
-                    AppDatabase.class, "AirQualityDatabase").addTypeConverter(DateConverter.class).build();
+                    AppDatabase.class, "AirQualityDatabase").allowMainThreadQueries().build();
         }
         return _instance;
     }

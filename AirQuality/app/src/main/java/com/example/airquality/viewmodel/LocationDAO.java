@@ -1,6 +1,7 @@
 package com.example.airquality.viewmodel;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -13,13 +14,21 @@ import java.util.List;
 public interface LocationDAO {
     @Query("SELECT * FROM Location")
     List<Location> getAll();
+    @Query("SELECT * FROM Location WHERE marked = 0 AND name=:name")
+    List<Location> getListByNameNoMark(String name);
 
-    @Query("SELECT * FROM Location WHERE marked = 1")
-    List<Location> getMarked();
-
+    @Query("SELECT * FROM Location WHERE marked = 1 ")
+    List<Location> getListHasMark();
+    @Query("SELECT name FROM Location WHERE marked = 1")
+    List<String> getListNameHasMark();
+    @Query("SELECT name FROM Location WHERE marked = 0")
+    List<String> getListNameHasNotMark();
     @Insert
-    void insertLocations(Location... locations);
+    void insertLocations(Location...locations);
 
     @Update
     void updateLocations(Location... locations);
+
+    @Delete
+    void deleteLocations(Location... locations);
 }
