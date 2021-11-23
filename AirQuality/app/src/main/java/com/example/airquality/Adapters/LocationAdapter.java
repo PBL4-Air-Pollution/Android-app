@@ -55,23 +55,23 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         AppDatabase appDatabase=AppDatabase.Instance(context);
         HourlyAirQualityDAO hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
         ArrayList<HourlyAirQuality> hourList = new ArrayList<HourlyAirQuality>();
-        hourList.addAll(hourlyAirQualityDAO.getListByLocation(location.getStationName()));
+        hourList.addAll(hourlyAirQualityDAO.getListByLocation(location.getId()));
         Date date,today;
-        for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location.getStationName())){
+        for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location.getId())){
             try {
                 date=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dayHourFormat.format(i.getDatetime()));
                 today= new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(stringToday);
                 if(date.compareTo(today)==0) {
                     holder.binding.tvLocation.setText(location.getStationName());
-                    holder.binding.tvAqi.setText(String.valueOf(i.getAQI()));
+                    holder.binding.tvAqi.setText(String.valueOf(i.getAqi()));
                     holder.binding.tvRate.setText(i.getRate());
                     holder.binding.tvLable.setText(location.getLabel());
-                    if(i.getAQI()<=50) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_yellow);
-                    else if(i.getAQI()<=100) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_yellow);
-                    else if(i.getAQI()<=150) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_orange);
-                    else if(i.getAQI()<=200) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_red);
-                    else if(i.getAQI()<=300) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_purple);
-                    else if(i.getAQI()<=500) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_brown);
+                    if(i.getAqi()<=50) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_yellow);
+                    else if(i.getAqi()<=100) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_yellow);
+                    else if(i.getAqi()<=150) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_orange);
+                    else if(i.getAqi()<=200) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_red);
+                    else if(i.getAqi()<=300) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_purple);
+                    else if(i.getAqi()<=500) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_brown);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();

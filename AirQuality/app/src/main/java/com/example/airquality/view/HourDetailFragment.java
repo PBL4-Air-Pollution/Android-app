@@ -71,23 +71,23 @@ public class HourDetailFragment extends Fragment {
                     date=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(stringDate);
                     AppDatabase appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
                     HourlyAirQualityDAO hourlyAirQualityDAO  = appDatabase.hourlyAirQualityDAO();
-                    for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location))
-                        if(i.getDatetime().compareTo(date)==0){
-                            hourArrayList.add(i);
-                            break;
-                        }
+//                    for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location))
+//                        if(i.getDatetime().compareTo(date)==0){
+//                            hourArrayList.add(i);
+//                            break;
+//                        }
 
-                    binding.tvHour.setText(hourFormat.format(hourArrayList.get(0).getDatetime()));
-                    binding.tvLocation.setText(hourArrayList.get(0).getLocation());
-                    binding.tvRate.setText(hourArrayList.get(0).getRate());
-                    binding.tvAqi.setText(Double.toString(hourArrayList.get(0).getAQI()));
-                    binding.tvPM25.setText(Double.toString(hourArrayList.get(0).getPM25()));
-                    binding.tvPM10.setText(Double.toString(hourArrayList.get(0).getPM10()));
-                    binding.tvNO2.setText(Double.toString(hourArrayList.get(0).getNO2()));
-                    binding.tvCO.setText(Double.toString(hourArrayList.get(0).getCO()));
-                    binding.tvSO2.setText(Double.toString(hourArrayList.get(0).getSO2()));
-                    binding.tvO3.setText(Double.toString(hourArrayList.get(0).getO3()));
-                    setBackgroundColor(hourArrayList.get(0).getAQI());
+//                    binding.tvHour.setText(hourFormat.format(hourArrayList.get(0).getDatetime()));
+//                    binding.tvLocation.setText(hourArrayList.get(0).getLocation());
+//                    binding.tvRate.setText(hourArrayList.get(0).getRate());
+//                    binding.tvAqi.setText(Double.toString(hourArrayList.get(0).getAQI()));
+//                    binding.tvPM25.setText(Double.toString(hourArrayList.get(0).getPM25()));
+//                    binding.tvPM10.setText(Double.toString(hourArrayList.get(0).getPM10()));
+//                    binding.tvNO2.setText(Double.toString(hourArrayList.get(0).getNO2()));
+//                    binding.tvCO.setText(Double.toString(hourArrayList.get(0).getCO()));
+//                    binding.tvSO2.setText(Double.toString(hourArrayList.get(0).getSO2()));
+//                    binding.tvO3.setText(Double.toString(hourArrayList.get(0).getO3()));
+//                    setBackgroundColor(hourArrayList.get(0).getAQI());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

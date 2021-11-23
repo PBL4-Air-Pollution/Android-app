@@ -19,8 +19,8 @@ public interface HourlyAirQualityDAO {
     HourlyAirQuality getOneByID(int id);
 
 
-    @Query("SELECT * FROM HourlyAirQuality WHERE location=:location")
-    List<HourlyAirQuality> getListByLocation(String location);
+    @Query("SELECT * FROM HourlyAirQuality WHERE locationID=:locationID")
+    List<HourlyAirQuality> getListByLocation(int locationID);
 
     @Insert
     void insertAll(HourlyAirQuality...hourlyAirQualities);

@@ -41,7 +41,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
         HourlyAirQuality hour=hourArrayList.get(position);
         SimpleDateFormat format=new SimpleDateFormat("HH:mm");
         holder.binding.tvHour.setText(format.format(hour.getDatetime()));
-        holder.binding.tvAqi.setText(Double.toString(hour.getAQI()));
+        holder.binding.tvAqi.setText(Double.toString(hour.getAqi()));
         holder.binding.tvRate.setText(hour.getRate());
     }
 
