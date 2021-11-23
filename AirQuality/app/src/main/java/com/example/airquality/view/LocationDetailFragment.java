@@ -2,7 +2,6 @@ package com.example.airquality.view;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,32 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.airquality.Adapters.DayDetailAdapter;
-import com.example.airquality.Adapters.LocationAdapter;
-import com.example.airquality.Adapters.SpinnerAdapter;
 import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
-import com.example.airquality.databinding.FragmentDayDetailBinding;
-import com.example.airquality.databinding.FragmentLocationBinding;
 import com.example.airquality.databinding.FragmentLocationDetailBinding;
-import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.model.Location;
 import com.example.airquality.viewmodel.LocationDAO;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class LocationDetailFragment extends Fragment {
     private FragmentLocationDetailBinding binding;

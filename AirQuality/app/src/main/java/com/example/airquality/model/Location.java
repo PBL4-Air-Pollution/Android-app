@@ -10,7 +10,16 @@ public class Location {
     private int id;
 
     @ColumnInfo
-    private String name;
+    private String stationName;
+
+    @ColumnInfo
+    private double viDo;
+
+    @ColumnInfo
+    private double kinhDo;
+
+    @ColumnInfo
+    private String describe;
 
     @ColumnInfo
     private String label;
@@ -18,8 +27,11 @@ public class Location {
     @ColumnInfo
     private boolean marked;
 
-    public Location(String name, String label, boolean marked) {
-        this.name = name;
+    public Location(String stationName, double viDo, double kinhDo, String describe, String label, boolean marked) {
+        this.stationName = stationName;
+        this.viDo = viDo;
+        this.kinhDo = kinhDo;
+        this.describe = describe;
         this.label = label;
         this.marked = marked;
     }
@@ -32,12 +44,36 @@ public class Location {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getStationName() {
+        return stationName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
+    }
+
+    public double getViDo() {
+        return viDo;
+    }
+
+    public void setViDo(double viDo) {
+        this.viDo = viDo;
+    }
+
+    public double getKinhDo() {
+        return kinhDo;
+    }
+
+    public void setKinhDo(double kinhDo) {
+        this.kinhDo = kinhDo;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 
     public String getLabel() {

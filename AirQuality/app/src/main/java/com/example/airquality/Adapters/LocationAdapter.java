@@ -2,16 +2,13 @@ package com.example.airquality.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airquality.AppDatabase;
@@ -20,14 +17,11 @@ import com.example.airquality.databinding.ItemCardviewBinding;
 import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.model.Location;
 import com.example.airquality.view.AddEditLocationFragment;
-import com.example.airquality.view.LocationDetailFragment;
 import com.example.airquality.view.LocationFragment;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
-import com.google.firebase.database.collection.LLRBNode;
 
 import java.text.DateFormat;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,14 +55,14 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         AppDatabase appDatabase=AppDatabase.Instance(context);
         HourlyAirQualityDAO hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
         ArrayList<HourlyAirQuality> hourList = new ArrayList<HourlyAirQuality>();
-        hourList.addAll(hourlyAirQualityDAO.getListByLocation(location.getName()));
+        hourList.addAll(hourlyAirQualityDAO.getListByLocation(location.getStationName()));
         Date date,today;
-        for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location.getName())){
+        for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location.getStationName())){
             try {
                 date=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dayHourFormat.format(i.getDatetime()));
                 today= new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(stringToday);
                 if(date.compareTo(today)==0) {
-                    holder.binding.tvLocation.setText(location.getName());
+                    holder.binding.tvLocation.setText(location.getStationName());
                     holder.binding.tvAqi.setText(String.valueOf(i.getAQI()));
                     holder.binding.tvRate.setText(i.getRate());
                     holder.binding.tvLable.setText(location.getLabel());

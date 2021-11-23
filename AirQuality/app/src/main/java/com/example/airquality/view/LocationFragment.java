@@ -7,24 +7,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airquality.Adapters.LocationAdapter;
-import com.example.airquality.Adapters.SpinnerAdapter;
 import com.example.airquality.AppDatabase;
-import com.example.airquality.MainActivity;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentLocationBinding;
 import com.example.airquality.model.Location;
