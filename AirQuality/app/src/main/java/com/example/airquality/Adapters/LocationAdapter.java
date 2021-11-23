@@ -66,12 +66,30 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                     holder.binding.tvAqi.setText(String.valueOf(i.getAqi()));
                     holder.binding.tvRate.setText(i.getRate());
                     holder.binding.tvLable.setText(location.getLabel());
-                    if(i.getAqi()<=50) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_yellow);
-                    else if(i.getAqi()<=100) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_yellow);
-                    else if(i.getAqi()<=150) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_orange);
-                    else if(i.getAqi()<=200) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_red);
-                    else if(i.getAqi()<=300) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_purple);
-                    else if(i.getAqi()<=500) holder.binding.cvLocationItem.setBackgroundResource(R.color.light_brown);
+                    if(i.getAqi()<=50){
+                        holder.binding.cvLocationItem.setBackgroundResource(R.color.green);
+                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_green);
+                    }
+                    else if(i.getAqi()<=100) {
+                        holder.binding.cvLocationItem.setBackgroundResource(R.color.yellow);
+                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_yellow);
+                    }
+                    else if(i.getAqi()<=150){
+                        holder.binding.cvLocationItem.setBackgroundResource(R.color.orange);
+                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_orange);
+                    }
+                    else if(i.getAqi()<=200){
+                        holder.binding.cvLocationItem.setBackgroundResource(R.color.red);
+                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_red);
+                    }
+                    else if(i.getAqi()<=300) {
+                        holder.binding.cvLocationItem.setBackgroundResource(R.color.purple);
+                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_purple);
+                    }
+                    else if(i.getAqi()<=500) {
+                        holder.binding.cvLocationItem.setBackgroundResource(R.color.brown);
+                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_brown);
+                    }
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
