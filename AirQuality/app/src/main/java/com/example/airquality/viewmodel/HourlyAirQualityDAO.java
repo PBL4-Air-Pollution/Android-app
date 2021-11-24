@@ -20,7 +20,10 @@ public interface HourlyAirQualityDAO {
 
 
     @Query("SELECT * FROM HourlyAirQuality WHERE locationID=:locationID")
-    List<HourlyAirQuality> getListByLocation(int locationID);
+    List<HourlyAirQuality> getListByLocationID(int locationID);
+
+    @Query("SELECT * FROM HourlyAirQuality WHERE locationID=:locationID AND datetime LIKE :date || '%'")
+    List<HourlyAirQuality> getListByLocationIDAndDate(int locationID, String date);
 
     @Insert
     void insertAll(HourlyAirQuality...hourlyAirQualities);

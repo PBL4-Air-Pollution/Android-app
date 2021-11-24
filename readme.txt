@@ -29,9 +29,8 @@ https://console.firebase.google.com/u/0/project/pbl4-airquality/database/pbl4-ai
 Link hosting Python random air quality data:
 https://www.pythonanywhere.com/user/PBL4AirQuality/files/home/PBL4AirQuality/Auto_Generate_Air_Quality_Data.py?edit
 
-Tài khoản đăng nhập pythonanywhere.com:
-Email: tuankietnk2001@gmail.com
-MK: airquality
+Link server:
+https://replit.com/@TuanKiet11/AirQualityData#main.py
 
 Link github team:
 https://github.com/PBL4-Air-Pollution

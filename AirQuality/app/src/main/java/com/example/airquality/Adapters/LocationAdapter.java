@@ -55,16 +55,16 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         AppDatabase appDatabase=AppDatabase.Instance(context);
         HourlyAirQualityDAO hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
         ArrayList<HourlyAirQuality> hourList = new ArrayList<HourlyAirQuality>();
-        hourList.addAll(hourlyAirQualityDAO.getListByLocation(location.getId()));
+        hourList.addAll(hourlyAirQualityDAO.getListByLocationID(location.getId()));
         Date date,today;
-        for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location.getId())){
+        for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocationID(location.getId())){
             try {
                 date=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dayHourFormat.format(i.getDatetime()));
                 today= new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(stringToday);
                 if(date.compareTo(today)==0) {
                     holder.binding.tvLocation.setText(location.getStationName());
                     holder.binding.tvAqi.setText(String.valueOf(i.getAqi()));
-                    holder.binding.tvRate.setText(i.getRate());
+                    holder.binding.tvRate.setText(i.getRated());
                     holder.binding.tvLable.setText(location.getLabel());
                     if(i.getAqi()<=50){
                         holder.binding.cvLocationItem.setBackgroundResource(R.color.green);

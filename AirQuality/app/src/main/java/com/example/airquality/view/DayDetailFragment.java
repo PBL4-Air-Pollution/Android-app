@@ -47,7 +47,7 @@ public class DayDetailFragment extends Fragment {
     private ArrayList<DailyAirQuality> dayArrayList;
 
     private Date date=new Timestamp(new Date().getTime());
-    private String location="";
+    private int locationID;
     private String stringDate="";
     private DateFormat dayFormat = new SimpleDateFormat("dd/MM/yyyy");
     private DateFormat dayHourFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -87,7 +87,7 @@ public class DayDetailFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         String[] data = (bundle.getString("Date-Location")).split(",");
-        location = data[1];
+        locationID = Integer.parseInt(data[1]);
         stringDate = data[0];
         hourArrayList = new ArrayList<HourlyAirQuality>();
         dayArrayList = new ArrayList<DailyAirQuality>();
@@ -110,18 +110,18 @@ public class DayDetailFragment extends Fragment {
 //                        }
 //                    }
 
-                    for(DailyAirQuality i: dailyAirQualityDAO.getListByLocation(location)) {
-                        day=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDatetime()));
+                    for(DailyAirQuality i: dailyAirQualityDAO.getListByLocationID(locationID)) {
+                        day=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDate()));
                         if (day.compareTo(date) == 0) {
                             dayArrayList.add(i);
                             break;
                         }
                     }
-                    binding.tvDate.setText(dayFormat.format(dayArrayList.get(0).getDatetime()));
-                    binding.tvLocation.setText(dayArrayList.get(0).getLocation());
-                    binding.tvAqi.setText(String.valueOf((int)dayArrayList.get(0).getAQI()));
-                    binding.tvRate.setText(dayArrayList.get(0).getRate());
-                    setBackgroundColor(dayArrayList.get(0).getAQI());
+                    binding.tvDate.setText(dayFormat.format(dayArrayList.get(0).getDate()));
+                    binding.tvLocation.setText(dayArrayList.get(0).getLocationID());
+                    binding.tvAqi.setText(String.valueOf((int)dayArrayList.get(0).getAqi()));
+                    binding.tvRate.setText(dayArrayList.get(0).getRated());
+                    setBackgroundColor(dayArrayList.get(0).getAqi());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

@@ -1,43 +1,32 @@
 package com.example.airquality.model;
 
-import android.util.Log;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Entity(tableName = "DailyAirQuality")
 public class DailyAirQuality {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo
-    private String location;
+    private int locationID;
     @ColumnInfo
-    private Date datetime;
+    private String date;
   
     @ColumnInfo
-    private double AQI;
+    private double aqi;
 
     @ColumnInfo
-    private String rate;
+    private String rated;
 
-    public DailyAirQuality(String location,Date datetime, double AQI, String rate) {
-        this.location=location;
-        this.datetime = datetime;
-        this.AQI = AQI;
-        this.rate = rate;
+    public DailyAirQuality() {
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
+    public DailyAirQuality(int locationID, String date, double aqi, String rated) {
+        this.locationID = locationID;
+        this.date = date;
+        this.aqi = aqi;
+        this.rated = rated;
     }
 
     public int getId() {
@@ -48,29 +37,35 @@ public class DailyAirQuality {
         this.id = id;
     }
 
-    public Date getDatetime() {
-
-        return this.datetime;
+    public int getLocationID() {
+        return locationID;
     }
 
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
+    public void setLocationID(int locationID) {
+        this.locationID = locationID;
     }
 
-    public double getAQI() {
-        return AQI;
+    public String getDate() {
+        return date;
     }
 
-    public void setAQI(double AQI) {
-        this.AQI = AQI;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getRate() {
-        return rate;
+    public double getAqi() {
+        return aqi;
     }
 
-    public void setRate(String rate) {
-        this.rate = rate;
+    public void setAqi(double aqi) {
+        this.aqi = aqi;
     }
 
+    public String getRated() {
+        return rated;
+    }
+
+    public void setRated(String rated) {
+        this.rated = rated;
+    }
 }

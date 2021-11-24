@@ -36,7 +36,7 @@ public class DayDetailAdapter extends RecyclerView.Adapter<DayDetailAdapter.View
         SimpleDateFormat format=new SimpleDateFormat("HH:mm");
         holder.binding.tvHour.setText(format.format(hour.getDatetime()));
         holder.binding.tvAqi.setText(Double.toString(hour.getAqi()));
-        holder.binding.tvRate.setText(hour.getRate());
+        holder.binding.tvRate.setText(hour.getRated());
 //        if(Integer.parseInt(hour.getAQI().toString())<=50)
 //            holder.llCard.setBackgroundColor(R.color.red);
 //        else if(Integer.parseInt(hour.getAQI().toString())>50)

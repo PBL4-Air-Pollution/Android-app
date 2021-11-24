@@ -4,11 +4,11 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.airquality.model.DailyAirQuality;
 import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.viewmodel.DailyAirQualityDAO;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
@@ -20,13 +20,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class FirebaseService extends Service {
+import java.util.List;
 
+public class FirebaseService extends Service {
     private DatabaseReference mDatabase;
     private AppDatabase appDatabase;
     private HourlyAirQualityDAO hourlyAirQualityDAO;
     private DailyAirQualityDAO dailyAirQualityDAO;
     private LocationDAO locationDAO;
+
+    private double sumDailyAqi = 0;
 
     @Override
     public void onCreate() {
@@ -44,9 +47,15 @@ public class FirebaseService extends Service {
         return START_STICKY;
     }
 
-    private void setUpFirebaseConnection(){
-        FirebaseApp.initializeApp(this);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    private void setUpFirebaseConnection() {
+        FirebaseApp.initializeApp(getApplicationContext());
+        mDatabase = FirebaseDatabase.getInstance().getReference("HourlyAirQuality");
     }
 
     private void setUpLocalDatabase() {
@@ -56,15 +65,51 @@ public class FirebaseService extends Service {
         locationDAO = appDatabase.locationDAO();
     }
 
-    private void fetchAirQualityData(){
-        mDatabase.child("HourlyAirQuality").addChildEventListener(new ChildEventListener() {
+    private void fetchAirQualityData() {
+        mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
                         HourlyAirQuality hourlyAirQuality = snapshot.getValue(HourlyAirQuality.class);
-                        hourlyAirQualityDAO.insertAll(hourlyAirQuality);
+                        if (hourlyAirQuality != null) {
+                            // Add into local database
+                            hourlyAirQualityDAO.insertAll(hourlyAirQuality);
+
+                            // Check AQI -> push notification
+
+                            // Update currentAQI and Rated of location
+                            int locationID = hourlyAirQuality.getLocationID();
+                            double aqi = hourlyAirQuality.getAqi();
+                            String rate = hourlyAirQuality.getRated();
+                            locationDAO.updateAqiAndRate(locationID, aqi, rate);
+
+                            // Calculate average AQI of day if end of day
+                            String date = hourlyAirQuality.getDatetime().toString().split(" ")[0];
+                            String time = hourlyAirQuality.getDatetime().toString().split(" ")[1];
+                            if (time == "23:00:00"){
+                                double sumAqi = 0;
+                                List<HourlyAirQuality> hourlyAirQualityList = hourlyAirQualityDAO.getListByLocationIDAndDate(locationID, date);
+                                for (HourlyAirQuality hourly : hourlyAirQualityList){
+                                    if (hourly.getDatetime().contains(date)) {
+                                        sumAqi += hourly.getAqi();
+                                    }
+                                }
+
+                                double avgAqi = sumAqi / 24;
+                                String dailyRate = "";
+
+                                if (avgAqi < 50) dailyRate = "Tốt";
+                                else if (avgAqi < 100) dailyRate = "Trung bình";
+                                else if (avgAqi < 150) dailyRate = "Kém";
+                                else if (avgAqi < 200) dailyRate = "Xấu";
+                                else if (avgAqi < 300) dailyRate = "Rất xấu";
+                                else if (avgAqi < 500) dailyRate = "Nguy hại";
+
+                                dailyAirQualityDAO.insertAll(new DailyAirQuality(locationID, date, avgAqi, dailyRate));
+                            }
+                        }
                     }
                 });
             }
@@ -89,16 +134,5 @@ public class FirebaseService extends Service {
 
             }
         });
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
     }
 }

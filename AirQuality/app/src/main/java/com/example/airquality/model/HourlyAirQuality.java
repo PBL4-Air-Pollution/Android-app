@@ -18,7 +18,7 @@ public class HourlyAirQuality {
     private int locationID;
 
     @ColumnInfo
-    private Date datetime;
+    private String datetime;
 
     @ColumnInfo
     private double pm25;
@@ -60,13 +60,13 @@ public class HourlyAirQuality {
     private double aqi;
 
     @ColumnInfo
-    private String rate;
+    private String rated;
 
     public HourlyAirQuality(){
         // Cho firebase đổ dữ liệu vào class object
     }
 
-    public HourlyAirQuality(int locationID, Date datetime, double pm25, double pm10, double no, double no2, double nox, double nh3, double co, double so2, double o3, double benzene, double toluene, double xylene, double aqi, String rate) {
+    public HourlyAirQuality(int locationID, String datetime, double pm25, double pm10, double no, double no2, double nox, double nh3, double co, double so2, double o3, double benzene, double toluene, double xylene, double aqi, String rated) {
         this.locationID = locationID;
         this.datetime = datetime;
         this.pm25 = pm25;
@@ -82,7 +82,7 @@ public class HourlyAirQuality {
         this.toluene = toluene;
         this.xylene = xylene;
         this.aqi = aqi;
-        this.rate = rate;
+        this.rated = rated;
     }
 
     public int getId() {
@@ -101,11 +101,11 @@ public class HourlyAirQuality {
         this.locationID = locationID;
     }
 
-    public Date getDatetime() {
+    public String getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Date datetime) {
+    public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
 
@@ -213,11 +213,11 @@ public class HourlyAirQuality {
         this.aqi = aqi;
     }
 
-    public String getRate() {
-        return rate;
+    public String getRated() {
+        return rated;
     }
 
-    public void setRate(String rate) {
-        this.rate = rate;
+    public void setRated(String rated) {
+        this.rated = rated;
     }
 }
