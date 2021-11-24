@@ -17,33 +17,28 @@ import com.example.airquality.view.LocationFragment;
 import java.util.List;
 
 public class SpinnerAdapter extends ArrayAdapter<Location> {
-    public SpinnerAdapter(@NonNull Context context, int resource, @NonNull List<Location> objects) {
-        super(context, resource, objects);
+    public SpinnerAdapter(@NonNull Context context, int resource, @NonNull List<Location> locations ) {
+        super(context, resource, locations);
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        convertView= LayoutInflater.from(parent.getContext()).inflate(R.layout.spinner_items_selected,parent,false);
-//        TextView tvSelected= convertView.findViewById(R.id.tv_selected);
-//        Location location =this.getItem(position);
-//        if(location!=null){
-//            tvSelected.setText(location.getName());
-//        }
-
-        return convertView;
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.spinner_items_category,parent,false);
+//        Location location=getItem(position);
+//        TextView textView=(TextView) convertView.findViewById(R.id.spn_location);
+//        textView.setText(location.getStationName());
+        return view;
 
     }
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        convertView= LayoutInflater.from(parent.getContext()).inflate(R.layout.spinner_items_category,parent,false);
-//        TextView tvCategory= convertView.findViewById(R.id.tv_category);
-//        Location location =this.getItem(position);
-//        if(location!=null){
-//            tvCategory.setText(location.getName());
-//        }
-
+        if(convertView==null)
+            convertView= LayoutInflater.from(parent.getContext()).inflate(R.layout.spinner_items_category,parent,false);
+        Location location=getItem(position);
+        TextView textView=(TextView) convertView.findViewById(R.id.spn_location);
+        textView.setText(location.getStationName());
         return convertView;
     }
 }

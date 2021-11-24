@@ -17,7 +17,7 @@ import com.example.airquality.viewmodel.LocationDAO;
 
 import java.util.ArrayList;
 
-@Database(entities = {DailyAirQuality.class, HourlyAirQuality.class, Location.class}, version = 2, exportSchema = false)
+@Database(entities = {DailyAirQuality.class, HourlyAirQuality.class, Location.class}, version = 1, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract HourlyAirQualityDAO hourlyAirQualityDAO();
@@ -30,7 +30,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (_instance == null){
             _instance = Room.databaseBuilder(context,
                     AppDatabase.class, "AirQualityDatabase").allowMainThreadQueries().build();
-            seedLocationData();
+           // seedLocationData();
         }
 
         return _instance;

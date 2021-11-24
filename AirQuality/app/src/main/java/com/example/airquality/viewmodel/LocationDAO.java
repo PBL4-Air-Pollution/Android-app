@@ -19,10 +19,9 @@ public interface LocationDAO {
 
     @Query("SELECT * FROM Location WHERE marked = 1 ")
     List<Location> getListHasMark();
-    @Query("SELECT stationName FROM Location WHERE marked = 1")
-    List<String> getListNameHasMark();
+
     @Query("SELECT stationName FROM Location WHERE marked = 0")
-    List<String> getListNameHasNotMark();
+    List<String> getListHasNotMark();
 
     @Insert
     void insertLocations(Location...locations);
