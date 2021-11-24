@@ -2,6 +2,7 @@ package com.example.airquality.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,18 +59,16 @@ public class MapsFragment extends Fragment {
                     @Nullable
                     @Override
                     public View getInfoContents(@NonNull Marker marker) {
-                        
+
                         return null;
                     }
 
                     @Nullable
                     @Override
                     public View getInfoWindow(@NonNull Marker marker) {
-
                         return null;
                     }
                 });
-
 
                 int color = 0;
                 switch (location.getRated()){
