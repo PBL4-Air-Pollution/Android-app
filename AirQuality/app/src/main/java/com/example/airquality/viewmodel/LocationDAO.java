@@ -14,23 +14,24 @@ import java.util.List;
 public interface LocationDAO {
     @Query("SELECT * FROM Location")
     List<Location> getAll();
+
     @Query("SELECT * FROM Location WHERE marked = 0 AND stationName=:name")
     List<Location> getListByNameNoMark(String name);
 
     @Query("SELECT * FROM Location WHERE marked = 1 ")
     List<Location> getListHasMark();
-    @Query("SELECT stationName FROM Location WHERE marked = 1")
-    List<String> getListNameHasMark();
+
     @Query("SELECT stationName FROM Location WHERE marked = 0")
     List<String> getListNameHasNotMark();
+
     @Query("UPDATE Location SET aqi=:aqi, rated=:rate WHERE id=:id")
     void updateAqiAndRate(int id, double aqi, String rate);
 
     @Insert
-    void insertLocations(Location...locations);
+    void insertLocations(Location... locations);
 
     @Update
-    void updateLocations(Location...locations);
+    void updateLocations(Location... locations);
 
     @Delete
     void deleteLocations(Location... locations);

@@ -53,7 +53,7 @@ public class LocationDetailFragment extends Fragment {
         listLocationName = new ArrayList<String>();
         appDatabase=AppDatabase.Instance(getContext().getApplicationContext());
         locationDAO=appDatabase.locationDAO();
-        listLocationName.addAll(locationDAO.getListNameHasNotMark());
+        listLocationName.addAll(locationDAO.getListHasNotMark());
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(),R.layout.spinner_items_category,listLocationName);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         binding.spnLocation.setAdapter(adapter);
@@ -61,7 +61,6 @@ public class LocationDetailFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 locationName=listLocationName.get(position);
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
