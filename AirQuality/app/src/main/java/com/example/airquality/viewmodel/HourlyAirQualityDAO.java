@@ -28,6 +28,6 @@ public interface HourlyAirQualityDAO {
     @Insert
     void insertAll(HourlyAirQuality...hourlyAirQualities);
 
-    @Query("DELETE FROM HourlyAirQuality WHERE CAST(datetime as DATE) = :date")
-    void deleteByDate(Date date);
+    @Query("DELETE FROM HourlyAirQuality WHERE datetime LIKE :date || '%'")
+    void deleteByDate(String date);
 }

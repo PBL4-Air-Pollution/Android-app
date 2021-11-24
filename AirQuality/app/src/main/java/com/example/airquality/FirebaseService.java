@@ -1,5 +1,7 @@
 package com.example.airquality;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.example.airquality.model.DailyAirQuality;
 import com.example.airquality.model.HourlyAirQuality;
+import com.example.airquality.view.MapsFragment;
 import com.example.airquality.viewmodel.DailyAirQualityDAO;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
@@ -20,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class FirebaseService extends Service {
@@ -30,6 +35,12 @@ public class FirebaseService extends Service {
     private LocationDAO locationDAO;
 
     private double sumDailyAqi = 0;
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
     @Override
     public void onCreate() {
@@ -47,10 +58,17 @@ public class FirebaseService extends Service {
         return START_STICKY;
     }
 
-    @Nullable
+    @SuppressLint("SimpleDateFormat")
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+        String currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                hourlyAirQualityDAO.deleteByDate(currentDate);
+            }
+        });
     }
 
     private void setUpFirebaseConnection() {
@@ -88,16 +106,18 @@ public class FirebaseService extends Service {
                             // Calculate average AQI of day if end of day
                             String date = hourlyAirQuality.getDatetime().toString().split(" ")[0];
                             String time = hourlyAirQuality.getDatetime().toString().split(" ")[1];
+                            int count = 0;
                             if (time == "23:00:00"){
                                 double sumAqi = 0;
                                 List<HourlyAirQuality> hourlyAirQualityList = hourlyAirQualityDAO.getListByLocationIDAndDate(locationID, date);
                                 for (HourlyAirQuality hourly : hourlyAirQualityList){
                                     if (hourly.getDatetime().contains(date)) {
                                         sumAqi += hourly.getAqi();
+                                        count++;
                                     }
                                 }
 
-                                double avgAqi = sumAqi / 24;
+                                double avgAqi = sumAqi / count;
                                 String dailyRate = "";
 
                                 if (avgAqi < 50) dailyRate = "Tốt";

@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.remove(fragment);
                     fragmentTransaction.commit();
                 }
+                binding.viewPager.setOffscreenPageLimit(1);
                 switch (item.getItemId()){
                     case R.id.action_home:
                         binding.viewPager.setCurrentItem(0);
