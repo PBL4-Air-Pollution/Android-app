@@ -1,17 +1,25 @@
 package com.example.airquality;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.IBinder;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.example.airquality.model.DailyAirQuality;
 import com.example.airquality.model.HourlyAirQuality;
+import com.example.airquality.view.HourDetailFragment;
 import com.example.airquality.view.MapsFragment;
 import com.example.airquality.viewmodel.DailyAirQualityDAO;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
@@ -95,7 +103,21 @@ public class FirebaseService extends Service {
                             // Add into local database
                             hourlyAirQualityDAO.insertAll(hourlyAirQuality);
 
+                            // Reload map fragment
+
                             // Check AQI -> push notification
+                            // Bitmap bitmap=
+                            // BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+                            // Notification notification= new Notification.Builder(getApplicationContext())
+                            // .setContentTitle("Title")
+                            // .setContentText(hourlyAirQuality.getLocationID()+"
+                            // "+hourlyAirQuality.getDatetime()+" "+hourlyAirQuality.getAqi())
+                            // .setLargeIcon(bitmap)
+                            // .build();
+                            // NotificationManager notificationManager=(NotificationManager)
+                            // getSystemService(Context.NOTIFICATION_SERVICE);
+                            // if(notificationManager!=null)
+                            // notificationManager.notify(1,notification);
 
                             // Update currentAQI and Rated of location
                             int locationID = hourlyAirQuality.getLocationID();
@@ -107,10 +129,11 @@ public class FirebaseService extends Service {
                             String date = hourlyAirQuality.getDatetime().toString().split(" ")[0];
                             String time = hourlyAirQuality.getDatetime().toString().split(" ")[1];
                             int count = 0;
-                            if (time == "23:00:00"){
+                            if (time == "23:00:00") {
                                 double sumAqi = 0;
-                                List<HourlyAirQuality> hourlyAirQualityList = hourlyAirQualityDAO.getListByLocationIDAndDate(locationID, date);
-                                for (HourlyAirQuality hourly : hourlyAirQualityList){
+                                List<HourlyAirQuality> hourlyAirQualityList = hourlyAirQualityDAO
+                                        .getListByLocationIDAndDate(locationID, date);
+                                for (HourlyAirQuality hourly : hourlyAirQualityList) {
                                     if (hourly.getDatetime().contains(date)) {
                                         sumAqi += hourly.getAqi();
                                         count++;
@@ -120,12 +143,18 @@ public class FirebaseService extends Service {
                                 double avgAqi = sumAqi / count;
                                 String dailyRate = "";
 
-                                if (avgAqi < 50) dailyRate = "Tốt";
-                                else if (avgAqi < 100) dailyRate = "Trung bình";
-                                else if (avgAqi < 150) dailyRate = "Kém";
-                                else if (avgAqi < 200) dailyRate = "Xấu";
-                                else if (avgAqi < 300) dailyRate = "Rất xấu";
-                                else if (avgAqi < 500) dailyRate = "Nguy hại";
+                                if (avgAqi < 50)
+                                    dailyRate = "Tốt";
+                                else if (avgAqi < 100)
+                                    dailyRate = "Trung bình";
+                                else if (avgAqi < 150)
+                                    dailyRate = "Kém";
+                                else if (avgAqi < 200)
+                                    dailyRate = "Xấu";
+                                else if (avgAqi < 300)
+                                    dailyRate = "Rất xấu";
+                                else if (avgAqi < 500)
+                                    dailyRate = "Nguy hại";
 
                                 dailyAirQualityDAO.insertAll(new DailyAirQuality(locationID, date, avgAqi, dailyRate));
                             }

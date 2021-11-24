@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
         binding.rvHours.setLayoutManager(layoutManager);
         binding.rvDays.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
+        //appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
         // locationDAO = appDatabase.locationDAO();
         // hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
         //
