@@ -1,5 +1,6 @@
 package com.example.airquality;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -10,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,8 +44,6 @@ public class FirebaseService extends Service {
     private DailyAirQualityDAO dailyAirQualityDAO;
     private LocationDAO locationDAO;
 
-    private double sumDailyAqi = 0;
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -70,13 +70,6 @@ public class FirebaseService extends Service {
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
-        String currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                hourlyAirQualityDAO.deleteByDate(currentDate);
-            }
-        });
     }
 
     private void setUpFirebaseConnection() {
@@ -101,10 +94,9 @@ public class FirebaseService extends Service {
                         HourlyAirQuality hourlyAirQuality = snapshot.getValue(HourlyAirQuality.class);
                         if (hourlyAirQuality != null) {
                             // Add into local database
-                            hourlyAirQualityDAO.insertAll(hourlyAirQuality);
-
-                            // Reload map fragment
-
+                            if (hourlyAirQualityDAO.findByLocationIdAndDatetime(hourlyAirQuality.getLocationID(), hourlyAirQuality.getDatetime()) == null){
+                                hourlyAirQualityDAO.insertAll(hourlyAirQuality);
+                            }
                             // Check AQI -> push notification
                             // Bitmap bitmap=
                             // BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
@@ -128,9 +120,9 @@ public class FirebaseService extends Service {
                             // Calculate average AQI of day if end of day
                             String date = hourlyAirQuality.getDatetime().toString().split(" ")[0];
                             String time = hourlyAirQuality.getDatetime().toString().split(" ")[1];
-                            int count = 0;
-                            if (time == "23:00:00") {
+                            if (time.equals("23:00:00")) {
                                 double sumAqi = 0;
+                                int count = 0;
                                 List<HourlyAirQuality> hourlyAirQualityList = hourlyAirQualityDAO
                                         .getListByLocationIDAndDate(locationID, date);
                                 for (HourlyAirQuality hourly : hourlyAirQualityList) {
@@ -139,10 +131,9 @@ public class FirebaseService extends Service {
                                         count++;
                                     }
                                 }
-
                                 double avgAqi = sumAqi / count;
-                                String dailyRate = "";
 
+                                String dailyRate = "";
                                 if (avgAqi < 50)
                                     dailyRate = "Tốt";
                                 else if (avgAqi < 100)
