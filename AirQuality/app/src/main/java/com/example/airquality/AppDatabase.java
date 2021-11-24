@@ -52,7 +52,7 @@ public abstract class AppDatabase extends RoomDatabase {
         _instance.locationDAO().insertLocations(new Location("Hòa Nhơn", 16.022115031551486, 108.12627122578975, "Đình Làng Phước Thuận, Hoà Nhơn, Hòa Vang", "", false));
         _instance.locationDAO().insertLocations(new Location("Hòa Khương", 15.956932710660778, 108.11922636604919, "Khu du lịch Phước Nhơn, Hoà Khương, Hòa Vang", "", false));
         _instance.locationDAO().insertLocations(new Location("Hòa Phú", 15.998025572625194, 108.05287934511186, "Suối mát Farm, Hoà Phú, Hòa Vang", "", false));
-        _instance.locationDAO().insertLocations(new Location("Hòa Tiến", 115.984636178503463, 108.18310480357002, "Cầu Cửa Đình, Hòa Tiến, Hòa Vang", "", false));
+        _instance.locationDAO().insertLocations(new Location("Hòa Tiến", 15.984636178503463, 108.18310480357002, "Cầu Cửa Đình, Hòa Tiến, Hòa Vang", "", false));
         _instance.locationDAO().insertLocations(new Location("Hòa Quý", 16.003263664804894, 108.24626252760721, "Hồ Đầm Sen, Nguyễn Phước Lan, Hoà Quý, Ngũ Hành Sơn", "", false));
         _instance.locationDAO().insertLocations(new Location("Hòa Thuận Tây", 16.05700804619488, 108.20257470722422, "Sân bay Đà Nẵng, Nguyễn Văn Linh, Hòa Thuận Tây, Hải Châu", "", false));
         _instance.locationDAO().insertLocations(new Location("Thọ Quang", 16.105054301190197, 108.25494004679783, "Cơ quan Cảnh sát, Lê Đức Thọ, Thọ Quang, Sơn Trà", "", false));
