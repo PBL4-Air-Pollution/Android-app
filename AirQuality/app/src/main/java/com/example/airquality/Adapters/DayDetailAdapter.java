@@ -35,7 +35,7 @@ public class DayDetailAdapter extends RecyclerView.Adapter<DayDetailAdapter.View
         HourlyAirQuality hour=hourArrayList.get(position);
         SimpleDateFormat format=new SimpleDateFormat("HH:mm");
         holder.binding.tvHour.setText(format.format(hour.getDatetime()));
-        holder.binding.tvAqi.setText(Double.toString(hour.getAQI()));
+        holder.binding.tvAqi.setText(Double.toString(hour.getAqi()));
         holder.binding.tvRate.setText(hour.getRate());
 //        if(Integer.parseInt(hour.getAQI().toString())<=50)
 //            holder.llCard.setBackgroundColor(R.color.red);

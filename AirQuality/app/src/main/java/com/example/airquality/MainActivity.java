@@ -1,12 +1,13 @@
 package com.example.airquality;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,94 +17,40 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.airquality.Adapters.ViewPagerAdapter;
 import com.example.airquality.databinding.ActivityMainBinding;
-import com.example.airquality.model.DailyAirQuality;
 import com.example.airquality.model.HourlyAirQuality;
-import com.example.airquality.model.Location;
 import com.example.airquality.viewmodel.DailyAirQualityDAO;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference mDatabase;
     private ActivityMainBinding binding;
 
-    private AppDatabase appDatabase;
-    private HourlyAirQualityDAO hourlyAirQualityDAO;
-    private DailyAirQualityDAO dailyAirQualityDAO;
-    private LocationDAO locationDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+
+
+        Intent intent = new Intent(this, FirebaseService.class);
+        startService(intent);
+
         setContentView(view);
-
-        FirebaseApp.initializeApp(this);
-        firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() != null) {
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-        }
-        HourlyAirQualityDAO hourlyAirQualityDAO;
-        setUpViewPager();
-        binding.navBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                FragmentManager fragmentManager=getSupportFragmentManager();
-
-                Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
-                if(fragment!=null){
-                    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                    fragmentTransaction.remove(fragment);
-                    fragmentTransaction.commit();
-                }
-                switch (item.getItemId()){
-                    case R.id.action_home:
-
-                        binding.viewPager.setCurrentItem(0);
-                        break;
-                    case R.id.action_map:
-                        binding.viewPager.setCurrentItem(1);
-                        break;
-                    case R.id.action_info:
-                        binding.viewPager.setCurrentItem(2);
-                        break;
-                    case R.id.action_location:
-                        binding.viewPager.setCurrentItem(3);
-                        break;
-                }
-                return true;
-            }
-        });
-        //TaoDuLieu();
-
-        setUpFirebaseConnection();
 
         setUpViewPager();
 
         setUpBottomNavBar();
     }
 
-    private void setUpFirebaseConnection(){
-        FirebaseApp.initializeApp(this);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-    }
-//    public void TaoDuLieu()
-//    {
+    public void TaoDuLieu()
+    {
 //        AsyncTask.execute(new Runnable() {
 //            @Override
 //            public void run() {
@@ -137,8 +84,6 @@ public class MainActivity extends AppCompatActivity {
 //                } catch (ParseException e) {
 //                    e.printStackTrace();
 //                }
-//
-//
 //            }
 //        });
 //        AsyncTask.execute(new Runnable() {
@@ -182,12 +127,10 @@ public class MainActivity extends AppCompatActivity {
 //                } catch (ParseException e) {
 //                    e.printStackTrace();
 //                }
-//
-//
 //            }
 //        });
-//
-//    }
+
+    }
     private void setUpViewPager() {
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         binding.viewPager.setAdapter(viewPagerAdapter);

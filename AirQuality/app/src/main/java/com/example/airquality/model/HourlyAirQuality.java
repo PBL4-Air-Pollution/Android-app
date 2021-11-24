@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,45 +15,73 @@ public class HourlyAirQuality {
     private int id;
 
     @ColumnInfo
-    private String location;
+    private int locationID;
 
     @ColumnInfo
     private Date datetime;
 
     @ColumnInfo
-    private double PM25;
+    private double pm25;
 
     @ColumnInfo
-    private double PM10;
+    private double pm10;
 
     @ColumnInfo
-    private double NO2;
+    private double no;
 
     @ColumnInfo
-    private double CO;
+    private double no2;
 
     @ColumnInfo
-    private double SO2;
+    private double nox;
 
     @ColumnInfo
-    private double O3;
+    private double nh3;
 
     @ColumnInfo
-    private double AQI;
+    private double co;
+
+    @ColumnInfo
+    private double so2;
+
+    @ColumnInfo
+    private double o3;
+
+    @ColumnInfo
+    private double benzene;
+
+    @ColumnInfo
+    private double toluene;
+
+    @ColumnInfo
+    private double xylene;
+
+    @ColumnInfo
+    private double aqi;
 
     @ColumnInfo
     private String rate;
 
-    public HourlyAirQuality(String location, Date datetime, double PM25, double PM10, double NO2, double CO, double SO2, double O3, double AQI, String rate) {
-        this.location = location;
+    public HourlyAirQuality(){
+        // Cho firebase đổ dữ liệu vào class object
+    }
+
+    public HourlyAirQuality(int locationID, Date datetime, double pm25, double pm10, double no, double no2, double nox, double nh3, double co, double so2, double o3, double benzene, double toluene, double xylene, double aqi, String rate) {
+        this.locationID = locationID;
         this.datetime = datetime;
-        this.PM25 = PM25;
-        this.PM10 = PM10;
-        this.NO2 = NO2;
-        this.CO = CO;
-        this.SO2 = SO2;
-        this.O3 = O3;
-        this.AQI = AQI;
+        this.pm25 = pm25;
+        this.pm10 = pm10;
+        this.no = no;
+        this.no2 = no2;
+        this.nox = nox;
+        this.nh3 = nh3;
+        this.co = co;
+        this.so2 = so2;
+        this.o3 = o3;
+        this.benzene = benzene;
+        this.toluene = toluene;
+        this.xylene = xylene;
+        this.aqi = aqi;
         this.rate = rate;
     }
 
@@ -64,75 +93,124 @@ public class HourlyAirQuality {
         this.id = id;
     }
 
-    public String getLocation() {
-        return location;
+    public int getLocationID() {
+        return locationID;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocationID(int locationID) {
+        this.locationID = locationID;
     }
 
     public Date getDatetime() {
-        return this.datetime;
+        return datetime;
     }
+
     public void setDatetime(Date datetime) {
         this.datetime = datetime;
     }
 
-    public double getPM25() {
-        return PM25;
+    public double getPm25() {
+        return pm25;
     }
 
-    public void setPM25(double PM25) {
-        this.PM25 = PM25;
+    public void setPm25(double pm25) {
+        this.pm25 = pm25;
     }
 
-    public double getPM10() {
-        return PM10;
+    public double getPm10() {
+        return pm10;
     }
 
-    public void setPM10(double PM10) {
-        this.PM10 = PM10;
+    public void setPm10(double pm10) {
+        this.pm10 = pm10;
     }
 
-    public double getNO2() {
-        return NO2;
+    public double getNo() {
+        return no;
     }
 
-    public void setNO2(double NO2) {
-        this.NO2 = NO2;
+    public void setNo(double no) {
+        this.no = no;
     }
 
-    public double getCO() {
-        return CO;
+    public double getNo2() {
+        return no2;
     }
 
-    public void setCO(double CO) {
-        this.CO = CO;
+    public void setNo2(double no2) {
+        this.no2 = no2;
     }
 
-    public double getSO2() {
-        return SO2;
+    public double getNox() {
+        return nox;
     }
 
-    public void setSO2(double SO2) {
-        this.SO2 = SO2;
+    public void setNox(double nox) {
+        this.nox = nox;
+    }
+
+    public double getNh3() {
+        return nh3;
+    }
+
+    public void setNh3(double nh3) {
+        this.nh3 = nh3;
+    }
+
+    public double getCo() {
+        return co;
+    }
+
+    public void setCo(double co) {
+        this.co = co;
+    }
+
+    public double getSo2() {
+        return so2;
+    }
+
+    public void setSo2(double so2) {
+        this.so2 = so2;
     }
 
     public double getO3() {
-        return O3;
+        return o3;
     }
 
     public void setO3(double o3) {
-        O3 = o3;
+        this.o3 = o3;
     }
 
-    public double getAQI() {
-        return AQI;
+    public double getBenzene() {
+        return benzene;
     }
 
-    public void setAQI(double AQI) {
-        this.AQI = AQI;
+    public void setBenzene(double benzene) {
+        this.benzene = benzene;
+    }
+
+    public double getToluene() {
+        return toluene;
+    }
+
+    public void setToluene(double toluene) {
+        this.toluene = toluene;
+    }
+
+    public double getXylene() {
+        return xylene;
+    }
+
+    public void setXylene(double xylene) {
+        this.xylene = xylene;
+    }
+
+    public double getAqi() {
+        return aqi;
+    }
+
+    public void setAqi(double aqi) {
+        this.aqi = aqi;
     }
 
     public String getRate() {

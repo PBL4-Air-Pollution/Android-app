@@ -119,7 +119,7 @@ print("Start time: ", time.strftime("%d/%m/%Y %H:%M:%S"))
 while True:
     current_time = time.strftime("%H:%M:%S")
 
-    if (current_time == "23:45:00"):
+    if (current_time == "23:55:00"):
         database.set('/HourlyAirQuality', None)
         print("Clearing today's data...")
         time.sleep(2)
@@ -130,4 +130,4 @@ while True:
 
         addNewHourlyData(current_day, current_time)
 
-        time.sleep(60*60-2)
+        time.sleep(60*55 - 2)

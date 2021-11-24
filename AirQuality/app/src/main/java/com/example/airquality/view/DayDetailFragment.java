@@ -85,12 +85,12 @@ public class DayDetailFragment extends Fragment {
             }
         });
 
-        Bundle bundle=this.getArguments();
-        String[] data=(bundle.getString("Date-Location")).split(",");
-        location=data[1];
-        stringDate=data[0];
-        hourArrayList=new ArrayList<HourlyAirQuality>();
-        dayArrayList=new ArrayList<DailyAirQuality>();
+        Bundle bundle = this.getArguments();
+        String[] data = (bundle.getString("Date-Location")).split(",");
+        location = data[1];
+        stringDate = data[0];
+        hourArrayList = new ArrayList<HourlyAirQuality>();
+        dayArrayList = new ArrayList<DailyAirQuality>();
         dayDetailAdapter = new DayDetailAdapter(hourArrayList);
         AsyncTask.execute(new Runnable() {
             @Override
@@ -99,16 +99,16 @@ public class DayDetailFragment extends Fragment {
                     hourArrayList.clear();
                     dayArrayList.clear();
                     Date day;
-                    date=new SimpleDateFormat("dd/MM/yyyy").parse(stringDate);
+                    date = new SimpleDateFormat("dd/MM/yyyy").parse(stringDate);
                     appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
                     hourlyAirQualityDAO  = appDatabase.hourlyAirQualityDAO();
                     dailyAirQualityDAO = appDatabase.dailyAirQualityDAO();
-                    for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location)){
-                        day=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDatetime()));
-                        if(day.compareTo(date)==0){
-                            hourArrayList.add(i);
-                        }
-                    }
+//                    for(HourlyAirQuality i: hourlyAirQualityDAO.getListByStationName()){
+//                        day=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDatetime()));
+//                        if(day.compareTo(date)==0){
+//                            hourArrayList.add(i);
+//                        }
+//                    }
 
                     for(DailyAirQuality i: dailyAirQualityDAO.getListByLocation(location)) {
                         day=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDatetime()));

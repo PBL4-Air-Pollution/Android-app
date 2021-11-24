@@ -83,54 +83,56 @@ public class HomeFragment extends Fragment {
         binding.rvDays.setLayoutManager(new LinearLayoutManager(getContext()));
 
         appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
-        locationDAO = appDatabase.locationDAO();
-        hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
-
-        hourList=new ArrayList<HourlyAirQuality>();
-        hourArrayList = new ArrayList<HourlyAirQuality>();
-        dayArrayList = new ArrayList<DailyAirQuality>();
-        locationArrayList=new ArrayList<Location>();
-        locationArrayList.addAll(locationDAO.getListHasMark());
-        Log.d("tag",String.valueOf(locationArrayList.size()));
-        spinnerAdapter=new SpinnerAdapter(getContext(),R.layout.spinner_items_category,locationArrayList);
-        binding.snLocation.setAdapter(spinnerAdapter);
-        binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                location=locationArrayList.get(position);
-                binding.tvLocation.setText(location.getStationName());
+//        locationDAO = appDatabase.locationDAO();
+//        hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
+//
+//        hourList=new ArrayList<HourlyAirQuality>();
+//        hourArrayList = new ArrayList<HourlyAirQuality>();
+//        dayArrayList = new ArrayList<DailyAirQuality>();
+//
+//        ArrayList<String> locationString=new ArrayList<String>();
+//        locationString.addAll(locationDAO.getListNameHasMark());
+//        locationName = locationString.get(0);
+//        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(),R.layout.spinner_items_category,locationString);
+//        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+//        binding.snLocation.setAdapter(adapter);
+//        binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+//                locationName=locationString.get(position);
+//                binding.tvLocation.setText(locationName);
 //                loadHome();
 //                loadDays();
 //                loadHours();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 //        loadHome();
 //        loadDays();
 //        loadHours();
     }
-    private  void loadHome(){
-        hourList.clear();
-        Date day,today;
-        try {
-            for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location.getStationName())){
-                day=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dayHourFormat.format(i.getDatetime()));
-                today= new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(stringToday);
-                if(day.compareTo(today)==0){
-                    binding.tvLocation.setText(location.getStationName());
-                    binding.tvAqi.setText(String.valueOf((int)i.getAQI()));
-                    binding.tvRate.setText(i.getRate());
-                    binding.tvDate.setText(dayFormat.format(today));
-                    setBackgroundColor(i.getAQI());
-                    break;
-                }
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    private void loadHome(){
+//        hourList.clear();
+//        Date day,today;
+//        try {
+//            for(HourlyAirQuality i: hourlyAirQualityDAO.getListByStationName(locationName)){
+//                day=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dayHourFormat.format(i.getDatetime()));
+//                today= new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(stringToday);
+//                if(day.compareTo(today)==0){
+//                    binding.tvLocation.setText(locationName);
+//                    binding.tvAqi.setText(String.valueOf((int)i.getAqi()));
+//                    binding.tvRate.setText(i.getRate());
+//                    binding.tvDate.setText(dayFormat.format(today));
+//                    setBackgroundColor(i.getAqi());
+//                    break;
+//                }
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void setBackgroundColor(double aqi){
@@ -146,7 +148,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCLick(View view, int i) {
                 Bundle bundle=new Bundle();
-                bundle.putString("Date-Location",dayHourFormat.format(hourArrayList.get(i).getDatetime())+","+hourArrayList.get(i).getLocation());
+                bundle.putString("Date-Location",dayHourFormat.format(hourArrayList.get(i).getDatetime())+"," + hourArrayList.get(i).getLocationID());
                 HourDetailFragment hourDetailFragment=new HourDetailFragment();
                 hourDetailFragment.setArguments(bundle);
                 getActivity().getSupportFragmentManager()
@@ -158,19 +160,18 @@ public class HomeFragment extends Fragment {
         };
         hourArrayList.clear();
         hoursAdapter = new HourAdapter(hourArrayList, hourClickListener);
-        Date hour1,hour2;
-        try {
-            for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location.getStationName())){
-                hour1=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDatetime()));
-                hour2=new SimpleDateFormat("dd/MM/yyyy").parse(stringToday);
-                if(hour1.compareTo(hour2)==0) hourArrayList.add(i);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        hoursAdapter.notifyDataSetChanged();
-        binding.rvHours.setAdapter(hoursAdapter);
-
+//        Date hour1,hour2;
+//        try {
+//            for(HourlyAirQuality i: hourlyAirQualityDAO.getListByStationName(locationName)){
+//                hour1=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDatetime()));
+//                hour2=new SimpleDateFormat("dd/MM/yyyy").parse(stringToday);
+//                if(hour1.compareTo(hour2)==0) hourArrayList.add(i);
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        hoursAdapter.notifyDataSetChanged();
+//        binding.rvHours.setAdapter(hoursAdapter);
     }
 
     private void loadDays() {

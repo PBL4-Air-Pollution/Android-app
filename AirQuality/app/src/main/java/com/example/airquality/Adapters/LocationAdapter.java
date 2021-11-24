@@ -55,38 +55,38 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         AppDatabase appDatabase=AppDatabase.Instance(context);
         HourlyAirQualityDAO hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
         ArrayList<HourlyAirQuality> hourList = new ArrayList<HourlyAirQuality>();
-        hourList.addAll(hourlyAirQualityDAO.getListByLocation(location.getStationName()));
+        hourList.addAll(hourlyAirQualityDAO.getListByLocation(location.getId()));
         Date date,today;
-        for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location.getStationName())){
+        for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location.getId())){
             try {
                 date=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dayHourFormat.format(i.getDatetime()));
                 today= new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(stringToday);
                 if(date.compareTo(today)==0) {
                     holder.binding.tvLocation.setText(location.getStationName());
-                    holder.binding.tvAqi.setText(String.valueOf(i.getAQI()));
+                    holder.binding.tvAqi.setText(String.valueOf(i.getAqi()));
                     holder.binding.tvRate.setText(i.getRate());
                     holder.binding.tvLable.setText(location.getLabel());
-                    if(i.getAQI()<=50){
+                    if(i.getAqi()<=50){
                         holder.binding.cvLocationItem.setBackgroundResource(R.color.green);
                         holder.binding.ivAvatar.setImageResource(R.drawable.avatar_green);
                     }
-                    else if(i.getAQI()<=100) {
+                    else if(i.getAqi()<=100) {
                         holder.binding.cvLocationItem.setBackgroundResource(R.color.yellow);
                         holder.binding.ivAvatar.setImageResource(R.drawable.avatar_yellow);
                     }
-                    else if(i.getAQI()<=150){
+                    else if(i.getAqi()<=150){
                         holder.binding.cvLocationItem.setBackgroundResource(R.color.orange);
                         holder.binding.ivAvatar.setImageResource(R.drawable.avatar_orange);
                     }
-                    else if(i.getAQI()<=200){
+                    else if(i.getAqi()<=200){
                         holder.binding.cvLocationItem.setBackgroundResource(R.color.red);
                         holder.binding.ivAvatar.setImageResource(R.drawable.avatar_red);
                     }
-                    else if(i.getAQI()<=300) {
+                    else if(i.getAqi()<=300) {
                         holder.binding.cvLocationItem.setBackgroundResource(R.color.purple);
                         holder.binding.ivAvatar.setImageResource(R.drawable.avatar_purple);
                     }
-                    else if(i.getAQI()<=500) {
+                    else if(i.getAqi()<=500) {
                         holder.binding.cvLocationItem.setBackgroundResource(R.color.brown);
                         holder.binding.ivAvatar.setImageResource(R.drawable.avatar_brown);
                     }
