@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.airquality.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,7 +16,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class MapsFragment extends Fragment {
+
+
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
@@ -25,8 +28,16 @@ public class MapsFragment extends Fragment {
             googleMap.addMarker(new MarkerOptions().position(DaNang).title("DaNang"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(DaNang));
             googleMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
+
+
+
+
         }
     };
+
+    public MapsFragment() {
+
+    }
 
     @Nullable
     @Override
@@ -44,5 +55,6 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+
     }
 }

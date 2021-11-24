@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.airquality.model.Location;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface LocationDAO {
     @Query("SELECT * FROM Location WHERE marked = 1 ")
     List<Location> getListHasMark();
     @Query("SELECT stationName FROM Location WHERE marked = 1")
-    List<String> getListNameHasMark();
+    LatLng getListNameHasMark();
     @Query("SELECT stationName FROM Location WHERE marked = 0")
     List<String> getListNameHasNotMark();
 
