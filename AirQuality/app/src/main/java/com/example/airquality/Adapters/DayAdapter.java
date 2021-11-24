@@ -35,11 +35,10 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder>{
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DailyAirQuality day=dayArrayList.get(position);
-        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
-        holder.binding.tvDate.setText(format.format(day.getDatetime()));
-        holder.binding.tvAqi.setText(Double.toString(day.getAQI()));
-        holder.binding.tvRate.setText(day.getRate());
+        DailyAirQuality day = dayArrayList.get(position);
+        holder.binding.tvDate.setText(day.getDate());
+        holder.binding.tvAqi.setText(Double.toString(day.getAqi()));
+        holder.binding.tvRate.setText(day.getRated());
     }
 
     @Override

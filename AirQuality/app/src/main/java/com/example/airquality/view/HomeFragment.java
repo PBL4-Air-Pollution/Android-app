@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
 
     private AppDatabase appDatabase;
     private LocationDAO locationDAO;
-    private String locationName;
+    private int locationID;
     private FragmentHomeBinding binding;
 
     private String stringToday="16/11/2021 03:00";
@@ -176,7 +176,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCLick(View view, int i) {
                 Bundle bundle=new Bundle();
-                bundle.putString("Date-Location",dayHourFormat.format(dayArrayList.get(i).getDatetime())+","+dayArrayList.get(i).getLocation());
+                bundle.putString("Date-Location",dayHourFormat.format(dayArrayList.get(i).getDate())+"," + dayArrayList.get(i).getLocationID());
                 DayDetailFragment dayDetailFragment=new DayDetailFragment();
                 dayDetailFragment.setArguments(bundle);
                 getActivity().getSupportFragmentManager()
@@ -192,8 +192,8 @@ public class HomeFragment extends Fragment {
         dailyAirQualityDAO= appDatabase.dailyAirQualityDAO();
         Date hour1,hour2;
         try {
-            for(DailyAirQuality i: dailyAirQualityDAO.getListByLocation(locationName)){
-                hour1=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDatetime()));
+            for(DailyAirQuality i: dailyAirQualityDAO.getListByLocationID(locationID)){
+                hour1=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDate()));
                 hour2=new SimpleDateFormat("dd/MM/yyyy").parse(stringToday);
                 if(hour1.compareTo(hour2)<7) dayArrayList.add(i);
             }

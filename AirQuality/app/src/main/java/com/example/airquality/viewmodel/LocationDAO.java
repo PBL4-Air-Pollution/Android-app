@@ -23,12 +23,14 @@ public interface LocationDAO {
     List<String> getListNameHasMark();
     @Query("SELECT stationName FROM Location WHERE marked = 0")
     List<String> getListNameHasNotMark();
+    @Query("UPDATE Location SET aqi=:aqi, rated=:rate WHERE id=:id")
+    void updateAqiAndRate(int id, double aqi, String rate);
 
     @Insert
     void insertLocations(Location...locations);
 
     @Update
-    void updateLocations(Location... locations);
+    void updateLocations(Location...locations);
 
     @Delete
     void deleteLocations(Location... locations);

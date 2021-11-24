@@ -17,12 +17,12 @@ public interface DailyAirQualityDAO {
     @Query("SELECT * FROM DailyAirQuality WHERE id = :id")
     DailyAirQuality getOneByID(int id);
 
-    @Query("SELECT * FROM DailyAirQuality WHERE location=:location")
-    List<DailyAirQuality> getListByLocation(String location);
+    @Query("SELECT * FROM DailyAirQuality WHERE locationID=:locationID")
+    List<DailyAirQuality> getListByLocationID(int locationID);
 
     @Insert
     void insertAll(DailyAirQuality... dailyAirQualities);
 
-    @Query("DELETE FROM DailyAirQuality WHERE CAST(datetime as DATE) = :date")
-    void deleteByDate(Date date);
+    @Query("DELETE FROM DailyAirQuality WHERE date = :date")
+    void deleteByDate(String date);
 }

@@ -27,6 +27,12 @@ public class Location {
     @ColumnInfo
     private boolean marked;
 
+    @ColumnInfo
+    private double aqi;
+
+    @ColumnInfo
+    private String rated;
+
     public Location(String stationName, double viDo, double kinhDo, String describe, String label, boolean marked) {
         this.stationName = stationName;
         this.viDo = viDo;
@@ -90,5 +96,21 @@ public class Location {
 
     public void setMarked(boolean marked) {
         this.marked = marked;
+    }
+
+    public double getAqi() {
+        return aqi;
+    }
+
+    public void setAqi(double aqi) {
+        this.aqi = aqi;
+    }
+
+    public String getRated() {
+        return rated;
+    }
+
+    public void setRated(String rated) {
+        this.rated = rated;
     }
 }
