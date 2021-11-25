@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -34,7 +35,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -85,6 +88,7 @@ public class FirebaseService extends Service {
         locationDAO = appDatabase.locationDAO();
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void fetchAirQualityData() {
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
@@ -93,10 +97,18 @@ public class FirebaseService extends Service {
                     @Override
                     public void run() {
                         HourlyAirQuality hourlyAirQuality = snapshot.getValue(HourlyAirQuality.class);
+
                         if (hourlyAirQuality != null) {
                             if (hourlyAirQualityDAO.findByLocationIdAndDatetime(hourlyAirQuality.getLocationID(), hourlyAirQuality.getDatetime()) == null){
                                 // Add into local database
                                 hourlyAirQualityDAO.insertAll(hourlyAirQuality);
+
+                                // Delete the 7 days earlier data
+                                Calendar cal = Calendar.getInstance();
+                                cal.add(Calendar.DATE, -7);
+                                String deleteDate = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
+                                hourlyAirQualityDAO.deleteByDate(deleteDate);
+                                dailyAirQualityDAO.deleteByDate(deleteDate);
 
                                 // Check AQI -> push notification
                                 // Bitmap bitmap=
@@ -119,8 +131,8 @@ public class FirebaseService extends Service {
                                 locationDAO.updateAqiAndRate(locationID, aqi, rate);
 
                                 // Calculate average AQI of day if end of day
-                                String date = hourlyAirQuality.getDatetime().toString().split(" ")[0];
-                                String time = hourlyAirQuality.getDatetime().toString().split(" ")[1];
+                                String date = hourlyAirQuality.getDatetime().split(" ")[0];
+                                String time = hourlyAirQuality.getDatetime().split(" ")[1];
                                 if (time.equals("23:00:00")) {
                                     double sumAqi = 0;
                                     int count = 0;
