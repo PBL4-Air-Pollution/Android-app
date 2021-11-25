@@ -54,21 +54,8 @@ public class MapsFragment extends Fragment {
                         "Nhãn: " + location.getLabel();
 
                 googleMap.addMarker(new MarkerOptions().position(marker).title(markerTitle).snippet(stationInfo));
-                googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                    @Nullable
-                    @Override
-                    public View getInfoContents(@NonNull Marker marker) {
-                        
-                        return null;
-                    }
 
-                    @Nullable
-                    @Override
-                    public View getInfoWindow(@NonNull Marker marker) {
 
-                        return null;
-                    }
-                });
 
 
                 int color = 0;
