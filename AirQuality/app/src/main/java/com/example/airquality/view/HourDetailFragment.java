@@ -35,7 +35,7 @@ import java.util.Date;
 public class HourDetailFragment extends Fragment {
 
     private FragmentHourDetailBinding binding;
-    private String location,stringDayHour;
+    private String locationID,stringDayHour;
 
     private AppDatabase appDatabase;
     private LocationDAO locationDAO;
@@ -64,17 +64,17 @@ public class HourDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle=this.getArguments();
         String[] data=(bundle.getString("Date-LocationID")).split(",");
-        location=data[1];
+        locationID=data[1];
         stringDayHour=data[0];
 
         appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
         locationDAO = appDatabase.locationDAO();
         hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
-        hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(Integer.parseInt(location),stringDayHour).get(0);
+        hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(Integer.parseInt(locationID),stringDayHour).get(0);
         String stringTime[]=hourlyAirQuality.getDatetime().split(" ");
         String stringHour[]=stringTime[1].split(":");
         binding.tvHour.setText(stringHour[0]+":00");
-        binding.tvLocation.setText(locationDAO.getListByID(Integer.parseInt(location)).get(0).getStationName());
+        binding.tvLocation.setText(locationDAO.getListByID(Integer.parseInt(locationID)).get(0).getStationName());
         binding.tvRate.setText(hourlyAirQuality.getRated());
         binding.tvAqi.setText(String.format("%.1f",hourlyAirQuality.getAqi()));
         binding.tvPM25.setText(String.format("%.1f",hourlyAirQuality.getPm25()));

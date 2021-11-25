@@ -43,7 +43,8 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
         String stringHour[]=stringTime[1].split(":");
         holder.binding.tvHour.setText(stringHour[0]+":00");
         holder.binding.tvAqi.setText(String.format("%.1f", hour.getAqi()));
-        holder.binding.tvRate.setText(hour.getRated());
+        if(hour.getRated().equals("Trung bình")) holder.binding.tvRate.setText("T.Bình");
+        else holder.binding.tvRate.setText(hour.getRated());
     }
 
     @Override

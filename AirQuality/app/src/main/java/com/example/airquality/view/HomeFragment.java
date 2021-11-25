@@ -114,8 +114,8 @@ public class HomeFragment extends Fragment {
              public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                  location=locationArrayList.get(i);
                  loadHome();
-//                 loadDays();
                  loadHours();
+                 loadDays();
              }
 
              @Override
@@ -123,9 +123,9 @@ public class HomeFragment extends Fragment {
 
              }
          });
-         loadHome();
-//         loadDays();
-         loadHours();
+        loadHome();
+        loadHours();
+        loadDays();
     }
 
     private void loadHome() {
@@ -133,11 +133,52 @@ public class HomeFragment extends Fragment {
             binding.tvLocation.setText(location.getStationName());
             binding.tvAqi.setText(String.format("%.1f", location.getAqi()));
             binding.tvRate.setText(location.getRated());
-            binding.tvDate.setText(stringDayHour);
+            binding.tvDate.setText(stringDay);
             setBackgroundColor(location.getAqi());
         }
     }
+    private void loadHours() {
+        hourClickListener = new HourAdapter.HourClickListener() {
+            @Override
+            public void onCLick(View view, int i) {
+                Bundle bundle = new Bundle();
+                HourlyAirQuality hour=hourArrayList.get(i);
+                bundle.putString("Date-LocationID", hour.getDatetime()+ "," + hour.getLocationID());
+                HourDetailFragment hourDetailFragment = new HourDetailFragment();
+                hourDetailFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, hourDetailFragment)
+                        .addToBackStack(null).commit();
+            }
+        };
+        hourArrayList.clear();
 
+        hoursAdapter = new HourAdapter(hourArrayList, hourClickListener);
+        hourArrayList.addAll(hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDay));
+        hoursAdapter.notifyDataSetChanged();
+        binding.rvHours.setAdapter(hoursAdapter);
+    }
+
+    private void loadDays() {
+        dayClickListener = new DayAdapter.DayClickListener() {
+            @Override
+            public void onCLick(View view, int i) {
+                Bundle bundle = new Bundle();
+                DailyAirQuality day=dayArrayList.get(i);
+                bundle.putString("Date-LocationID", day.getDate()+ "," + day.getLocationID());
+                DayDetailFragment dayDetailFragment = new DayDetailFragment();
+                dayDetailFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, dayDetailFragment)
+                        .addToBackStack(null).commit();
+            }
+        };
+        dayArrayList.clear();
+        daysAdapter = new DayAdapter(dayArrayList, dayClickListener);
+        appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
+        dailyAirQualityDAO = appDatabase.dailyAirQualityDAO();
+        dayArrayList.addAll(dailyAirQualityDAO.getListByLocationID(location.getId()));
+        daysAdapter.notifyDataSetChanged();
+        binding.rvDays.setAdapter(daysAdapter);
+    }
     private void setBackgroundColor(double aqi) {
         if (aqi <= 50)
             getView().setBackgroundColor(getResources().getColor(R.color.light_green));
@@ -151,54 +192,6 @@ public class HomeFragment extends Fragment {
             getView().setBackgroundColor(getResources().getColor(R.color.light_purple));
         else if (aqi <= 500)
             getView().setBackgroundColor(getResources().getColor(R.color.light_brown));
-    }
-
-    private void loadHours() {
-        hourClickListener = new HourAdapter.HourClickListener() {
-            @Override
-            public void onCLick(View view, int i) {
-                Bundle bundle = new Bundle();
-                HourlyAirQuality hour=hourArrayList.get(i);
-                bundle.putString("Date-LocationID", hour.getDatetime()+ ","
-                        + hour.getLocationID());
-                HourDetailFragment hourDetailFragment = new HourDetailFragment();
-                hourDetailFragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, hourDetailFragment)
-                        .addToBackStack(null).commit();
-            }
-        };
-        hourArrayList.clear();
-
-        hoursAdapter = new HourAdapter(hourArrayList, hourClickListener);
-//        hourArrayList.addAll(hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDay));
-        int j=0;
-        for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDay))
-            hourArrayList.add(i);
-        hoursAdapter.notifyDataSetChanged();
-        binding.rvHours.setAdapter(hoursAdapter);
-    }
-
-    private void loadDays() {
-        dayClickListener = new DayAdapter.DayClickListener() {
-            @Override
-            public void onCLick(View view, int i) {
-                Bundle bundle = new Bundle();
-                bundle.putString("Date-Location", stringDay+ ","
-                        + location.getStationName());
-                DayDetailFragment dayDetailFragment = new DayDetailFragment();
-                dayDetailFragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, dayDetailFragment)
-                        .addToBackStack(null).commit();
-            }
-        };
-        dayArrayList.clear();
-        daysAdapter = new DayAdapter(dayArrayList, dayClickListener);
-        appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
-        dailyAirQualityDAO = appDatabase.dailyAirQualityDAO();
-        dayArrayList.addAll(dailyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDay));
-        Log.d("tag",dailyAirQualityDAO.getAll().size()+" ");
-        daysAdapter.notifyDataSetChanged();
-        binding.rvDays.setAdapter(daysAdapter);
     }
 
     @Override
