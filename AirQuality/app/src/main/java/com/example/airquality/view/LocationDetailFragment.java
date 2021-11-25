@@ -94,7 +94,17 @@ public class LocationDetailFragment extends Fragment {
 
         });
 
+        binding.spnLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
     }
     @Override
@@ -105,13 +115,12 @@ public class LocationDetailFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.action_back){
-            FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-            Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
-            if(fragment!=null){
-                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                fragmentTransaction.remove(fragment);
-                fragmentTransaction.commit();
-            }
+            LocationFragment locationFragment=new LocationFragment();
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fl_home,locationFragment)
+                    .addToBackStack(null)
+                    .commit();
         }
         return super.onOptionsItemSelected(item);
     }
