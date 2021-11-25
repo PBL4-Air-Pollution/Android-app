@@ -23,6 +23,7 @@ import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentHourDetailBinding;
 import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
+import com.example.airquality.viewmodel.LocationDAO;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -34,10 +35,12 @@ import java.util.Date;
 public class HourDetailFragment extends Fragment {
 
     private FragmentHourDetailBinding binding;
-    private Date date=new Timestamp(new Date().getTime());
-    private String location,stringDate;
-    private DateFormat hourFormat = new SimpleDateFormat("HH:mm");
-    private DateFormat dayHourFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private String location,stringDayHour;
+
+    private AppDatabase appDatabase;
+    private LocationDAO locationDAO;
+    private HourlyAirQualityDAO hourlyAirQualityDAO;
+    private HourlyAirQuality hourlyAirQuality;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -60,40 +63,27 @@ public class HourDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle=this.getArguments();
-        String[] data=(bundle.getString("Date-Location")).split(",");
-         location=data[1];
-         stringDate=data[0];
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<HourlyAirQuality> hourArrayList=new ArrayList<HourlyAirQuality>();
-                try {
-                    date=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(stringDate);
-                    AppDatabase appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
-                    HourlyAirQualityDAO hourlyAirQualityDAO  = appDatabase.hourlyAirQualityDAO();
-//                    for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocation(location))
-//                        if(i.getDatetime().compareTo(date)==0){
-//                            hourArrayList.add(i);
-//                            break;
-//                        }
+        String[] data=(bundle.getString("Date-LocationID")).split(",");
+        location=data[1];
+        stringDayHour=data[0];
 
-//                    binding.tvHour.setText(hourFormat.format(hourArrayList.get(0).getDatetime()));
-//                    binding.tvLocation.setText(hourArrayList.get(0).getLocation());
-//                    binding.tvRate.setText(hourArrayList.get(0).getRate());
-//                    binding.tvAqi.setText(Double.toString(hourArrayList.get(0).getAQI()));
-//                    binding.tvPM25.setText(Double.toString(hourArrayList.get(0).getPM25()));
-//                    binding.tvPM10.setText(Double.toString(hourArrayList.get(0).getPM10()));
-//                    binding.tvNO2.setText(Double.toString(hourArrayList.get(0).getNO2()));
-//                    binding.tvCO.setText(Double.toString(hourArrayList.get(0).getCO()));
-//                    binding.tvSO2.setText(Double.toString(hourArrayList.get(0).getSO2()));
-//                    binding.tvO3.setText(Double.toString(hourArrayList.get(0).getO3()));
-//                    setBackgroundColor(hourArrayList.get(0).getAQI());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
+        appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
+        locationDAO = appDatabase.locationDAO();
+        hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
+        hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(Integer.parseInt(location),stringDayHour).get(0);
+        String stringTime[]=hourlyAirQuality.getDatetime().split(" ");
+        String stringHour[]=stringTime[1].split(":");
+        binding.tvHour.setText(stringHour[0]+":00");
+        binding.tvLocation.setText(locationDAO.getListByID(Integer.parseInt(location)).get(0).getStationName());
+        binding.tvRate.setText(hourlyAirQuality.getRated());
+        binding.tvAqi.setText(String.format("%.1f",hourlyAirQuality.getAqi()));
+        binding.tvPM25.setText(String.format("%.1f",hourlyAirQuality.getPm25()));
+        binding.tvPM10.setText(String.format("%.1f",hourlyAirQuality.getPm10()));
+        binding.tvNO2.setText(String.format("%.1f",hourlyAirQuality.getNo2()));
+        binding.tvCO.setText(String.format("%.1f",hourlyAirQuality.getCo()));
+        binding.tvSO2.setText(String.format("%.1f",hourlyAirQuality.getSo2()));
+        binding.tvO3.setText(String.format("%.1f",hourlyAirQuality.getO3()));
+        setBackgroundColor(hourlyAirQuality.getAqi());
 
     }
     private void setBackgroundColor(double aqi){
