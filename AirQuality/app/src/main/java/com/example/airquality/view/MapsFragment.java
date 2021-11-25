@@ -2,6 +2,7 @@ package com.example.airquality.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,6 @@ import androidx.fragment.app.Fragment;
 import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
 import com.example.airquality.model.Location;
-import com.example.airquality.viewmodel.DailyAirQualityDAO;
-import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,12 +34,9 @@ public class MapsFragment extends Fragment {
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            /*LatLng DaNang = new LatLng(16.047079, 108.206230); //vi do va kinh do
-            googleMap.addMarker(new MarkerOptions().position(DaNang).title("DaNang"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(DaNang));
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));*/
             appDatabase = AppDatabase.Instance(getContext());
             locationDAO = appDatabase.locationDAO();
+
             List<Location> locationList =  locationDAO.getAll();
 
             for (Location location : locationList)
@@ -50,8 +46,8 @@ public class MapsFragment extends Fragment {
                 String markerTitle = "Trạm: " + location.getStationName();
                 String stationInfo =
                         "AQI: " + location.getAqi() + System.lineSeparator() +
-                        "Đánh giá: " + location.getRated() + System.lineSeparator() +
-                        "Nhãn: " + location.getLabel();
+                                "Đánh giá: " + location.getRated() + System.lineSeparator() +
+                                "Nhãn: " + location.getLabel();
 
                 googleMap.addMarker(new MarkerOptions().position(marker).title(markerTitle).snippet(stationInfo));
 
@@ -86,16 +82,10 @@ public class MapsFragment extends Fragment {
                         .strokeWidth(0)
                         .fillColor(color));
             }
-
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(16.05700804619488, 108.20257470722422)));
             googleMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
-
         }
     };
-
-    public MapsFragment() {
-
-    }
 
     @Nullable
     @Override

@@ -33,14 +33,11 @@ public class DayDetailAdapter extends RecyclerView.Adapter<DayDetailAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HourlyAirQuality hour=hourArrayList.get(position);
-        SimpleDateFormat format=new SimpleDateFormat("HH:mm");
-        holder.binding.tvHour.setText(format.format(hour.getDatetime()));
-        holder.binding.tvAqi.setText(Double.toString(hour.getAqi()));
+        String stringTime[]=hour.getDatetime().split(" ");
+        String stringHour[]=stringTime[1].split(":");
+        holder.binding.tvHour.setText(stringHour[0]+":00");
+        holder.binding.tvAqi.setText(String.format("%.1f", hour.getAqi()));
         holder.binding.tvRate.setText(hour.getRated());
-//        if(Integer.parseInt(hour.getAQI().toString())<=50)
-//            holder.llCard.setBackgroundColor(R.color.red);
-//        else if(Integer.parseInt(hour.getAQI().toString())>50)
-//            holder.llCard.setBackgroundColor(R.color.red);
     }
 
     @Override

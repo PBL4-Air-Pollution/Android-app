@@ -33,13 +33,15 @@ public class Location {
     @ColumnInfo
     private String rated;
 
-    public Location(String stationName, double viDo, double kinhDo, String describe, String label, boolean marked) {
+    public Location(String stationName, double viDo, double kinhDo, String describe, String label, boolean marked, double aqi, String rated) {
         this.stationName = stationName;
         this.viDo = viDo;
         this.kinhDo = kinhDo;
         this.describe = describe;
         this.label = label;
         this.marked = marked;
+        this.aqi = aqi;
+        this.rated = rated;
     }
 
     public int getId() {
