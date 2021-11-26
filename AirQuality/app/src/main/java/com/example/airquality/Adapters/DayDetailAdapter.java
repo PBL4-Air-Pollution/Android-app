@@ -36,7 +36,7 @@ public class DayDetailAdapter extends RecyclerView.Adapter<DayDetailAdapter.View
         String stringTime[]=hour.getDatetime().split(" ");
         String stringHour[]=stringTime[1].split(":");
         holder.binding.tvHour.setText(stringHour[0]+":00");
-        holder.binding.tvAqi.setText(String.format("%.1f", hour.getAqi()));
+        holder.binding.tvAqi.setText(String.format("%.0f", hour.getAqi()));
         holder.binding.tvRate.setText(hour.getRated());
         switch (hour.getRated()){
             case "Tốt": // Xanh lá
