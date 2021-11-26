@@ -90,8 +90,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         binding.tbHome.inflateMenu(R.menu.menu_home);
-        stringDay=LocalDateTime.now().getDayOfMonth()+"/"+LocalDateTime.now().getMonthValue()+"/"+LocalDateTime.now().getYear();
-        stringDayHour=LocalDateTime.now().getDayOfMonth()+"/"+LocalDateTime.now().getMonthValue()+"/"+LocalDateTime.now().getYear()+" "+LocalDateTime.now().getHour()+":00:00";
+        stringDay=new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        stringDayHour=new SimpleDateFormat("dd/MM/yyyy HH:00:00").format(new Date());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -107,18 +107,18 @@ public class HomeFragment extends Fragment {
         dayArrayList = new ArrayList<DailyAirQuality>();
         locationArrayList=new ArrayList<Location>();
         locationArrayList.addAll(locationDAO.getListHasMark());
-//        location=locationDAO.getListHasMark().get(0);
-//
-//        hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDayHour).get(0);
+        location=locationDAO.getListHasMark().get(0);
+
+        hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDayHour).get(0);
         SpinnerAdapter spinnerAdapter=new SpinnerAdapter(getContext(),R.layout.spinner_items_category,locationArrayList);
         binding.snLocation.setAdapter(spinnerAdapter);
         binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
              @Override
              public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                 location=locationArrayList.get(i);
-//                 loadHome();
-//                 loadHours();
-//                 loadDays();
+                 location=locationArrayList.get(i);
+                 loadHome();
+                 loadHours();
+                 loadDays();
              }
 
              @Override
@@ -126,9 +126,9 @@ public class HomeFragment extends Fragment {
 
              }
          });
-//        loadHome();
-//        loadHours();
-//        loadDays();
+        loadHome();
+        loadHours();
+        loadDays();
     }
 
     private void loadHome() {
@@ -138,17 +138,17 @@ public class HomeFragment extends Fragment {
             binding.tvRate.setText(location.getRated());
             setBackgroundColor(location.getRated());
 
-            binding.tvPM25.setText(String.format("%.0f",hourlyAirQuality.getPm25()));
+            binding.tvPM25.setText(String.format("%.1f",hourlyAirQuality.getPm25()));
             setViewColorPM25(hourlyAirQuality.getPm25());
-            binding.tvPM10.setText(String.format("%.0f",hourlyAirQuality.getPm10()));
+            binding.tvPM10.setText(String.format("%.1f",hourlyAirQuality.getPm10()));
             setViewColorPM10(hourlyAirQuality.getPm10());
-            binding.tvO3.setText(String.format("%.0f",hourlyAirQuality.getO3()));
+            binding.tvO3.setText(String.format("%.1f",hourlyAirQuality.getO3()));
             setViewColorO3(hourlyAirQuality.getO3());
-            binding.tvNO2.setText(String.format("%.0f",hourlyAirQuality.getNo2()));
+            binding.tvNO2.setText(String.format("%.1f",hourlyAirQuality.getNo2()));
             setViewColorNO2(hourlyAirQuality.getNo2());
-            binding.tvSO2.setText(String.format("%.0f",hourlyAirQuality.getSo2()));
+            binding.tvSO2.setText(String.format("%.1f",hourlyAirQuality.getSo2()));
             setViewColorSO2(hourlyAirQuality.getSo2());
-            binding.tvCO.setText(String.format("%.0f",hourlyAirQuality.getCo()));
+            binding.tvCO.setText(String.format("%.1f",hourlyAirQuality.getCo()));
             setViewColorCO(hourlyAirQuality.getCo());
         }
     }
@@ -242,40 +242,13 @@ public class HomeFragment extends Fragment {
                 break;
         }
     }
-    private void setViewColorCO(double co) {
-        if(co<=1) binding.viewCO.setBackgroundColor(getResources().getColor(R.color.green));
-        else if(co<=2) binding.viewCO.setBackgroundColor(getResources().getColor(R.color.yellow));
-        else if(co<=10) binding.viewCO.setBackgroundColor(getResources().getColor(R.color.orange));
-        else if(co<=17) binding.viewCO.setBackgroundColor(getResources().getColor(R.color.red));
-        else if(co<=34) binding.viewCO.setBackgroundColor(getResources().getColor(R.color.purple));
-        else binding.viewCO.setBackgroundColor(getResources().getColor(R.color.brown));
-    }
-
-    private void setViewColorSO2(double so2) {
-        if(so2<=40) binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.green));
-        else if(so2<=80) binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.yellow));
-        else if(so2<=380) binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.orange));
-        else if(so2<=800) binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.red));
-        else if(so2<=1600) binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.purple));
-        else binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.brown));
-    }
-
-    private void setViewColorNO2(double no2) {
-        if(no2<=40) binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.green));
-        else if(no2<=80) binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.yellow));
-        else if(no2<=180) binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.orange));
-        else if(no2<=280) binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.red));
-        else if(no2<=400) binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.purple));
-        else binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.brown));
-    }
-
-    private void setViewColorO3(double o3) {
-        if(o3<=50) binding.viewO3.setBackgroundColor(getResources().getColor(R.color.green));
-        else if(o3<=100) binding.viewO3.setBackgroundColor(getResources().getColor(R.color.yellow));
-        else if(o3<=168) binding.viewO3.setBackgroundColor(getResources().getColor(R.color.orange));
-        else if(o3<=208) binding.viewO3.setBackgroundColor(getResources().getColor(R.color.red));
-        else if(o3<=748) binding.viewO3.setBackgroundColor(getResources().getColor(R.color.purple));
-        else binding.viewO3.setBackgroundColor(getResources().getColor(R.color.brown));
+    private void setViewColorPM25(double pm25) {
+        if(pm25<=30) binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.green));
+        else if(pm25<=60) binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.yellow));
+        else if(pm25<=90) binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.orange));
+        else if(pm25<=120) binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.red));
+        else if(pm25<=250) binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.purple));
+        else binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.brown));
     }
 
     private void setViewColorPM10(double pm10) {
@@ -287,13 +260,40 @@ public class HomeFragment extends Fragment {
         else binding.viewPM10.setBackgroundColor(getResources().getColor(R.color.brown));
     }
 
-    private void setViewColorPM25(double pm25) {
-        if(pm25<=30) binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.green));
-        else if(pm25<=60) binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.yellow));
-        else if(pm25<=90) binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.orange));
-        else if(pm25<=120) binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.red));
-        else if(pm25<=250) binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.purple));
-        else binding.viewPM25.setBackgroundColor(getResources().getColor(R.color.brown));
+    private void setViewColorO3(double o3) {
+        if(o3<=50) binding.viewO3.setBackgroundColor(getResources().getColor(R.color.green));
+        else if(o3<=100) binding.viewO3.setBackgroundColor(getResources().getColor(R.color.yellow));
+        else if(o3<=168) binding.viewO3.setBackgroundColor(getResources().getColor(R.color.orange));
+        else if(o3<=208) binding.viewO3.setBackgroundColor(getResources().getColor(R.color.red));
+        else if(o3<=748) binding.viewO3.setBackgroundColor(getResources().getColor(R.color.purple));
+        else binding.viewO3.setBackgroundColor(getResources().getColor(R.color.brown));
+    }
+
+    private void setViewColorNO2(double no2) {
+        if(no2<=40) binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.green));
+        else if(no2<=80) binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.yellow));
+        else if(no2<=180) binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.orange));
+        else if(no2<=280) binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.red));
+        else if(no2<=400) binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.purple));
+        else binding.viewNO2.setBackgroundColor(getResources().getColor(R.color.brown));
+    }
+
+    private void setViewColorSO2(double so2) {
+        if(so2<=40) binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.green));
+        else if(so2<=80) binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.yellow));
+        else if(so2<=380) binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.orange));
+        else if(so2<=800) binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.red));
+        else if(so2<=1600) binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.purple));
+        else binding.viewSO2.setBackgroundColor(getResources().getColor(R.color.brown));
+    }
+
+    private void setViewColorCO(double co) {
+        if(co<=1) binding.viewCO.setBackgroundColor(getResources().getColor(R.color.green));
+        else if(co<=2) binding.viewCO.setBackgroundColor(getResources().getColor(R.color.yellow));
+        else if(co<=10) binding.viewCO.setBackgroundColor(getResources().getColor(R.color.orange));
+        else if(co<=17) binding.viewCO.setBackgroundColor(getResources().getColor(R.color.red));
+        else if(co<=34) binding.viewCO.setBackgroundColor(getResources().getColor(R.color.purple));
+        else binding.viewCO.setBackgroundColor(getResources().getColor(R.color.brown));
     }
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

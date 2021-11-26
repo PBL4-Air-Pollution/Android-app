@@ -10,7 +10,6 @@
         <entry key="..\:/Android-app/AirQuality/app/src/main/res/layout/fragment_info.xml" value="0.264" />
         <entry key="..\:/Android-app/AirQuality/app/src/main/res/layout/fragment_location.xml" value="0.245018115942029" />
         <entry key="..\:/Android-app/AirQuality/app/src/main/res/layout/fragment_maps.xml" value="0.2" />
-        <entry key="..\:/DoAn/Android-app/AirQuality/app/src/main/res/layout/fragment_home.xml" value="0.12681159420289856" />
         <entry key="..\:/DoAn/Android-app/AirQuality/app/src/main/res/layout/fragment_info.xml" value="0.23007246376811594" />
         <entry key="..\:/New folder/Android-app/AirQuality/app/src/main/res/layout/fragment_info.xml" value="0.25416666666666665" />
         <entry key="..\:/New folder/Android-app/AirQuality/app/src/main/res/layout/fragment_maps.xml" value="0.25416666666666665" />
@@ -58,6 +57,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DoAnCode/AirQuality/app/src/main/res/drawable/ic_baseline_info_24_2.xml" value="0.2203125" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DoAnCode/AirQuality/app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DoAnCode/AirQuality/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.20885416666666667" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/DoAnCode/AirQuality/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.2703125" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DoAnCode/AirQuality/app/src/main/res/layout/activity_main.xml" value="0.1598731884057971" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DoAnCode/AirQuality/app/src/main/res/layout/custom_layout.xml" value="0.15307971014492755" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/DoAnCode/AirQuality/app/src/main/res/layout/fragment_add_edit_location.xml" value="0.15307971014492755" />
@@ -105,7 +105,6 @@
         <entry key="..\:/Users/anhtu/OneDrive/Desktop/DoAn/AirQuality/app/src/debug/res/drawable/custom_layout.xml" value="0.2064814814814815" />
         <entry key="..\:/Users/anhtu/OneDrive/Desktop/DoAn/AirQuality/app/src/debug/res/menu/menu_back.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/anhtu/OneDrive/Desktop/DoAn/AirQuality/app/src/debug/res/menu/menu_home.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/anhtu/OneDrive/Desktop/DoAn/AirQuality/app/src/debug/res/menu/menu_nav_bottom.xml" value="0.13697916666666668" />
         <entry key="..\:/Users/anhtu/OneDrive/Desktop/DoAn/AirQuality/app/src/main/res/drawable/custom_spinner.xml" value="0.2064814814814815" />
         <entry key="..\:/Users/anhtu/OneDrive/Desktop/DoAn/AirQuality/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2203125" />
         <entry key="..\:/Users/anhtu/OneDrive/Desktop/DoAn/AirQuality/app/src/main/res/drawable/ic_baseline_add_circle_outline_24.xml" value="0.2203125" />
