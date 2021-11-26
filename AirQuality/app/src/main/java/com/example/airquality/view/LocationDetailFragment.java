@@ -1,7 +1,9 @@
 package com.example.airquality.view;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,25 +15,32 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.airquality.Adapters.SpinnerAdapter;
 import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentLocationDetailBinding;
+import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.model.Location;
+import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 
 import java.util.ArrayList;
 
 public class LocationDetailFragment extends Fragment {
     private FragmentLocationDetailBinding binding;
+    private HourlyAirQualityDAO hourlyAirQualityDAO;
     private LocationDAO locationDAO;
     private AppDatabase appDatabase;
-    private ArrayList<Location> listLocation;
+    private ArrayList<Location> locationArrayList;
     private ArrayList<String> listLocationName;
     private String locationName;
+    private Location location;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -50,17 +59,23 @@ public class LocationDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listLocationName = new ArrayList<String>();
+
         appDatabase=AppDatabase.Instance(getContext().getApplicationContext());
         locationDAO=appDatabase.locationDAO();
-        listLocationName.addAll(locationDAO.getListNameHasNotMark());
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(),R.layout.spinner_items_category,listLocationName);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        binding.spnLocation.setAdapter(adapter);
+        hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
+        locationArrayList=new ArrayList<Location>();
+        locationArrayList.addAll(locationDAO.getListHasNotMark());
+        location=locationArrayList.get(0);
+        SpinnerAdapter spinnerAdapter=new SpinnerAdapter(getContext(),R.layout.spinner_items_category,locationArrayList);
+        binding.spnLocation.setAdapter(spinnerAdapter);
         binding.spnLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                locationName=listLocationName.get(position);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                location=locationArrayList.get(i);
+                binding.tvLocationName.setText(location.getStationName());
+                binding.tvAqiDetail.setText(String.format("%.1f", location.getAqi()));
+                binding.tvDescribe.setText(String.format( location.getDescribe()));
+                binding.tvRateDetail.setText(String.format( location.getRated()));
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -73,9 +88,6 @@ public class LocationDetailFragment extends Fragment {
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
-                        listLocation=new ArrayList<Location>();
-                        listLocation.addAll(locationDAO.getListByNameNoMark(locationName));
-                        Location location=listLocation.get(0);
                         if(location!=null){
                             location.setMarked(true);
                             location.setLabel(binding.tvLabel.getText().toString());
@@ -94,17 +106,6 @@ public class LocationDetailFragment extends Fragment {
 
         });
 
-//        binding.spnLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
 
     }
     @Override

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
+import com.example.airquality.databinding.FragmentAddEditLocationBinding;
 import com.example.airquality.databinding.ItemCardviewBinding;
 import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.model.Location;
@@ -46,6 +47,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_cardview, parent, false);
+//        View view1= LayoutInflater.from(parent.getContext())
+//                .inflate(R.layout.fragment_add_edit_location, parent, false);
         context=parent.getContext();
         return  new ViewHolder(view);
     }
@@ -57,15 +60,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         if(location==null){
             return;
         }
-        //viewBinderHelper.bind(holder.swipeRevealLayout,String.valueOf(locations.getId()));
         AppDatabase appDatabase=AppDatabase.Instance(context);
         HourlyAirQualityDAO hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
         ArrayList<HourlyAirQuality> hourList = new ArrayList<HourlyAirQuality>();
         hourList.addAll(hourlyAirQualityDAO.getListByLocationID(location.getId()));
 //        String stringDayHour=LocalDateTime.now().getDayOfMonth()+"/"+LocalDateTime.now().getMonthValue()+"/"+LocalDateTime.now().getYear()+" "+LocalDateTime.now().getHour()+":00:00";
 //        HourlyAirQuality hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDayHour).get(0);
-
-
         holder.binding.tvLocation.setText(location.getStationName());
         holder.binding.tvAqi.setText(String.format("%.1f",location.getAqi()));
         holder.binding.tvRate.setText(location.getRated());
@@ -121,13 +121,25 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         });
         holder.binding.locationEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                AddEditLocationFragment addEditLocationFragment = new AddEditLocationFragment();
-//                getActivity().getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.fl_home, addEditLocationFragment)
-//                        .addToBackStack(null)
-//                        .commit();
+            public void onClick(View view) {
+                AppDatabase appDatabase=AppDatabase.Instance(context);
+                LocationDAO locationDAO=appDatabase.locationDAO();
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Location location=mlistLocation.get(_position);
+//                        location.setLabel("");
+                        locationDAO.updateLocations(location);
+                        AddEditLocationFragment addEditLocationFragment=new AddEditLocationFragment();
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        activity.getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fl_home,addEditLocationFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                });
             }
         });
     }
@@ -138,9 +150,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ItemCardviewBinding binding;
+//        public FragmentAddEditLocationBinding binding2;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = ItemCardviewBinding.bind(itemView);
+//            binding2= FragmentAddEditLocationBinding.bind(itemView);
         }
     }
 }

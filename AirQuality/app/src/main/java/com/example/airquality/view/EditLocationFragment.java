@@ -13,7 +13,6 @@ import com.example.airquality.R;
 
 public class EditLocationFragment extends Fragment {
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

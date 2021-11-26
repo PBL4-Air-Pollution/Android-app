@@ -2,44 +2,103 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".view.AddEditLocationFragment">
-
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_margin="10dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <Spinner
-            android:padding="10dp"
+        <TextView
             android:layout_width="match_parent"
-            android:id="@+id/spn_location"
-            android:background="@android:color/transparent"
-            android:layout_height="wrap_content">
-
-        </Spinner>
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_location_name"
+            ></TextView>
         <LinearLayout
-            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Aqi and rate :"
+                ></TextView>
+            <TextView
+                android:layout_width="90dp"
+                android:id="@+id/tv_add_aqi"
+                android:layout_marginLeft="30dp"
+                android:textSize="20dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center">
+
+            </TextView>
+            <TextView
+                android:layout_marginLeft="40dp"
+                android:layout_width="90dp"
+                android:id="@+id/tv_add_rate"
+                android:textSize="20dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mo ta: "
                 android:textSize="20dp"
-                android:textStyle="bold">
+                android:textStyle="bold"
+                android:text="Mô tả            :">
 
             </TextView>
             <TextView
-                android:id="@+id/tv_mota"
-                android:layout_width="wrap_content"
-                android:textSize="20dp"
-                android:layout_height="wrap_content"
-                android:hint="ex's house">
-
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:id="@+id/tv_add_describe"
+                android:layout_height="wrap_content">
             </TextView>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Nhãn             :">
+
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:id="@+id/edit_label"
+                android:layout_height="wrap_content">
+            </TextView>
+        </LinearLayout>
+        <Button
+            android:id="@+id/bts_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:text="Lưu"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/light_green">
+
+        </Button>
 
     </LinearLayout>
 

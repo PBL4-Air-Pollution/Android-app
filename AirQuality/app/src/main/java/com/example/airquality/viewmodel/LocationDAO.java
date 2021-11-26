@@ -19,8 +19,8 @@ public interface LocationDAO {
     @Query("SELECT * FROM Location WHERE id=:id")
     List<Location> getListByID(int  id);
 
-    @Query("SELECT * FROM Location WHERE marked = 0 AND stationName=:name")
-    List<Location> getListByNameNoMark(String name);
+    @Query("SELECT * FROM Location WHERE marked = 0")
+    List<Location> getListHasNotMark( );
 
     @Query("SELECT * FROM Location WHERE marked = 1 ")
     List<Location> getListHasMark();

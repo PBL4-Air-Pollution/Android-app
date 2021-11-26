@@ -67,7 +67,6 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
             onClickListener.onCLick(view,getBindingAdapterPosition());
         }
     }
-
     public interface HourClickListener{
         void onCLick(View view,int i);
     }
