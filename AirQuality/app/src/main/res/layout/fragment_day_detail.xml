@@ -1,143 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    tools:context=".view.DayDetailFragment">
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    android:layout_width="match_parent">
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:id="@+id/fm_daydetail"
+        android:background="@color/white"
+        tools:context=".view.DayDetailFragment">
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tb_dayDetail"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true">
+                    <ImageView
+                        android:id="@+id/btn_back"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_keyboard_backspace_24"></ImageView>
+
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="190dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_baseline_access_time_filled_24"></ImageView>
-                    <TextView
-                        android:id="@+id/tv_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:text="20/11/2021"
-                        android:textColor="@color/white"
-                        android:textSize="10pt">
-
-                    </TextView>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_baseline_location_on_24"></ImageView>
-                    <TextView
-                        android:id="@+id/tv_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_gravity="center_vertical|center_horizontal"
-                        android:text="Hòa Khánh Bắc"
-                        android:textColor="@color/white"
-                        android:textSize="10pt">
-
-                    </TextView>
-                </LinearLayout>
-            </LinearLayout>
-            <TextView
-                android:id="@+id/tv_aqi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginTop="20dp"
-                android:text="50"
-                android:textColor="@color/white"
-                android:textSize="35pt">
-
-            </TextView>
-            <TextView
-                android:id="@+id/tv_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="Tốt"
-                android:textColor="@color/white"
-                android:textSize="10pt">
-
-            </TextView>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="40dp"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="320dp"
-                android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/white">
-                </View>
                 <LinearLayout
-                    android:id="@+id/linearLayout1"
                     android:layout_width="match_parent"
-                    android:layout_height="318dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_access_time_filled_24"></ImageView>
+                        <TextView
+                            android:id="@+id/tv_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:text="20/11/2021"
+                            android:textSize="10pt">
+
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_baseline_location_on_24"></ImageView>
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:text="Hòa Khánh Bắc"
+                            android:textSize="10pt">
+
+                        </TextView>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_aqi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="50"
+                    android:textSize="35pt">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="Tốt"
+                    android:textSize="10pt">
+
+                </TextView>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center">
+                <LinearLayout
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/white">
+                        android:background="@color/common_google_signin_btn_text_light_default">
                     </View>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_dayDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp">
-                    </androidx.recyclerview.widget.RecyclerView>
-                    <View
+                    <LinearLayout
+                        android:id="@+id/linearLayout1"
+                        android:layout_width="318dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/common_google_signin_btn_text_light_default">
+                        </View>
+                        <LinearLayout
+                            android:layout_width="318dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
+                                <LinearLayout
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="45dp">
+                                    <TextView
+                                        android:id="@+id/tv_hour"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="Giờ"
+                                        android:textSize="8pt"></TextView>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="50dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:orientation="vertical">
 
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="AQI"
+                                        android:textSize="8pt"></TextView>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="149dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="Đánh giá"
+                                        android:textSize="8pt"></TextView>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_dayDetail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginTop="5dp">
+                            </androidx.recyclerview.widget.RecyclerView>
+
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/common_google_signin_btn_text_light_default">
+                        </View>
+                    </LinearLayout>
+                    <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/white">
+                        android:background="@color/common_google_signin_btn_text_light_default">
                     </View>
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/white">
-                </View>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
 
-
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-</FrameLayout>
+    </FrameLayout>
+</ScrollView>

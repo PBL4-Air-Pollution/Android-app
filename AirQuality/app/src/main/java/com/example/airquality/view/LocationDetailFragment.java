@@ -15,7 +15,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -59,7 +59,24 @@ public class LocationDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.tbLocationDetail.inflateMenu(R.menu.menu_back);
+        binding.tbLocationDetail.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId()==R.id.action_back){
+                    FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+                    Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
+                    if(fragment!=null){
+                        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                        fragmentTransaction.remove(fragment);
+                        fragmentTransaction.commit();
+                    }
+                }
+                return true;
+            }
+        });
 
+        listLocationName = new ArrayList<String>();
         appDatabase=AppDatabase.Instance(getContext().getApplicationContext());
         locationDAO=appDatabase.locationDAO();
         hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
