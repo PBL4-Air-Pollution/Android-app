@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class InfoFragment extends Fragment {
         return binding.getRoot();
 
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -41,6 +43,9 @@ public class InfoFragment extends Fragment {
             }
         });
 
+
     }
+
+
 
 }

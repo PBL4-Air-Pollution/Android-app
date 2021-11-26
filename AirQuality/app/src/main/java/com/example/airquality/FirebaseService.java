@@ -5,29 +5,17 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.IBinder;
-import android.text.format.DateUtils;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.example.airquality.model.DailyAirQuality;
 import com.example.airquality.model.HourlyAirQuality;
-import com.example.airquality.view.HourDetailFragment;
-import com.example.airquality.view.MapsFragment;
 import com.example.airquality.viewmodel.DailyAirQualityDAO;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
@@ -38,10 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class FirebaseService extends Service {
@@ -102,7 +88,8 @@ public class FirebaseService extends Service {
                         HourlyAirQuality hourlyAirQuality = snapshot.getValue(HourlyAirQuality.class);
 
                         if (hourlyAirQuality != null) {
-                            if (hourlyAirQualityDAO.findByLocationIdAndDatetime(hourlyAirQuality.getLocationID(), hourlyAirQuality.getDatetime()) == null){
+                            if (hourlyAirQualityDAO.findByLocationIdAndDatetime(hourlyAirQuality.getLocationID(),
+                                    hourlyAirQuality.getDatetime()) == null) {
                                 // Add into local database
                                 hourlyAirQualityDAO.insertAll(hourlyAirQuality);
 
@@ -114,10 +101,10 @@ public class FirebaseService extends Service {
                                 dailyAirQualityDAO.deleteByDate(deleteDate);
 
                                 // Check AQI -> push notification
-                                NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-                                if(Build.VERSION.SDK_INT >= 26)
-                                {
-                                    //When sdk version is larger than26
+                                NotificationManager manager = (NotificationManager) getSystemService(
+                                        NOTIFICATION_SERVICE);
+                                if (Build.VERSION.SDK_INT >= 26) {
+                                    // When sdk version is larger than26
                                     String id = "channel_1";
                                     String description = "143";
                                     int importance = NotificationManager.IMPORTANCE_LOW;
@@ -127,20 +114,15 @@ public class FirebaseService extends Service {
                                             .setCategory(Notification.CATEGORY_MESSAGE)
                                             .setSmallIcon(R.mipmap.ic_launcher)
                                             .setContentTitle("This is a content title")
-                                            .setContentText(hourlyAirQuality.getDatetime())
-                                            .setAutoCancel(true)
-                                            .build();
+                                            .setContentText(hourlyAirQuality.getDatetime()).setAutoCancel(true).build();
                                     manager.notify(1, notification);
-                                }
-                                else
-                                {
-                                    //When sdk version is less than26
+                                } else {
+                                    // When sdk version is less than26
                                     Notification notification = new NotificationCompat.Builder(getApplicationContext())
                                             .setContentTitle("This is content title")
-                                            .setContentText("This is content text")
-                                            .setSmallIcon(R.mipmap.ic_launcher)
+                                            .setContentText("This is content text").setSmallIcon(R.mipmap.ic_launcher)
                                             .build();
-                                    manager.notify(1,notification);
+                                    manager.notify(1, notification);
                                 }
 
                                 // Update currentAQI and Rated of location
@@ -179,7 +161,8 @@ public class FirebaseService extends Service {
                                     else if (avgAqi < 500)
                                         dailyRate = "Nguy hại";
 
-                                    dailyAirQualityDAO.insertAll(new DailyAirQuality(locationID, date, avgAqi, dailyRate));
+                                    dailyAirQualityDAO
+                                            .insertAll(new DailyAirQuality(locationID, date, avgAqi, dailyRate));
                                 }
                             }
                         }
