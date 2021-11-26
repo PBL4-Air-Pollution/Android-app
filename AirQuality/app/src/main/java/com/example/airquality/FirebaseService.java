@@ -32,7 +32,6 @@ import java.util.List;
 
 public class FirebaseService extends Service {
     private DatabaseReference mDatabase;
-    private AppDatabase appDatabase;
     private HourlyAirQualityDAO hourlyAirQualityDAO;
     private DailyAirQualityDAO dailyAirQualityDAO;
     private LocationDAO locationDAO;
@@ -71,7 +70,7 @@ public class FirebaseService extends Service {
     }
 
     private void setUpLocalDatabase() {
-        appDatabase = AppDatabase.Instance(getApplicationContext());
+        AppDatabase appDatabase = AppDatabase.Instance(getApplicationContext());
         hourlyAirQualityDAO = appDatabase.hourlyAirQualityDAO();
         dailyAirQualityDAO = appDatabase.dailyAirQualityDAO();
         locationDAO = appDatabase.locationDAO();

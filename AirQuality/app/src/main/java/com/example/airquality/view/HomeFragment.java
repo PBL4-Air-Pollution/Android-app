@@ -17,10 +17,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import com.example.airquality.Adapters.DayAdapter;
-import com.example.airquality.Adapters.DayDetailAdapter;
 import com.example.airquality.Adapters.HourAdapter;
 import com.example.airquality.Adapters.SpinnerAdapter;
 import com.example.airquality.AppDatabase;
@@ -33,9 +31,6 @@ import com.example.airquality.viewmodel.DailyAirQualityDAO;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,21 +38,13 @@ import java.util.Collections;
 import java.util.Date;
 
 public class HomeFragment extends Fragment {
-    private ArrayList<Location> locationArrayList;
     private SpinnerAdapter spinnerAdapter;
-    private LocationDAO locationDAO;
     private Location location;
 
-    private HourAdapter.HourClickListener hourClickListener;
-    private HourAdapter hoursAdapter;
     private HourlyAirQualityDAO hourlyAirQualityDAO;
     private ArrayList<HourlyAirQuality> hourArrayList;
-    private ArrayList<HourlyAirQuality> hourList;
     private HourlyAirQuality hourlyAirQuality;
 
-    private DayAdapter.DayClickListener dayClickListener;
-    private DayAdapter daysAdapter;
-    private DailyAirQualityDAO dailyAirQualityDAO;
     private ArrayList<DailyAirQuality> dayArrayList;
 
     private AppDatabase appDatabase;
@@ -86,6 +73,7 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("SimpleDateFormat")
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -98,11 +86,11 @@ public class HomeFragment extends Fragment {
         binding.rvHours.setLayoutManager(layoutManager);
         binding.rvDays.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
-        locationDAO = appDatabase.locationDAO();
+        appDatabase = AppDatabase.Instance(requireContext().getApplicationContext());
+        LocationDAO locationDAO = appDatabase.locationDAO();
         hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
 
-        hourList=new ArrayList<HourlyAirQuality>();
+        ArrayList<HourlyAirQuality> hourList = new ArrayList<HourlyAirQuality>();
         hourArrayList = new ArrayList<HourlyAirQuality>();
         dayArrayList = new ArrayList<DailyAirQuality>();
         locationArrayList=new ArrayList<Location>();
@@ -131,6 +119,7 @@ public class HomeFragment extends Fragment {
         loadDays();
     }
 
+    @SuppressLint("DefaultLocale")
     private void loadHome() {
         if(location!=null) {
             binding.tvLocation.setText(location.getStationName());
@@ -152,46 +141,47 @@ public class HomeFragment extends Fragment {
             setViewColorCO(hourlyAirQuality.getCo());
         }
     }
-
+    @SuppressLint("NotifyDataSetChanged")
     private void loadHours() {
-        hourClickListener = new HourAdapter.HourClickListener() {
+        HourAdapter.HourClickListener hourClickListener = new HourAdapter.HourClickListener() {
             @Override
             public void onCLick(View view, int i) {
                 Bundle bundle = new Bundle();
-                HourlyAirQuality hour=hourArrayList.get(i);
-                bundle.putString("Date-LocationID", hour.getDatetime()+ "," + hour.getLocationID());
+                HourlyAirQuality hour = hourArrayList.get(i);
+                bundle.putString("Date-LocationID", hour.getDatetime() + "," + hour.getLocationID());
                 HourDetailFragment hourDetailFragment = new HourDetailFragment();
                 hourDetailFragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, hourDetailFragment)
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, hourDetailFragment)
                         .addToBackStack(null).commit();
             }
         };
         hourArrayList.clear();
 
-        hoursAdapter = new HourAdapter(hourArrayList, hourClickListener);
+        HourAdapter hoursAdapter = new HourAdapter(hourArrayList, hourClickListener);
         hourArrayList.addAll(hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDay));
         Collections.reverse(hourArrayList);
         hoursAdapter.notifyDataSetChanged();
         binding.rvHours.setAdapter(hoursAdapter);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void loadDays() {
-        dayClickListener = new DayAdapter.DayClickListener() {
+        DayAdapter.DayClickListener dayClickListener = new DayAdapter.DayClickListener() {
             @Override
             public void onCLick(View view, int i) {
                 Bundle bundle = new Bundle();
-                DailyAirQuality day=dayArrayList.get(i);
-                bundle.putString("Date-LocationID", day.getDate()+ "," + day.getLocationID());
+                DailyAirQuality day = dayArrayList.get(i);
+                bundle.putString("Date-LocationID", day.getDate() + "," + day.getLocationID());
                 DayDetailFragment dayDetailFragment = new DayDetailFragment();
                 dayDetailFragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, dayDetailFragment)
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, dayDetailFragment)
                         .addToBackStack(null).commit();
             }
         };
         dayArrayList.clear();
-        daysAdapter = new DayAdapter(dayArrayList, dayClickListener);
-        appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
-        dailyAirQualityDAO = appDatabase.dailyAirQualityDAO();
+        DayAdapter daysAdapter = new DayAdapter(dayArrayList, dayClickListener);
+        appDatabase = AppDatabase.Instance(requireContext().getApplicationContext());
+        DailyAirQualityDAO dailyAirQualityDAO = appDatabase.dailyAirQualityDAO();
         dayArrayList.addAll(dailyAirQualityDAO.getListByLocationID(location.getId()));
         daysAdapter.notifyDataSetChanged();
         binding.rvDays.setAdapter(daysAdapter);
