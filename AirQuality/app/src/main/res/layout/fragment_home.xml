@@ -117,9 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
 
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp">
+                android:layout_marginBottom="20dp">
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </LinearLayout>

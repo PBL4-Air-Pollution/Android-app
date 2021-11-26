@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +29,7 @@ import com.example.airquality.model.DailyAirQuality;
 import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.viewmodel.DailyAirQualityDAO;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
+import com.example.airquality.viewmodel.LocationDAO;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -40,17 +42,16 @@ public class DayDetailFragment extends Fragment {
     private FragmentDayDetailBinding binding;
     private DayDetailAdapter dayDetailAdapter;
     private AppDatabase appDatabase;
+    private LocationDAO locationDAO;
     private HourlyAirQualityDAO hourlyAirQualityDAO;
     private ArrayList<HourlyAirQuality> hourArrayList;
 
     private DailyAirQualityDAO dailyAirQualityDAO;
-    private ArrayList<DailyAirQuality> dayArrayList;
+    private DailyAirQuality dailyAirQuality;
 
-    private Date date=new Timestamp(new Date().getTime());
-    private int locationID;
-    private String stringDate="";
-    private DateFormat dayFormat = new SimpleDateFormat("dd/MM/yyyy");
-    private DateFormat dayHourFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private String stringDay;
+    private int locationID=0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -78,55 +79,41 @@ public class DayDetailFragment extends Fragment {
 
             }
         });
-        binding.linearLayout1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         Bundle bundle = this.getArguments();
-        String[] data = (bundle.getString("Date-Location")).split(",");
+        String[] data = (bundle.getString("Date-LocationID")).split(",");
         locationID = Integer.parseInt(data[1]);
-        stringDate = data[0];
-        hourArrayList = new ArrayList<HourlyAirQuality>();
-        dayArrayList = new ArrayList<DailyAirQuality>();
-        dayDetailAdapter = new DayDetailAdapter(hourArrayList);
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    hourArrayList.clear();
-                    dayArrayList.clear();
-                    Date day;
-                    date = new SimpleDateFormat("dd/MM/yyyy").parse(stringDate);
-                    appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
-                    hourlyAirQualityDAO  = appDatabase.hourlyAirQualityDAO();
-                    dailyAirQualityDAO = appDatabase.dailyAirQualityDAO();
-//                    for(HourlyAirQuality i: hourlyAirQualityDAO.getListByStationName()){
-//                        day=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDatetime()));
-//                        if(day.compareTo(date)==0){
-//                            hourArrayList.add(i);
-//                        }
-//                    }
+        stringDay = data[0];
+        appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
+        locationDAO = appDatabase.locationDAO();
+        dailyAirQualityDAO=appDatabase.dailyAirQualityDAO();
+        hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
 
-                    for(DailyAirQuality i: dailyAirQualityDAO.getListByLocationID(locationID)) {
-                        day=new SimpleDateFormat("dd/MM/yyyy").parse(dayFormat.format(i.getDate()));
-                        if (day.compareTo(date) == 0) {
-                            dayArrayList.add(i);
-                            break;
-                        }
-                    }
-                    binding.tvDate.setText(dayFormat.format(dayArrayList.get(0).getDate()));
-                    binding.tvLocation.setText(dayArrayList.get(0).getLocationID());
-                    binding.tvAqi.setText(String.valueOf((int)dayArrayList.get(0).getAqi()));
-                    binding.tvRate.setText(dayArrayList.get(0).getRated());
-                    setBackgroundColor(dayArrayList.get(0).getAqi());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        Date date1,date2;
+//        for(DailyAirQuality i: dailyAirQualityDAO.getListByLocationID(locationID)){
+//            try {
+//                date1=new SimpleDateFormat("dd/MM/yyyy").parse(i.getDate());
+//                date2=new SimpleDateFormat("dd/MM/yyyy").parse(stringDay);
+//                if(i.getDate()==stringDay)
+//                    Log.d("tag",i.getAqi()+"");
+////                if(date1.compareTo(date2)==0)
+//
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+
+        dailyAirQuality=dailyAirQualityDAO.getListByLocationIDAndDate(locationID,stringDay).get(0);
+        binding.tvDate.setText(stringDay);
+        binding.tvLocation.setText(locationDAO.getListByID(locationID).get(0).getStationName());
+        binding.tvAqi.setText(String.format("%.1f", dailyAirQuality.getAqi()));
+        binding.tvRate.setText(dailyAirQuality.getRated());
+        setBackgroundColor(dailyAirQuality.getAqi());
+
+        hourArrayList = new ArrayList<HourlyAirQuality>();
+        dayDetailAdapter = new DayDetailAdapter(hourArrayList);
+        hourArrayList.addAll(hourlyAirQualityDAO.getListByLocationIDAndDate(locationID,stringDay));
         dayDetailAdapter.notifyDataSetChanged();
         binding.rvDayDetail.setAdapter(dayDetailAdapter);
     }

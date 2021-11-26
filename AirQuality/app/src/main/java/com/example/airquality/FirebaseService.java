@@ -83,7 +83,8 @@ public class FirebaseService extends Service {
                         HourlyAirQuality hourlyAirQuality = snapshot.getValue(HourlyAirQuality.class);
 
                         if (hourlyAirQuality != null) {
-                            if (hourlyAirQualityDAO.findByLocationIdAndDatetime(hourlyAirQuality.getLocationID(), hourlyAirQuality.getDatetime()) == null){
+                            if (hourlyAirQualityDAO.findByLocationIdAndDatetime(hourlyAirQuality.getLocationID(),
+                                    hourlyAirQuality.getDatetime()) == null) {
                                 // Add into local database
                                 hourlyAirQualityDAO.insertAll(hourlyAirQuality);
 
@@ -95,18 +96,29 @@ public class FirebaseService extends Service {
                                 dailyAirQualityDAO.deleteByDate(deleteDate);
 
                                 // Check AQI -> push notification
-                                // Bitmap bitmap=
-                                // BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
-                                // Notification notification= new Notification.Builder(getApplicationContext())
-                                // .setContentTitle("Title")
-                                // .setContentText(hourlyAirQuality.getLocationID()+"
-                                // "+hourlyAirQuality.getDatetime()+" "+hourlyAirQuality.getAqi())
-                                // .setLargeIcon(bitmap)
-                                // .build();
-                                // NotificationManager notificationManager=(NotificationManager)
-                                // getSystemService(Context.NOTIFICATION_SERVICE);
-                                // if(notificationManager!=null)
-                                // notificationManager.notify(1,notification);
+                                NotificationManager manager = (NotificationManager) getSystemService(
+                                        NOTIFICATION_SERVICE);
+                                if (Build.VERSION.SDK_INT >= 26) {
+                                    // When sdk version is larger than26
+                                    String id = "channel_1";
+                                    String description = "143";
+                                    int importance = NotificationManager.IMPORTANCE_LOW;
+                                    NotificationChannel channel = new NotificationChannel(id, description, importance);
+                                    manager.createNotificationChannel(channel);
+                                    Notification notification = new Notification.Builder(getApplicationContext(), id)
+                                            .setCategory(Notification.CATEGORY_MESSAGE)
+                                            .setSmallIcon(R.mipmap.ic_launcher)
+                                            .setContentTitle("This is a content title")
+                                            .setContentText(hourlyAirQuality.getDatetime()).setAutoCancel(true).build();
+                                    manager.notify(1, notification);
+                                } else {
+                                    // When sdk version is less than26
+                                    Notification notification = new NotificationCompat.Builder(getApplicationContext())
+                                            .setContentTitle("This is content title")
+                                            .setContentText("This is content text").setSmallIcon(R.mipmap.ic_launcher)
+                                            .build();
+                                    manager.notify(1, notification);
+                                }
 
                                 // Update currentAQI and Rated of location
                                 int locationID = hourlyAirQuality.getLocationID();
@@ -144,7 +156,8 @@ public class FirebaseService extends Service {
                                     else if (avgAqi < 500)
                                         dailyRate = "Nguy hại";
 
-                                    dailyAirQualityDAO.insertAll(new DailyAirQuality(locationID, date, avgAqi, dailyRate));
+                                    dailyAirQualityDAO
+                                            .insertAll(new DailyAirQuality(locationID, date, avgAqi, dailyRate));
                                 }
                             }
                         }

@@ -3,11 +3,14 @@ package com.example.airquality.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,17 +24,19 @@ import com.example.airquality.view.LocationFragment;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder>{
     private ArrayList<Location> mlistLocation;
     private Context context;
-    private DateFormat dayHourFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    private String stringToday="16/11/2021 03:00";
     public LocationAdapter(ArrayList<Location> mlistLocation) {
         this.mlistLocation = mlistLocation;
     }
@@ -44,6 +49,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         context=parent.getContext();
         return  new ViewHolder(view);
     }
+   @RequiresApi(api = Build.VERSION_CODES.O)
    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -56,46 +62,39 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         HourlyAirQualityDAO hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
         ArrayList<HourlyAirQuality> hourList = new ArrayList<HourlyAirQuality>();
         hourList.addAll(hourlyAirQualityDAO.getListByLocationID(location.getId()));
-        Date date,today;
-        for(HourlyAirQuality i: hourlyAirQualityDAO.getListByLocationID(location.getId())){
-            try {
-                date=new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dayHourFormat.format(i.getDatetime()));
-                today= new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(stringToday);
-                if(date.compareTo(today)==0) {
-                    holder.binding.tvLocation.setText(location.getStationName());
-                    holder.binding.tvAqi.setText(String.valueOf(i.getAqi()));
-                    holder.binding.tvRate.setText(i.getRated());
-                    holder.binding.tvLable.setText(location.getLabel());
-                    if(i.getAqi()<=50){
-                        holder.binding.cvLocationItem.setBackgroundResource(R.color.green);
-                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_green);
-                    }
-                    else if(i.getAqi()<=100) {
-                        holder.binding.cvLocationItem.setBackgroundResource(R.color.yellow);
-                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_yellow);
-                    }
-                    else if(i.getAqi()<=150){
-                        holder.binding.cvLocationItem.setBackgroundResource(R.color.orange);
-                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_orange);
-                    }
-                    else if(i.getAqi()<=200){
-                        holder.binding.cvLocationItem.setBackgroundResource(R.color.red);
-                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_red);
-                    }
-                    else if(i.getAqi()<=300) {
-                        holder.binding.cvLocationItem.setBackgroundResource(R.color.purple);
-                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_purple);
-                    }
-                    else if(i.getAqi()<=500) {
-                        holder.binding.cvLocationItem.setBackgroundResource(R.color.brown);
-                        holder.binding.ivAvatar.setImageResource(R.drawable.avatar_brown);
-                    }
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+//        String stringDayHour=LocalDateTime.now().getDayOfMonth()+"/"+LocalDateTime.now().getMonthValue()+"/"+LocalDateTime.now().getYear()+" "+LocalDateTime.now().getHour()+":00:00";
+//        HourlyAirQuality hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDayHour).get(0);
 
+
+        holder.binding.tvLocation.setText(location.getStationName());
+        holder.binding.tvAqi.setText(String.format("%.1f",location.getAqi()));
+        holder.binding.tvRate.setText(location.getRated());
+        holder.binding.tvLable.setText(location.getLabel());
+        if(location.getAqi()<=50){
+           holder.binding.cvLocationItem.setBackgroundResource(R.color.green);
+           holder.binding.ivAvatar.setImageResource(R.drawable.avatar_green);
         }
+        else if(location.getAqi()<=100) {
+           holder.binding.cvLocationItem.setBackgroundResource(R.color.yellow);
+           holder.binding.ivAvatar.setImageResource(R.drawable.avatar_yellow);
+        }
+        else if(location.getAqi()<=150){
+           holder.binding.cvLocationItem.setBackgroundResource(R.color.orange);
+           holder.binding.ivAvatar.setImageResource(R.drawable.avatar_orange);
+        }
+        else if(location.getAqi()<=200){
+           holder.binding.cvLocationItem.setBackgroundResource(R.color.red);
+           holder.binding.ivAvatar.setImageResource(R.drawable.avatar_red);
+        }
+        else if(location.getAqi()<=300) {
+           holder.binding.cvLocationItem.setBackgroundResource(R.color.purple);
+           holder.binding.ivAvatar.setImageResource(R.drawable.avatar_purple);
+        }
+        else if(location.getAqi()<=500) {
+           holder.binding.cvLocationItem.setBackgroundResource(R.color.brown);
+           holder.binding.ivAvatar.setImageResource(R.drawable.avatar_brown);
+        }
+
         int _position=position;
         holder.binding.locationDelete.setOnClickListener(new View.OnClickListener() {
             @Override

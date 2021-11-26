@@ -19,6 +19,8 @@ public interface DailyAirQualityDAO {
 
     @Query("SELECT * FROM DailyAirQuality WHERE locationID=:locationID")
     List<DailyAirQuality> getListByLocationID(int locationID);
+    @Query("SELECT * FROM DailyAirQuality WHERE locationID=:locationID AND  date LIKE :date")
+    List<DailyAirQuality> getListByLocationIDAndDate(int locationID,String date);
 
     @Insert
     void insertAll(DailyAirQuality... dailyAirQualities);
