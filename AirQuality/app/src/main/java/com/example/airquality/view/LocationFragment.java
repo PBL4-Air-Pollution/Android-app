@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,8 +57,22 @@ public class LocationFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        binding.tbLocation.inflateMenu(R.menu.menu_location);
         String stringDayHour= LocalDateTime.now().getDayOfMonth()+"/"+LocalDateTime.now().getMonthValue()+"/"+LocalDateTime.now().getYear()+" "+LocalDateTime.now().getHour()+":00:00";
-
+        binding.tbLocation.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_add) {
+                    LocationDetailFragment locationDetailFragment = new LocationDetailFragment();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fl_home, locationDetailFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+                return true;
+            }
+        });
         binding.rcvLocation.setLayoutManager(new LinearLayoutManager(getContext()));
         locationArrayList = new ArrayList<Location>();
         locationAdapter = new LocationAdapter(locationArrayList);

@@ -45,6 +45,26 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
         holder.binding.tvAqi.setText(String.format("%.1f", hour.getAqi()));
         if(hour.getRated().equals("Trung bình")) holder.binding.tvRate.setText("T.Bình");
         else holder.binding.tvRate.setText(hour.getRated());
+        switch (hour.getRated()){
+            case "Tốt": // Xanh lá
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_green);
+                break;
+            case "Trung bình": // Vàng
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_yellow);
+                break;
+            case "Kém": // Cam
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_orange);
+                break;
+            case "Xấu": // Đỏ
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_red);
+                break;
+            case "Rất xấu": // Tím
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_purple);
+                break;
+            case "Nguy hại": // Nâu
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_brown);
+                break;
+        }
     }
 
     @Override

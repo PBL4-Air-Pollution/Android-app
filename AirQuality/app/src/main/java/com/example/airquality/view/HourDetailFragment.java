@@ -85,34 +85,26 @@ public class HourDetailFragment extends Fragment {
         binding.tvO3.setText(String.format("%.1f",hourlyAirQuality.getO3()));
         setBackgroundColor(hourlyAirQuality.getAqi());
 
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+                Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
+                if(fragment!=null){
+                    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                    fragmentTransaction.remove(fragment);
+                    fragmentTransaction.commit();
+                }
+            }
+        });
     }
     private void setBackgroundColor(double aqi){
-        if(aqi<=50) getView().setBackgroundColor(getResources().getColor(R.color.light_green));
-        else if(aqi<=100) getView().setBackgroundColor(getResources().getColor(R.color.light_yellow));
-        else if(aqi<=150) getView().setBackgroundColor(getResources().getColor(R.color.light_orange));
-        else if(aqi<=200) getView().setBackgroundColor(getResources().getColor(R.color.light_red));
-        else if(aqi<=300) getView().setBackgroundColor(getResources().getColor(R.color.light_purple));
-        else if(aqi<=500) getView().setBackgroundColor(getResources().getColor(R.color.light_brown));
-    }
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.menu_back,menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        if(aqi<=50) binding.fmHomeDetail.setBackgroundResource(R.drawable.custom_background_green);
+        else if(aqi<=100) binding.fmHomeDetail.setBackgroundResource(R.drawable.custom_background_yellow);
+        else if(aqi<=150) binding.fmHomeDetail.setBackgroundResource(R.drawable.custom_background_orange);
+        else if(aqi<=200) binding.fmHomeDetail.setBackgroundResource(R.drawable.custom_background_red);
+        else if(aqi<=300) binding.fmHomeDetail.setBackgroundResource(R.drawable.custom_background_purple);
+        else if(aqi<=500) binding.fmHomeDetail.setBackgroundResource(R.drawable.custom_background_brown);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.action_back){
-            FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-
-            Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
-            if(fragment!=null){
-                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                fragmentTransaction.remove(fragment);
-                fragmentTransaction.commit();
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
