@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#40b33f"
+    android:id="@+id/fm_homeDetail"
+    android:background="@color/white"
     tools:context=".view.HourDetailFragment">
 
     <LinearLayout
@@ -11,6 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_hourDetail"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true">
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_baseline_keyboard_backspace_24"></ImageView>
+
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,7 +41,7 @@
                 <LinearLayout
                     android:layout_width="190dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
                     android:orientation="horizontal">
                     <ImageView
                         android:layout_width="30dp"
@@ -37,7 +54,6 @@
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center_vertical|center_horizontal"
                         android:text="1AM"
-                        android:textColor="@color/white"
                         android:textSize="10pt">
 
                     </TextView>
@@ -57,7 +73,6 @@
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center_vertical|center_horizontal"
                         android:text="Hòa Khánh Bắc"
-                        android:textColor="@color/white"
                         android:textSize="10pt">
 
                     </TextView>
@@ -70,7 +85,6 @@
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_marginTop="30dp"
                 android:text="50"
-                android:textColor="@color/white"
                 android:textSize="35pt">
 
             </TextView>
@@ -81,8 +95,7 @@
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="Tốt"
-                android:textColor="@color/white"
-                android:textSize="10pt">danhgia
+                android:textSize="10pt">
 
             </TextView>
         </LinearLayout>
@@ -97,7 +110,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white"></View>
+                android:background="@color/common_google_signin_btn_text_light_default"></View>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +118,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/white"></View>
+                    android:background="@color/common_google_signin_btn_text_light_default"></View>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -126,7 +139,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="PM2.5"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
                         <LinearLayout
@@ -140,7 +152,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="50"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
 
@@ -161,7 +172,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="PM1.0"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
                         <LinearLayout
@@ -175,7 +185,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="50"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
 
@@ -197,7 +206,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="NO2"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
                         <LinearLayout
@@ -211,7 +219,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="50"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
 
@@ -233,7 +240,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="CO"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
                         <LinearLayout
@@ -247,7 +253,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="50"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
 
@@ -269,7 +274,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="SO2"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
                         <LinearLayout
@@ -283,7 +287,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="50"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
 
@@ -305,7 +308,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="O3"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
                         <LinearLayout
@@ -319,7 +321,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:text="50"
                                 android:padding="5dp"
-                                android:textColor="@color/white"
                                 android:textSize="8pt"></TextView>
                         </LinearLayout>
 
@@ -329,13 +330,13 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/white"></View>
+                    android:background="@color/common_google_signin_btn_text_light_default"></View>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white"></View>
+                android:background="@color/common_google_signin_btn_text_light_default"></View>
         </LinearLayout>
     </LinearLayout>
 
