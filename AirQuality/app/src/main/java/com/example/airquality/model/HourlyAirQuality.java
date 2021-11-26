@@ -2,6 +2,7 @@ package com.example.airquality.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.sql.Timestamp;
@@ -62,6 +63,7 @@ public class HourlyAirQuality {
     @ColumnInfo
     private String rated;
 
+    @Ignore
     public HourlyAirQuality(){
         // Cho firebase đổ dữ liệu vào class object
     }

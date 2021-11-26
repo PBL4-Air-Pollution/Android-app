@@ -83,81 +83,87 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         List<Location> locationList = locationDAO.getAll();
 
         for (Location location : locationList) {
-            LatLng marker = new LatLng(location.getViDo(), location.getKinhDo());
+            addStationMarker(location);
+        }
 
-            String markerTitle = "Trạm: " + location.getStationName();
-            String stationInfo =
-                    "AQI: " + location.getAqi() + System.lineSeparator() +
-                            "Đánh giá: " + location.getRated() + System.lineSeparator() +
+        // Get current user location
+        if (ActivityCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            myGoogleMap.setMyLocationEnabled(true);
+            getUserCurrentLocation();
+        }
+        else{
+            ActivityCompat.requestPermissions(this.requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 111);
+        }
+    }
+
+    private void addStationMarker(Location location){
+        // Draw marker
+        LatLng marker = new LatLng(location.getViDo(), location.getKinhDo());
+
+        String markerTitle = "Trạm: " + location.getStationName();
+        String stationInfo = "AQI: " + location.getAqi() + "\n" +
+                            "Đánh giá: " + location.getRated() + "\n" +
                             "Nhãn: " + location.getLabel();
 
-            int markerColor = 0;
-            switch (location.getRated()) {
-                case "Tốt": // Xanh lá
-                    markerColor = R.color.green;
-                    break;
-                case "Trung bình": // Vàng
-                    markerColor = R.color.yellow;
-                    break;
-                case "Kém": // Cam
-                    markerColor = R.color.orange;
-                    break;
-                case "Xấu": // Đỏ
-                    markerColor = R.color.red;
-                    break;
-                case "Rất xấu": // Tím
-                    markerColor = R.color.purple;
-                    break;
-                case "Nguy hại": // Nâu
-                    markerColor = R.color.brown;
-                    break;
-            }
-
-            myGoogleMap.addMarker(new MarkerOptions()
-                    .position(marker)
-                    .title(markerTitle)
-                    .snippet(stationInfo)
-                    .icon(getBitmapFromVector(requireContext(),
-                            ContextCompat.getColor(requireContext(), markerColor),
-                            location.getAqi())));
-
-            int color = 0;
-            switch (location.getRated()) {
-                case "Tốt": // Xanh lá
-                    color = Color.argb(150, 162, 220, 97);
-                    break;
-                case "Trung bình": // Vàng
-                    color = Color.argb(150, 252, 215, 82);
-                    break;
-                case "Kém": // Cam
-                    color = Color.argb(150, 255, 153, 89);
-                    break;
-                case "Xấu": // Đỏ
-                    color = Color.argb(150, 235, 71, 74);
-                    break;
-                case "Rất xấu": // Tím
-                    color = Color.argb(150, 170, 123, 191);
-                    break;
-                case "Nguy hại": // Nâu
-                    color = Color.argb(150, 157, 88, 116);
-                    break;
-            }
-
-            myGoogleMap.addCircle(new CircleOptions().center(marker)
-                    .radius(4000)
-                    .strokeColor(Color.TRANSPARENT)
-                    .strokeWidth(0)
-                    .fillColor(color));
-
-            if (ActivityCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                myGoogleMap.setMyLocationEnabled(true);
-                getUserCurrentLocation();
-            }
-            else{
-                ActivityCompat.requestPermissions(this.requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 111);
-            }
+        int markerColor = 0;
+        switch (location.getRated()) {
+            case "Tốt": // Xanh lá
+                markerColor = R.color.green;
+                break;
+            case "Trung bình": // Vàng
+                markerColor = R.color.yellow;
+                break;
+            case "Kém": // Cam
+                markerColor = R.color.orange;
+                break;
+            case "Xấu": // Đỏ
+                markerColor = R.color.red;
+                break;
+            case "Rất xấu": // Tím
+                markerColor = R.color.purple;
+                break;
+            case "Nguy hại": // Nâu
+                markerColor = R.color.brown;
+                break;
         }
+
+        myGoogleMap.addMarker(new MarkerOptions()
+                .position(marker)
+                .title(markerTitle)
+                .snippet(stationInfo)
+                .icon(getBitmapFromVector(requireContext(),
+                        ContextCompat.getColor(requireContext(), markerColor),
+                        location.getAqi())));
+
+        // Draw zone
+        int color = 0;
+        switch (location.getRated()) {
+            case "Tốt": // Xanh lá
+                color = Color.argb(150, 162, 220, 97);
+                break;
+            case "Trung bình": // Vàng
+                color = Color.argb(150, 252, 215, 82);
+                break;
+            case "Kém": // Cam
+                color = Color.argb(150, 255, 153, 89);
+                break;
+            case "Xấu": // Đỏ
+                color = Color.argb(150, 235, 71, 74);
+                break;
+            case "Rất xấu": // Tím
+                color = Color.argb(150, 170, 123, 191);
+                break;
+            case "Nguy hại": // Nâu
+                color = Color.argb(150, 157, 88, 116);
+                break;
+        }
+
+        myGoogleMap.addCircle(new CircleOptions().center(marker)
+                .radius(4000)
+                .strokeColor(Color.TRANSPARENT)
+                .strokeWidth(0)
+                .fillColor(color));
     }
 
     @SuppressLint("VisibleForTests")
@@ -194,9 +200,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void moveCamera(double latitude, double longitude) {
-//        16.074338, 108.205507
-//        LatLng latLng = new LatLng(latitude, longitude);
-        LatLng latLng = new LatLng(16.074338, 108.205507);
+//        16.074380, 108.205576
+        LatLng latLng = new LatLng(latitude, longitude);
         myGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         myGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
     }

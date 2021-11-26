@@ -1,5 +1,6 @@
 package com.example.airquality.view;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -94,18 +95,18 @@ public class HomeFragment extends Fragment {
         hourArrayList = new ArrayList<HourlyAirQuality>();
         dayArrayList = new ArrayList<DailyAirQuality>();
         ArrayList<Location> locationArrayList = new ArrayList<Location>(locationDAO.getListHasMark());
-//        location=locationDAO.getListHasMark().get(0);
-//
-//        hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDayHour).get(0);
+        location=locationDAO.getListHasMark().get(0);
+
+        hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDayHour).get(0);
         SpinnerAdapter spinnerAdapter=new SpinnerAdapter(requireContext(),R.layout.spinner_items_category, locationArrayList);
         binding.snLocation.setAdapter(spinnerAdapter);
         binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
              @Override
              public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                 location=locationArrayList.get(i);
-//                 loadHome();
-//                 loadHours();
-//                 loadDays();
+                 location=locationArrayList.get(i);
+                 loadHome();
+                 loadHours();
+                 loadDays();
              }
 
              @Override
@@ -113,9 +114,9 @@ public class HomeFragment extends Fragment {
 
              }
          });
-//        loadHome();
-//        loadHours();
-//        loadDays();
+        loadHome();
+        loadHours();
+        loadDays();
     }
 
     @SuppressLint("DefaultLocale")
