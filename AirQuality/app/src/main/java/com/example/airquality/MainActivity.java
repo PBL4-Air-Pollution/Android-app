@@ -1,5 +1,6 @@
 package com.example.airquality;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpBottomNavBar(){
         binding.navBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
