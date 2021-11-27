@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 
-
         Intent intent = new Intent(this, FirebaseService.class);
         startService(intent);
 
