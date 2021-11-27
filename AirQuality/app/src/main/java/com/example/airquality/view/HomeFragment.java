@@ -1,7 +1,6 @@
 package com.example.airquality.view;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -11,7 +10,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,7 +31,6 @@ import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -78,14 +75,17 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         binding.tbHome.inflateMenu(R.menu.menu_home);
+
         stringDay = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         stringDayHour = new SimpleDateFormat("dd/MM/yyyy HH:00:00").format(new Date());
 
+        // Hourly air quality list (Horizontal)
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         binding.rvHours.setLayoutManager(layoutManager);
         binding.rvDays.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // Set up app database
         appDatabase = AppDatabase.Instance(requireContext().getApplicationContext());
         LocationDAO locationDAO = appDatabase.locationDAO();
         hourlyAirQualityDAO = appDatabase.hourlyAirQualityDAO();

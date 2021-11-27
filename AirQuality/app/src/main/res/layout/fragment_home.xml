@@ -207,6 +207,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="Ngày"
+                                android:textStyle="bold"
                                 android:textSize="8pt"/>
                         </LinearLayout>
 
@@ -221,6 +222,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:text="AQI"
+                                android:textStyle="bold"
                                 android:textSize="8pt"/>
                         </LinearLayout>
 
@@ -235,6 +237,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:text="Đánh giá"
+                                android:textStyle="bold"
                                 android:textSize="8pt"/>
                         </LinearLayout>
 
