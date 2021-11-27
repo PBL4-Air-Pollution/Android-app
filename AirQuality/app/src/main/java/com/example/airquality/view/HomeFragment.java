@@ -192,7 +192,7 @@ public class HomeFragment extends Fragment {
         switch (rate) {
         case "Tốt": // Xanh lá
             binding.fmHome.setBackgroundResource(R.drawable.custom_background_green);
-            binding.llAvatar.setBackgroundResource(R.color.yellow);
+            binding.llAvatar.setBackgroundResource(R.color.green);
             binding.imAvatar.setImageResource(R.drawable.avatar_green);
             binding.llText.setBackgroundResource(R.color.light_green);
             binding.tvRecommended.setText("Không ảnh hướng tới sức khỏe");
