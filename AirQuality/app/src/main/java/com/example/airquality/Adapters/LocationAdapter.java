@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +34,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder>{
     private ArrayList<Location> mlistLocation;
     private Context context;
+    private HourlyAirQuality hourlyAirQuality;
     public LocationAdapter(ArrayList<Location> mlistLocation) {
         this.mlistLocation = mlistLocation;
     }
@@ -47,8 +50,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_cardview, parent, false);
-//        View view1= LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.fragment_add_edit_location, parent, false);
         context=parent.getContext();
         return  new ViewHolder(view);
     }
@@ -122,24 +123,20 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         holder.binding.locationEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 AppDatabase appDatabase=AppDatabase.Instance(context);
                 LocationDAO locationDAO=appDatabase.locationDAO();
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        Location location=mlistLocation.get(_position);
-//                        location.setLabel("");
-                        locationDAO.updateLocations(location);
-                        AddEditLocationFragment addEditLocationFragment=new AddEditLocationFragment();
-                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                        activity.getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fl_home,addEditLocationFragment)
-                                .addToBackStack(null)
-                                .commit();
-                    }
-                });
+                Location location =mlistLocation.get(_position);
+                Bundle bundle = new Bundle();
+                bundle.putString("LocationID",String.valueOf(location.getId()));
+                AddEditLocationFragment addEditLocationFragment=new AddEditLocationFragment();
+                addEditLocationFragment.setArguments(bundle);
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fl_home,addEditLocationFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }

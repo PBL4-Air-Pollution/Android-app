@@ -1,5 +1,6 @@
 package com.example.airquality.view;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -46,6 +47,8 @@ public class HomeFragment extends Fragment {
     private HourlyAirQuality hourlyAirQuality;
 
     private ArrayList<DailyAirQuality> dayArrayList;
+
+    private ArrayList<Location> locationArrayList;
 
     private AppDatabase appDatabase;
     private FragmentHomeBinding binding;
@@ -119,7 +122,7 @@ public class HomeFragment extends Fragment {
         loadDays();
     }
 
-    @SuppressLint("DefaultLocale")
+   @SuppressLint("DefaultLocale")
     private void loadHome() {
         if(location!=null) {
             binding.tvLocation.setText(location.getStationName());

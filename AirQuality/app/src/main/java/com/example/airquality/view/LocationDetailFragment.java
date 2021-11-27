@@ -64,13 +64,12 @@ public class LocationDetailFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if(item.getItemId()==R.id.action_back){
-                    FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-                    Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
-                    if(fragment!=null){
-                        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                        fragmentTransaction.remove(fragment);
-                        fragmentTransaction.commit();
-                    }
+                    LocationFragment locationFragment=new LocationFragment();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fl_home,locationFragment)
+                            .addToBackStack(null)
+                            .commit();
                 }
                 return true;
             }
@@ -113,10 +112,10 @@ public class LocationDetailFragment extends Fragment {
 
                    }
                 });
-                LocationFragment hourDetailFragment=new LocationFragment();
+                LocationFragment locationFragment=new LocationFragment();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fl_home,hourDetailFragment)
+                        .replace(R.id.fl_home,locationFragment)
                         .addToBackStack(null)
                         .commit();
             }

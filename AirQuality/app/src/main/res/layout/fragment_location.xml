@@ -11,8 +11,28 @@
         android:orientation="vertical">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_location"
+            android:background="@color/light_green"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/app_logo"></ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="8pt"
+                    android:text="Marked Location"></TextView>
+            </LinearLayout>
+
 
         </androidx.appcompat.widget.Toolbar>
         <androidx.recyclerview.widget.RecyclerView

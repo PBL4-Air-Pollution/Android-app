@@ -7,10 +7,35 @@
     tools:context=".view.AddEditLocationFragment">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_margin="10dp"
+
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_locationEdit"
+            android:layout_width="match_parent"
+            android:background="@color/light_green"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/app_logo"></ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="8pt"
+                    android:text="Edit location"></TextView>
+            </LinearLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
         <TextView
             android:layout_width="match_parent"
             android:textSize="30dp"
@@ -23,26 +48,42 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="Aqi and rate :"
+                android:text="Aqi                :"
                 ></TextView>
             <TextView
-                android:layout_width="90dp"
+                android:layout_width="match_parent"
                 android:id="@+id/tv_add_aqi"
-                android:layout_marginLeft="30dp"
                 android:textSize="20dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center">
 
             </TextView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+
+            android:orientation="horizontal">
             <TextView
-                android:layout_marginLeft="40dp"
-                android:layout_width="90dp"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Rate              :"
+                ></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
                 android:id="@+id/tv_add_rate"
                 android:textSize="20dp"
                 android:layout_height="wrap_content"
@@ -52,6 +93,8 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_margin="10dp"
+
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -62,34 +105,35 @@
                 android:text="Mô tả            :">
 
             </TextView>
+
             <TextView
-                android:layout_width="match_parent"
-                android:textAlignment="center"
                 android:id="@+id/tv_add_describe"
-                android:layout_height="wrap_content">
-            </TextView>
+                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"></TextView>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Nhãn            : "
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="Nhãn             :">
-
-            </TextView>
-            <TextView
+                android:textStyle="bold"></TextView>
+            <EditText
                 android:layout_width="match_parent"
-                android:textAlignment="center"
-                android:id="@+id/edit_label"
-                android:layout_height="wrap_content">
-            </TextView>
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_label"
+                ></EditText>
         </LinearLayout>
         <Button
-            android:id="@+id/bts_edit"
+            android:id="@+id/btn_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

@@ -1,5 +1,6 @@
 package com.example.airquality.view;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.airquality.Adapters.DayDetailAdapter;
@@ -36,6 +38,7 @@ public class AddEditLocationFragment extends Fragment {
     private LocationDAO locationDAO;
     private ArrayList<Location> locationArrayList;
     private Location location;
+
     private String locationID;
 
     @Override
@@ -62,18 +65,53 @@ public class AddEditLocationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.tbLocationEdit.inflateMenu(R.menu.menu_back);
+        binding.tbLocationEdit.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId()==R.id.action_back){
+                    LocationFragment locationFragment=new LocationFragment();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fl_home,locationFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+                return true;
+            }
+        });
         Bundle bundle = this.getArguments();
-        String[] data=(bundle.getString("Date-LocationID")).split(",");
-        locationID=data[1];
+        String locationID = (bundle.getString("LocationID"));
         appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
         locationDAO = appDatabase.locationDAO();
         location=locationDAO.getListByID(Integer.parseInt(locationID)).get(0);
-
-        binding.tvLocationName.setText(locationDAO.getListByID(Integer.parseInt(locationID)).get(0).getStationName());
+        binding.tvLocationName.setText(location.getStationName());
+        binding.tvAddDescribe.setText(location.getDescribe());
         binding.tvAddRate.setText(location.getRated());
         binding.tvAddAqi.setText(String.format("%.1f",location.getAqi()));
-    }
+        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(location!=null){
+                            location.setLabel(binding.tvLabel.getText().toString());
+                            locationDAO.updateLocations(location);
+                        }
 
+                    }
+                });
+                LocationFragment locationFragment=new LocationFragment();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fl_home,locationFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+
+        });
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.action_back){
