@@ -69,6 +69,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
     private GoogleMap myGoogleMap;
     private FusedLocationProviderClient client;
+
     private Marker currentLocationMarker;
 
     private FragmentMapsBinding binding;
@@ -85,6 +86,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
         client = LocationServices.getFusedLocationProviderClient(requireActivity());
 
+        setUpActionListener();
+    }
+
+    private void setUpActionListener(){
         // Set search view
         binding.svMap.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -97,7 +102,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
                     addressList = geocoder.getFromLocationName(txtSearch, 1);
 
-                    if (addressList != null) {
+                    if (addressList.size() > 0) {
                         Address address = addressList.get(0);
 
                         if (currentLocationMarker != null) {
@@ -110,7 +115,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
                         moveCamera(address.getLatitude(), address.getLongitude());
                     } else {
-                        Toast.makeText(requireContext(), "Search not found!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireContext(), "Location not found!", Toast.LENGTH_LONG).show();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -120,6 +125,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
             @Override
             public boolean onQueryTextChange(String s) {
                 return false;
+            }
+        });
+
+        // My location button
+        binding.btnMyLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getUserCurrentLocation();
             }
         });
     }
@@ -139,7 +152,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         // Get current user location
         if (ActivityCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            myGoogleMap.setMyLocationEnabled(true);
+//            myGoogleMap.setMyLocationEnabled(true);
             getUserCurrentLocation();
         }
         else{
