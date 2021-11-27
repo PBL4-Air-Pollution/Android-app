@@ -142,8 +142,6 @@ public class HomeFragment extends Fragment {
     }
     @SuppressLint("DefaultLocale")
     private void loadHome() {
-        Log.d("tag","3 "+location.getStationName()+"\n");
-        Log.d("tag","|" );
             binding.tvLocation.setText(location.getStationName());
             binding.tvAqi.setText(String.format("%.0f", location.getAqi()));
             binding.tvRate.setText(location.getRated());
