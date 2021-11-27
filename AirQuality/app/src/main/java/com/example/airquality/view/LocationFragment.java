@@ -43,7 +43,7 @@ public class LocationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding=FragmentLocationBinding.inflate(getLayoutInflater());
+        binding = FragmentLocationBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 

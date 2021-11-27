@@ -184,6 +184,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:gravity="center"
                     android:layout_marginTop="10dp">
                     <LinearLayout
                         android:id="@+id/ll_card"
@@ -191,13 +192,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
-
 
                         <LinearLayout
                             android:layout_width="150dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
                             android:layout_gravity="center_vertical"
                             android:orientation="vertical">
 
@@ -213,7 +213,6 @@
                         <LinearLayout
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
                             android:layout_gravity="center_vertical"
                             android:orientation="vertical">
 
@@ -224,7 +223,6 @@
                                 android:text="AQI"
                                 android:textSize="8pt"/>
                         </LinearLayout>
-
 
                         <LinearLayout
                             android:layout_width="150dp"
@@ -243,7 +241,7 @@
                     </LinearLayout>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_days"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="180dp"
                         android:layout_marginBottom="20dp">
                     </androidx.recyclerview.widget.RecyclerView>

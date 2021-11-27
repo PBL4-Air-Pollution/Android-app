@@ -9,12 +9,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
@@ -29,6 +35,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
+import com.example.airquality.databinding.FragmentLocationBinding;
+import com.example.airquality.databinding.FragmentMapsBinding;
 import com.example.airquality.model.Location;
 import com.example.airquality.viewmodel.LocationDAO;
 import com.google.android.gms.common.ConnectionResult;
@@ -51,7 +59,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -60,6 +70,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     private GoogleMap myGoogleMap;
     private FusedLocationProviderClient client;
     private Marker currentLocationMarker;
+
+    private FragmentMapsBinding binding;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -72,6 +84,44 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         }
 
         client = LocationServices.getFusedLocationProviderClient(requireActivity());
+
+        // Set search view
+        binding.svMap.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                String txtSearch = binding.svMap.getQuery().toString();
+                List<Address> addressList = null;
+
+                try {
+                    Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
+
+                    addressList = geocoder.getFromLocationName(txtSearch, 1);
+
+                    if (addressList != null) {
+                        Address address = addressList.get(0);
+
+                        if (currentLocationMarker != null) {
+                            currentLocationMarker.remove();
+                        }
+
+                        currentLocationMarker = myGoogleMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(address.getLatitude(), address.getLongitude()))
+                                .title(txtSearch));
+
+                        moveCamera(address.getLatitude(), address.getLongitude());
+                    } else {
+                        Toast.makeText(requireContext(), "Search not found!", Toast.LENGTH_LONG).show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
     }
 
     @Override
@@ -224,6 +274,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     public static BitmapDescriptor getBitmapFromVector(@NonNull Context context,
                                                        @ColorInt int tintColor,
                                                        double aqi) {
+        // Get drawables
         Drawable vectorDrawableBackground = ResourcesCompat.getDrawable(
                 context.getResources(), R.drawable.ic_baseline_person_pin_24, null);
         Drawable vectorDrawableForeground = ResourcesCompat.getDrawable(
@@ -233,18 +284,22 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
             return BitmapDescriptorFactory.defaultMarker();
         }
 
+        // Create bitmap icon
         Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
 
+        // Create drawing canvas
         Canvas canvas = new Canvas(bitmap);
 
+        // Formatting drawable vectors
         vectorDrawableBackground.setBounds(0, 10, canvas.getWidth(), canvas.getHeight());
         vectorDrawableForeground.setBounds(10, 15, canvas.getWidth() - 10, canvas.getHeight() - 12);
 
+        // Draw vectors on canvas
         DrawableCompat.setTint(vectorDrawableForeground, tintColor);
         vectorDrawableBackground.draw(canvas);
         vectorDrawableForeground.draw(canvas);
 
-        // Show AQI
+        // Show AQI on canvas
         Paint text = new Paint();
         text.setTextSize(30);
         text.setColor(Color.WHITE);
@@ -266,6 +321,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_maps, container, false);
+        binding = FragmentMapsBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 }
