@@ -24,12 +24,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentStart="true">
+                    android:layout_marginTop="5dp">
                     <ImageView
                         android:id="@+id/btn_back"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_baseline_keyboard_backspace_24"></ImageView>
+                        android:src="@drawable/ic_baseline_keyboard_backspace_24"/>
 
                 </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
@@ -37,52 +37,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
+                    android:layout_height="wrap_content">
                     <LinearLayout
-                        android:layout_width="190dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
+                        android:layout_alignParentStart="true"
                         android:orientation="horizontal">
+
                         <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_baseline_access_time_filled_24"></ImageView>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_access_time_filled_24"/>
+
                         <TextView
                             android:id="@+id/tv_hour"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical|center_horizontal"
-                            android:text="1AM"
+                            android:layout_marginLeft="10dp"
+                            android:text="20/11/2001"
                             android:textSize="10pt">
 
                         </TextView>
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_width="200dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="15dp"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:src="@drawable/ic_baseline_location_on_24"></ImageView>
+                            android:src="@drawable/ic_baseline_location_on_24" />
+
                         <TextView
                             android:id="@+id/tv_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
                             android:layout_gravity="center_vertical|center_horizontal"
-                            android:text="Hòa Khánh Bắc"
+                            android:layout_marginLeft="10dp"
+                            android:text="Hòa Khanh Bac"
                             android:textSize="10pt">
 
                         </TextView>
                     </LinearLayout>
-                </LinearLayout>
+                </RelativeLayout>
                 <TextView
                     android:id="@+id/tv_aqi"
                     android:layout_width="wrap_content"

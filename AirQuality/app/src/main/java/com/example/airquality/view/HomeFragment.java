@@ -1,6 +1,8 @@
 package com.example.airquality.view;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -38,6 +40,8 @@ import java.util.Date;
 public class HomeFragment extends Fragment {
     private SpinnerAdapter spinnerAdapter;
     private Location location;
+    private LocationDAO locationDAO;
+    private ArrayList<Location> locationArrayList;
 
     private HourlyAirQualityDAO hourlyAirQualityDAO;
     private ArrayList<HourlyAirQuality> hourArrayList;
@@ -52,9 +56,9 @@ public class HomeFragment extends Fragment {
     private String stringDayHour = "";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle bundle) {
         setHasOptionsMenu(true);
-        super.onCreate(savedInstanceState);
+        super.onCreate(bundle);
         if (getArguments() != null) {
 
         }
@@ -87,41 +91,58 @@ public class HomeFragment extends Fragment {
 
         // Set up app database
         appDatabase = AppDatabase.Instance(requireContext().getApplicationContext());
-        LocationDAO locationDAO = appDatabase.locationDAO();
+        locationDAO = appDatabase.locationDAO();
         hourlyAirQualityDAO = appDatabase.hourlyAirQualityDAO();
 
-        ArrayList<HourlyAirQuality> hourList = new ArrayList<HourlyAirQuality>();
         hourArrayList = new ArrayList<HourlyAirQuality>();
         dayArrayList = new ArrayList<DailyAirQuality>();
-        ArrayList<Location> locationArrayList = new ArrayList<Location>(locationDAO.getListHasMark());
-        location = locationDAO.getListHasMark().get(0);
+        locationArrayList = new ArrayList<Location>();
+        Bundle bundle=this.getArguments();
+        if(locationDAO.getListHasMark().size()==0){
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    location=locationDAO.getAll().get(0);
+                    hourArrayList.addAll(hourlyAirQualityDAO.getListByLocationID(location.getId()));
+                    hourlyAirQuality=hourArrayList.get(0);
 
-        hourlyAirQuality = hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(), stringDayHour).get(0);
-        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(requireContext(), R.layout.spinner_items_category,
-                locationArrayList);
-        binding.snLocation.setAdapter(spinnerAdapter);
-        binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                location = locationArrayList.get(i);
-                loadHome();
-                loadHours();
-                loadDays();
-            }
+                    loadHome();
+                    loadHours();
+                    loadDays();
+                }
+            });
+        }
+        else
+        {
+            location = locationDAO.getListHasMark().get(0);
+            locationArrayList.addAll(locationDAO.getListHasMark());
+            hourlyAirQuality = hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(), stringDayHour).get(0);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            SpinnerAdapter spinnerAdapter = new SpinnerAdapter(requireContext(), R.layout.spinner_items_category, locationArrayList);
+            binding.snLocation.setAdapter(spinnerAdapter);
+            binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    location = locationArrayList.get(i);
+                    loadHome();
+                    loadHours();
+                    loadDays();
+                }
 
-            }
-        });
-        loadHome();
-        loadHours();
-        loadDays();
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+
+            });
+            loadHome();
+            loadHours();
+            loadDays();
+        }
+
+
     }
-
     @SuppressLint("DefaultLocale")
     private void loadHome() {
-        if (location != null) {
             binding.tvLocation.setText(location.getStationName());
             binding.tvAqi.setText(String.format("%.0f", location.getAqi()));
             binding.tvRate.setText(location.getRated());
@@ -139,7 +160,6 @@ public class HomeFragment extends Fragment {
             setViewColorSO2(hourlyAirQuality.getSo2());
             binding.tvCO.setText(String.format("%.1f", hourlyAirQuality.getCo()));
             setViewColorCO(hourlyAirQuality.getCo());
-        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

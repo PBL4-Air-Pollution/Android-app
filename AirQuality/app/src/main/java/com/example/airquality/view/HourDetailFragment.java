@@ -85,12 +85,7 @@ public class HourDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-                Fragment fragment=fragmentManager.findFragmentById(R.id.fl_home);
-                if(fragment!=null){
-                    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                    fragmentTransaction.remove(fragment);
-                    fragmentTransaction.commit();
-                }
+                fragmentManager.popBackStack();
             }
         });
     }
