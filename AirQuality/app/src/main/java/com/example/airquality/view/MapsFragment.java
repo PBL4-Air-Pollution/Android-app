@@ -156,7 +156,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                             "Đánh giá: " + location.getRated() + "\n" +
                             "Nhãn: " + location.getLabel();
 
-        int markerColor = 0;
+        int markerColor = R.color.green;
         switch (location.getRated()) {
             case "Tốt": // Xanh lá
                 markerColor = R.color.green;
