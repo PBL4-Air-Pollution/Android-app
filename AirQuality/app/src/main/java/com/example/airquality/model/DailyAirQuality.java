@@ -2,6 +2,7 @@ package com.example.airquality.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "DailyAirQuality")
@@ -19,7 +20,9 @@ public class DailyAirQuality {
     @ColumnInfo
     private String rated;
 
+    @Ignore
     public DailyAirQuality() {
+        // Cho firebase đổ dữ liệu vào class object
     }
 
     public DailyAirQuality(int locationID, String date, double aqi, String rated) {

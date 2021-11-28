@@ -36,7 +36,6 @@ public class InfoFragment extends Fragment {
 
 
     }
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -162,12 +161,6 @@ public class InfoFragment extends Fragment {
             }
         });
 
-
-
-
-
     }
-
-
 
 }

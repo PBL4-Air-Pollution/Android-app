@@ -1,6 +1,7 @@
 package com.example.airquality.Adapters;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,28 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DailyAirQuality day = dayArrayList.get(position);
         holder.binding.tvDate.setText(day.getDate());
-        holder.binding.tvAqi.setText(String.format("%.1f", day.getAqi()));
+        holder.binding.tvAqi.setText(String.format("%.0f", day.getAqi()));
         holder.binding.tvRate.setText(day.getRated());
+        switch (day.getRated()){
+            case "Tốt": // Xanh lá
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_green);
+                break;
+            case "Trung bình": // Vàng
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_yellow);
+                break;
+            case "Kém": // Cam
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_orange);
+                break;
+            case "Xấu": // Đỏ
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_red);
+                break;
+            case "Rất xấu": // Tím
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_purple);
+                break;
+            case "Nguy hại": // Nâu
+                holder.binding.imCircle.setImageResource(R.drawable.ic_baseline_circle_brown);
+                break;
+        }
     }
 
     @Override

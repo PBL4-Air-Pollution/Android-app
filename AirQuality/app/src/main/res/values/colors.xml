@@ -1,25 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="blue">#0040ff</color>
+    <color name="dark_green">#006a5c</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="teal_700">#FFBB33</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light_while">#D2D2D2</color>
-    <color name="light_green">#a2dc61</color>
-    <color name="green">#76d350</color>
-    <color name="light_yellow">#ffe030</color>
-    <color name="yellow">#ffe030</color>
-    <color name="light_orange">#ff9959</color>
-    <color name="orange">#fc7d27</color>
-    <color name="light_red">#ed6164</color>
-    <color name="red">#ea1b1b</color>
-    <color name="light_purple">#aa7bbf</color>
-    <color name="purple">#b24691</color>
-    <color name="light_brown">#9d5874</color>
-    <color name="brown">#994444</color>
+    <color name="light_white">#f9f9f9</color>
+    <color name="light_gray">#D2D2D2</color>
+    <color name="gray">#696969</color>
+    <color name="light_green">#ace564</color>
+    <color name="green">#9bd84d</color>
+    <color name="light_yellow">#FCD752</color>
+    <color name="yellow">#fbcf3a</color>
+    <color name="light_orange">#ffa360</color>
+    <color name="orange">#f89049</color>
+    <color name="light_red">#ff7271</color>
+    <color name="red">#f55f60</color>
+    <color name="light_purple">#ae80c1</color>
+    <color name="purple">#9f70b6</color>
+    <color name="light_brown">#00AD7888</color>
+    <color name="brown">#a06a7a</color>
+<!--    <color name="light_green">#a2dc61</color>-->
+<!--<color name="green">#76d350</color>-->
+<!--<color name="light_yellow">#FCD752</color>-->
+<!--<color name="yellow">#FFC400</color>-->
+<!--<color name="light_orange">#ff9959</color>-->
+<!--<color name="orange">#fc7d27</color>-->
+<!--<color name="light_red">#ed6164</color>-->
+<!--<color name="red">#FF0000</color>-->
+<!--<color name="light_purple">#aa7bbf</color>-->
+<!--<color name="purple">#b24691</color>-->
+<!--<color name="light_brown">#9d5874</color>-->
+<!--<color name="brown">#994444</color>-->
 
 
-</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+    </resources>
