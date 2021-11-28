@@ -36,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
     private SpinnerAdapter spinnerAdapter;
@@ -106,7 +107,8 @@ public class HomeFragment extends Fragment {
                     currentLocation = locationDAO.getAll().get(0);
 
                     // Lấy data của giờ hiện tại để hiển thị thông tin cuối trang
-                    currentHourlyData = hourlyAirQualityDAO.getOneByLocationIDAndDate(currentLocation.getId(), stringDayHour);
+                    List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
+                    currentHourlyData = currentDateData.get(currentDateData.size() - 1);
 
                     loadHome();
                     loadHours();
@@ -117,7 +119,9 @@ public class HomeFragment extends Fragment {
         else {
             // Get first marked station to load to UI
             currentLocation = locationDAO.getListHasMark().get(0);
-            currentHourlyData = hourlyAirQualityDAO.getOneByLocationIDAndDate(currentLocation.getId(), stringDayHour);
+
+            List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
+            currentHourlyData = currentDateData.get(currentDateData.size() - 1);
 
             loadHome();
             loadHours();
@@ -145,10 +149,10 @@ public class HomeFragment extends Fragment {
     private void loadHome() {
         // Card view top
         binding.tvLocation.setText(currentLocation.getStationName());
-        binding.tvAqi.setText(String.format("%.0f", currentHourlyData.getAqi()));
-        binding.tvRate.setText(currentHourlyData.getRated());
+        binding.tvAqi.setText(String.format("%.0f", currentLocation.getAqi()));
+        binding.tvRate.setText(currentLocation.getRated());
 
-        setBackgroundColor(currentHourlyData.getRated());
+        setBackgroundColor(currentLocation.getRated());
 
         // Set up air quality info bottom
         binding.tvPM25.setText(String.format("%.1f", currentHourlyData.getPm25()));
