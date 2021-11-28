@@ -68,31 +68,37 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 //        String stringDayHour=LocalDateTime.now().getDayOfMonth()+"/"+LocalDateTime.now().getMonthValue()+"/"+LocalDateTime.now().getYear()+" "+LocalDateTime.now().getHour()+":00:00";
 //        HourlyAirQuality hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDayHour).get(0);
         holder.binding.tvLocation.setText(location.getStationName());
-        holder.binding.tvAqi.setText(String.format("%.1f",location.getAqi()));
+        holder.binding.tvAqi.setText((int)location.getAqi() + "");
         holder.binding.tvRate.setText(location.getRated());
         holder.binding.tvLable.setText(location.getLabel());
         if(location.getAqi()<=50){
-           holder.binding.cvLocationItem.setBackgroundResource(R.color.green);
+           holder.binding.llAvatar.setBackgroundResource(R.color.green);
+           holder.binding.llText.setBackgroundResource(R.drawable.custom_green);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_green);
         }
         else if(location.getAqi()<=100) {
-           holder.binding.cvLocationItem.setBackgroundResource(R.color.yellow);
+           holder.binding.llAvatar.setBackgroundResource(R.color.yellow);
+            holder.binding.llText.setBackgroundResource(R.drawable.custom_yellow);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_yellow);
         }
         else if(location.getAqi()<=150){
-           holder.binding.cvLocationItem.setBackgroundResource(R.color.orange);
+           holder.binding.llAvatar.setBackgroundResource(R.color.orange);
+            holder.binding.llText.setBackgroundResource(R.drawable.custom_orange);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_orange);
         }
         else if(location.getAqi()<=200){
-           holder.binding.cvLocationItem.setBackgroundResource(R.color.red);
+           holder.binding.llAvatar.setBackgroundResource(R.color.red);
+            holder.binding.llText.setBackgroundResource(R.drawable.custom_red);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_red);
         }
         else if(location.getAqi()<=300) {
-           holder.binding.cvLocationItem.setBackgroundResource(R.color.purple);
+           holder.binding.llAvatar.setBackgroundResource(R.color.purple);
+            holder.binding.llText.setBackgroundResource(R.drawable.custom_purple);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_purple);
         }
         else if(location.getAqi()<=500) {
-           holder.binding.cvLocationItem.setBackgroundResource(R.color.brown);
+           holder.binding.llAvatar.setBackgroundResource(R.color.brown);
+            holder.binding.llText.setBackgroundResource(R.drawable.custom_brown);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_brown);
         }
 

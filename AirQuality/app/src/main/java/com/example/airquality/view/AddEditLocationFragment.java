@@ -85,6 +85,8 @@ public class AddEditLocationFragment extends Fragment {
         appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
         locationDAO = appDatabase.locationDAO();
         location=locationDAO.getListByID(Integer.parseInt(locationID)).get(0);
+
+        binding.tvLabel.setText(location.getLabel());
         binding.tvLocationName.setText(location.getStationName());
         binding.tvAddDescribe.setText(location.getDescribe());
         binding.tvAddRate.setText(location.getRated());

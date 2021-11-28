@@ -11,7 +11,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +38,6 @@ import java.util.Date;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    private SpinnerAdapter spinnerAdapter;
     private Location currentLocation;
     private LocationDAO locationDAO;
     private ArrayList<Location> locationArrayList;
@@ -49,8 +47,6 @@ public class HomeFragment extends Fragment {
     private HourlyAirQuality currentHourlyData;
 
     private ArrayList<DailyAirQuality> dayArrayList;
-
-    private ArrayList<Location> locationArrayList;
 
     private AppDatabase appDatabase;
     private FragmentHomeBinding binding;
@@ -119,38 +115,33 @@ public class HomeFragment extends Fragment {
             });
         }
         else {
-            AsyncTask.execute(new Runnable() {
+            // Get first marked station to load to UI
+            currentLocation = locationDAO.getListHasMark().get(0);
+
+            List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
+            if (currentDateData.size() > 1){
+                currentHourlyData = currentDateData.get(currentDateData.size() - 1);
+            }
+
+            loadHome();
+            loadHours();
+            loadDays();
+
+            // Setup spinner data
+            locationArrayList.addAll(locationDAO.getListHasMark());
+            SpinnerAdapter spinnerAdapter = new SpinnerAdapter(requireContext(), R.layout.spinner_items_category, locationArrayList);
+            binding.snLocation.setAdapter(spinnerAdapter);
+            binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void run() {
-                    // Get first marked station to load to UI
-                    currentLocation = locationDAO.getListHasMark().get(0);
-
-                    List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
-                    if (currentDateData.size() > 1){
-                        currentHourlyData = currentDateData.get(currentDateData.size() - 1);
-                    }
-
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    currentLocation = locationArrayList.get(i);
                     loadHome();
                     loadHours();
                     loadDays();
+                }
 
-                    // Setup spinner data
-                    locationArrayList.addAll(locationDAO.getListHasMark());
-                    SpinnerAdapter spinnerAdapter = new SpinnerAdapter(requireContext(), R.layout.spinner_items_category, locationArrayList);
-                    binding.snLocation.setAdapter(spinnerAdapter);
-                    binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            currentLocation = locationArrayList.get(i);
-                            loadHome();
-                            loadHours();
-                            loadDays();
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-                        }
-                    });
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
                 }
             });
         }
@@ -198,6 +189,7 @@ public class HomeFragment extends Fragment {
         };
 
         // Get hourly data of current station
+        hourArrayList.clear();
         HourAdapter hoursAdapter = new HourAdapter(hourArrayList, hourClickListener);
         hourArrayList.addAll(hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay));
         Collections.reverse(hourArrayList);
@@ -222,6 +214,7 @@ public class HomeFragment extends Fragment {
         };
 
         // Get daily data of current station
+        dayArrayList.clear();
         DayAdapter daysAdapter = new DayAdapter(dayArrayList, dayClickListener);
         DailyAirQualityDAO dailyAirQualityDAO = appDatabase.dailyAirQualityDAO();
         dayArrayList.addAll(dailyAirQualityDAO.getListByLocationID(currentLocation.getId()));
