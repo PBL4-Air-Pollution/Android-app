@@ -50,6 +50,8 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<DailyAirQuality> dayArrayList;
 
+    private ArrayList<Location> locationArrayList;
+
     private AppDatabase appDatabase;
     private FragmentHomeBinding binding;
 
