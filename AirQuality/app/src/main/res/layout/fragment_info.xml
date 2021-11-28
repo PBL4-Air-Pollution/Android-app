@@ -6,29 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".view.InfoFragment"
     android:id="@+id/sv">
-
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:id="@+id/sv1"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp">
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/white"
-
-            >
+            android:background="@color/white">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@color/white"
-                android:layout_marginBottom="120dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="45dp"
                 >
                 <TextView
                     android:layout_width="match_parent"
@@ -37,15 +31,13 @@
                     android:textSize="50dp"
                     android:textAlignment="center"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-
-                    />
+                    android:textColor="@color/black" />
                 <TextView
                     android:id="@+id/tv_content1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="1. Tổng quan về ô nhiễm không khí"
-                    android:textSize="24dp"
+                    android:textSize="22dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:layout_margin="10dp"
@@ -56,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2. Bảng chất lượng không khí theo AQI"
-                    android:textSize="24dp"
+                    android:textSize="22dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:layout_margin="10dp"
@@ -67,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="3. Chi tiết về các chất gây ô nhiễm"
-                    android:textSize="24dp"
+                    android:textSize="22dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:layout_marginBottom="5dp"
@@ -80,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="a. Bụi mịn 2.5 (PM2.5)"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contenta"
@@ -92,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="b. Bụi mịn 10 (PM10)"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contentb"
@@ -104,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="c. Oxit Nito (NOx)"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contentc"
@@ -116,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="d. Nito Dioxit (NO2)"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contentd"
@@ -128,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="e. Amoniac (NH3)"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contente"
@@ -140,7 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="f. Cacbon Monoxit (CO)"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contentf"
@@ -152,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="g. Sulfur Dioxit (SO2)"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contentg"
@@ -164,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="h. Ozone (O3)"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contenth"
@@ -176,7 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="k. Benzen"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contentk"
@@ -188,7 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="l. Toluen"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contentl"
@@ -200,7 +192,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="m. Xylene"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:clickable="true"
                     android:id="@+id/tv_contentm"
@@ -232,7 +224,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif-"
                 android:justificationMode="inter_word"
                 android:lineSpacingExtra="2dp"
                 android:text="  Chỉ số chất lượng không khí (AQI) là chỉ số được tính toán từ các thông số quan trắc các chất ô nhiễm trong không khí, nhằm cho biết tình trạng chất lượng không khí và mức độ ảnh hưởng đến sức khỏe con người, được biểu diễn qua một thang điểm.
@@ -612,12 +604,14 @@ Ngộ độc CO có thể xảy ra ở những trường hợp chạy máy nổ 
         android:layout_height="wrap_content"
         android:clickable="true"
         android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
+        android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9"
-        />
+        app:fabSize="mini"
+        app:maxImageSize="30dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -106,7 +106,9 @@ public class HomeFragment extends Fragment {
 
                     // Lấy data của giờ hiện tại để hiển thị thông tin cuối trang
                     List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
-                    currentHourlyData = currentDateData.get(currentDateData.size() - 1);
+                    if (currentDateData.size() > 1){
+                        currentHourlyData = currentDateData.get(currentDateData.size() - 1);
+                    }
 
                     loadHome();
                     loadHours();
@@ -115,30 +117,38 @@ public class HomeFragment extends Fragment {
             });
         }
         else {
-            // Get first marked station to load to UI
-            currentLocation = locationDAO.getListHasMark().get(0);
-
-            List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
-            currentHourlyData = currentDateData.get(currentDateData.size() - 1);
-
-            loadHome();
-            loadHours();
-            loadDays();
-
-            // Setup spinner data
-            locationArrayList.addAll(locationDAO.getListHasMark());
-            SpinnerAdapter spinnerAdapter = new SpinnerAdapter(requireContext(), R.layout.spinner_items_category, locationArrayList);
-            binding.snLocation.setAdapter(spinnerAdapter);
-            binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            AsyncTask.execute(new Runnable() {
                 @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    currentLocation = locationArrayList.get(i);
+                public void run() {
+                    // Get first marked station to load to UI
+                    currentLocation = locationDAO.getListHasMark().get(0);
+
+                    List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
+                    if (currentDateData.size() > 1){
+                        currentHourlyData = currentDateData.get(currentDateData.size() - 1);
+                    }
+
                     loadHome();
                     loadHours();
                     loadDays();
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    // Setup spinner data
+                    locationArrayList.addAll(locationDAO.getListHasMark());
+                    SpinnerAdapter spinnerAdapter = new SpinnerAdapter(requireContext(), R.layout.spinner_items_category, locationArrayList);
+                    binding.snLocation.setAdapter(spinnerAdapter);
+                    binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            currentLocation = locationArrayList.get(i);
+                            loadHome();
+                            loadHours();
+                            loadDays();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
                 }
             });
         }
@@ -153,18 +163,20 @@ public class HomeFragment extends Fragment {
         setBackgroundColor(currentLocation.getRated());
 
         // Set up air quality info bottom
-        binding.tvPM25.setText(String.format("%.1f", currentHourlyData.getPm25()));
-        setViewColorPM25(currentHourlyData.getPm25());
-        binding.tvPM10.setText(String.format("%.1f", currentHourlyData.getPm10()));
-        setViewColorPM10(currentHourlyData.getPm10());
-        binding.tvO3.setText(String.format("%.1f", currentHourlyData.getO3()));
-        setViewColorO3(currentHourlyData.getO3());
-        binding.tvNO2.setText(String.format("%.1f", currentHourlyData.getNo2()));
-        setViewColorNO2(currentHourlyData.getNo2());
-        binding.tvSO2.setText(String.format("%.1f", currentHourlyData.getSo2()));
-        setViewColorSO2(currentHourlyData.getSo2());
-        binding.tvCO.setText(String.format("%.1f", currentHourlyData.getCo()));
-        setViewColorCO(currentHourlyData.getCo());
+        if (currentHourlyData != null) {
+            binding.tvPM25.setText(String.format("%.1f", currentHourlyData.getPm25()));
+            setViewColorPM25(currentHourlyData.getPm25());
+            binding.tvPM10.setText(String.format("%.1f", currentHourlyData.getPm10()));
+            setViewColorPM10(currentHourlyData.getPm10());
+            binding.tvO3.setText(String.format("%.1f", currentHourlyData.getO3()));
+            setViewColorO3(currentHourlyData.getO3());
+            binding.tvNO2.setText(String.format("%.1f", currentHourlyData.getNo2()));
+            setViewColorNO2(currentHourlyData.getNo2());
+            binding.tvSO2.setText(String.format("%.1f", currentHourlyData.getSo2()));
+            setViewColorSO2(currentHourlyData.getSo2());
+            binding.tvCO.setText(String.format("%.1f", currentHourlyData.getCo()));
+            setViewColorCO(currentHourlyData.getCo());
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
