@@ -1,5 +1,6 @@
 package com.example.airquality.view;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +16,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airquality.Adapters.LocationAdapter;
 import com.example.airquality.AppDatabase;
@@ -25,46 +25,40 @@ import com.example.airquality.model.Location;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Objects;
 
 public class LocationFragment extends Fragment {
     private FragmentLocationBinding binding;
-
-    private RecyclerView rcvLocation;
-    private ArrayList<Location> locationArrayList;
-    private LocationAdapter locationAdapter;
-    private AppDatabase appDatabase;
-    private LocationDAO locationDAO;
-
     private HourlyAirQualityDAO hourlyAirQualityDAO;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        if (getArguments() != null) {
-
-        }
     }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding=FragmentLocationBinding.inflate(getLayoutInflater());
+        binding = FragmentLocationBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
+
+    @SuppressLint({"SimpleDateFormat", "NotifyDataSetChanged"})
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         binding.tbLocation.inflateMenu(R.menu.menu_location);
-        String stringDayHour= LocalDateTime.now().getDayOfMonth()+"/"+LocalDateTime.now().getMonthValue()+"/"+LocalDateTime.now().getYear()+" "+LocalDateTime.now().getHour()+":00:00";
+        String stringDayHour = new SimpleDateFormat("dd/MM/yyyy hh:00:00").format(new Date());
         binding.tbLocation.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.action_add) {
                     LocationDetailFragment locationDetailFragment = new LocationDetailFragment();
-                    getActivity().getSupportFragmentManager()
+                    requireActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.fl_home, locationDetailFragment)
                             .addToBackStack(null)
@@ -74,11 +68,11 @@ public class LocationFragment extends Fragment {
             }
         });
         binding.rcvLocation.setLayoutManager(new LinearLayoutManager(getContext()));
-        locationArrayList = new ArrayList<Location>();
-        locationAdapter = new LocationAdapter(locationArrayList);
-        appDatabase=AppDatabase.Instance(getContext().getApplicationContext());
-        locationDAO=appDatabase.locationDAO();
-        hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
+        ArrayList<Location> locationArrayList = new ArrayList<Location>();
+        LocationAdapter locationAdapter = new LocationAdapter(locationArrayList);
+        AppDatabase appDatabase = AppDatabase.Instance(requireContext().getApplicationContext());
+        LocationDAO locationDAO = appDatabase.locationDAO();
+        hourlyAirQualityDAO = appDatabase.hourlyAirQualityDAO();
 
         locationArrayList.addAll(locationDAO.getListHasMark());
         locationAdapter.notifyDataSetChanged();

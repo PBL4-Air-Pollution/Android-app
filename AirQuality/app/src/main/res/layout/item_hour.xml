@@ -24,7 +24,7 @@
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_baseline_circle_green"></ImageView>
+                    android:src="@drawable/ic_baseline_circle_green"/>
             </LinearLayout>
 
             <TextView
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="01:00"
-                android:textSize="8pt"></TextView>
+                android:textSize="8pt"/>
         </LinearLayout>
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal"
             android:text="AQI"
-            android:textSize="8pt"></TextView>
+            android:textSize="8pt"/>
         <TextView
             android:id="@+id/tv_rate"
             android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal"
             android:text="tốt"
-            android:textSize="8pt"></TextView>
+            android:textSize="8pt"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -10,27 +10,24 @@
         android:layout_above="@+id/nav_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </androidx.viewpager.widget.ViewPager>
     <FrameLayout
         android:id="@+id/fl_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </FrameLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/white"
-        app:itemIconSize="40dp"
+        android:background="@color/dark_green"
+        app:itemBackground="?selectableItemBackground"
+        app:itemHorizontalTranslationEnabled="true"
+        app:itemIconSize="28dp"
         android:elevation="20dp"
         app:itemIconTint="@color/custom_color_bottom"
         app:itemTextColor="@color/custom_color_bottom"
-        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/menu_nav_bottom">
-
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 </RelativeLayout>

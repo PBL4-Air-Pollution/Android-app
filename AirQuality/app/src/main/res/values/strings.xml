@@ -5,8 +5,8 @@
     <string name="large_text">
 
     </string>
-    <string name="action_home">HOME</string>
-    <string name="action_map">MAP</string>
-    <string name="action_infor">INFOR</string>
-    <string name="action_location">LOCATION</string>
+    <string name="action_home">Home</string>
+    <string name="action_map">Map</string>
+    <string name="action_infor">Information</string>
+    <string name="action_location">Location</string>
 </resources>
