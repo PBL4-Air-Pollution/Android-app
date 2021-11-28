@@ -6,84 +6,599 @@
     android:layout_height="match_parent"
     tools:context=".view.InfoFragment"
     android:id="@+id/sv">
+
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:id="@+id/sv1"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp">
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/white">
+            android:background="@color/white"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginBottom="120dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mục lục"
+                    android:textSize="50dp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    />
+                <TextView
+                    android:id="@+id/tv_content1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. Tổng quan về ô nhiễm không khí"
+                    android:textSize="24dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/tv_content2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2. Bảng chất lượng không khí theo AQI"
+                    android:textSize="24dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/tv_content3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3. Chi tiết về các chất gây ô nhiễm"
+                    android:textSize="24dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="a. Bụi mịn 2.5 (PM2.5)"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contenta"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="b. Bụi mịn 10 (PM10)"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contentb"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="c. Oxit Nito (NOx)"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contentc"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="d. Nito Dioxit (NO2)"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contentd"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="e. Amoniac (NH3)"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contente"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="f. Cacbon Monoxit (CO)"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contentf"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="g. Sulfur Dioxit (SO2)"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contentg"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="h. Ozone (O3)"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contenth"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="k. Benzen"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contentk"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="l. Toluen"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contentl"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="m. Xylene"
+                    android:textSize="22dp"
+                    android:textColor="@color/black"
+                    android:clickable="true"
+                    android:id="@+id/tv_contentm"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Chỉ số ô nhiễm không khí (AQI)"
-                android:textSize="50dp"
+                android:text="1. Chỉ số ô nhiễm không khí (AQI)"
+                android:textSize="40dp"
                 android:textStyle="bold"
                 android:layout_margin="10dp"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif-black"
+                android:textAlignment="center"
+
                 />
 
+
             <TextView
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:lineSpacingExtra="2dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="  Theo Health, bụi mịn (PM 2.5) kết hợp với khí CO hay SO2, NO2 có trong không khí sẽ gây kích ứng niêm mạc đồng thời cản trở hemoglobin kết hợp oxi khiến tế bào thiếu oxi dẫn đến suy giảm chức năng phổi và làm nặng thêm tình trạng bệnh hen và bệnh tim.\n
-Các chất trên cũng nằm trong danh sách 6 chất chính gây ô nhiễm không khí ảnh hưởng đến sức khoẻ con người gồm: bụi mịn, khí CO, SO2, NO2, chì và ozon tầng mặt đất, được liệt kê theo WHO."
-                android:textSize="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:fontFamily="sans-serif-light"
-                android:textColor="@color/black"
                 android:justificationMode="inter_word"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:lineSpacingExtra="2dp"
-                android:text="  Bên cạnh đó, các hạt bụi mịn và siêu mịn đã được Cơ quan Nghiên cứu Ung thư Quốc tế xếp vào nhóm chất gây ung thư cho con người.\n
-Bụi mịn được chia theo kích thước: PM10 là những hạt bụi có đường kính dưới 10 micron (tương đương kích thước của đa số vi khuẩn); PM2.5 là bụi có đường kính dưới 2,5 micron (bằng khoảng 1/30 sợi tóc), thường chỉ được phát hiện bằng kính hiển vi.
-"
-                android:textSize="16dp"
-                android:textColor="@color/black"
-                android:justificationMode="inter_word"
-                android:fontFamily="sans-serif-light"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
                 android:lineSpacingExtra="2dp"
                 android:text="  Chỉ số chất lượng không khí (AQI) là chỉ số được tính toán từ các thông số quan trắc các chất ô nhiễm trong không khí, nhằm cho biết tình trạng chất lượng không khí và mức độ ảnh hưởng đến sức khỏe con người, được biểu diễn qua một thang điểm.
 AQI được tính toán bao gồm AQI giờ và AQI ngày. Số liệu sử dụng để tính toán là giá trị quan trắc trung bình 1 giờ, trung bình 8 giờ và trung bình 24 giờ.
-AQI tính toán cho từng trạm quan trắc không khí tự động liên tục trong môi trường không khí xung quanh. Mỗi trạm, AQI được tính cho từng thông số, giá trị AQI cuối cùng là giá trị lớn nhất trong các giá trị AQI của mỗi thông số.\n  Các thông số được sử dụng để tính toán AQI bao gồm: SO2, CO, NO2, O3, PM10 và PM2.5."
-                android:textSize="16dp"
-                android:fontFamily="sans-serif-light"
+AQI tính toán cho từng trạm quan trắc không khí tự động liên tục trong môi trường không khí xung quanh. Mỗi trạm, AQI được tính cho từng thông số, giá trị AQI cuối cùng là giá trị lớn nhất trong các giá trị AQI của mỗi thông số.\n  Các thông số được sử dụng để tính toán AQI bao gồm: SO2, CO, NO2, O3, PM10, PM2.5, CO2, NO, Benzen, Xylen, Toluen."
                 android:textColor="@color/black"
-                android:justificationMode="inter_word"/>
+                android:textSize="16dp"
+                android:layout_marginBottom="20dp"/>
 
+
+            <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="2. Bảng chất lượng không khí theo AQI"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif-black"
+                android:textAlignment="center"
+                />
             <ImageView
                 android:id="@+id/img_view"
                 android:layout_width="match_parent"
                 android:layout_height="292dp"
                 android:padding="0dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/aqi" />
+                android:src="@drawable/aqi"
+                android:layout_marginBottom="20dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="3. Chi tiết các chất gây ô nhiễm chính"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif-black"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/tv_a"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="a. Bụi mịn 2.5 (PM2.5)"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text="  Bụi mịn pm2.5 là những hạt bụi li ti có trong không khí với kích thước 2,5 micron trở xuống (so với sợi tóc con người thì nó nhỏ hơn khoảng 30 lần). Bụi mịn pm2.5 được hình thành từ các chất như nitơ, carbon và các hợp chất kim loại khác.
+\n  Khi nồng độ bụi mịn pm2.5 trong không khí ở ngoài trời tăng lên thì sẽ làm cho không khí bị mờ đi và tầm nhìn bị giảm trông giống như sương mù. Bụi mịn pm2.5 có thể dễ dàng xâm nhập vào cơ thể con người thông qua đường hô hấp và gây nên một số bệnh nguy hiểm như đột quỵ, tim mạch, ung thư....Người thường xuyên phải tiếp xúc với bụi mịn có thể gặp phải các vấn đề về sức khỏe như hắt hơi, sổ mũi, khó thở, khô mắt...
+\n  Tiêu chuẩn WHO: 10 µg/m3 hàng năm, 25 µg/m3 mỗi 24h"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_b"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="b. Bụi mịn 10 (PM10)"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text="  Là các hạt bụi có kích thước đường kính từ 2.5 tới 10 µm (µm là viết tắt của micromet, kích thước bằng một phần triệu mét). Tác hại tương tự với bụi 2.5 như gây các bệnh về hô hấp, tim mạch, ung thư,...
+\n  Tiêu chuẩn WHO: 15 µg/m3 hàng năm, 45 µg/m3 mỗi 24h"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_c"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="c. Oxit Nito (NOx)"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text="  NOx là tên viết tắt của nitro oxit. Đây là một trong 7 loại khí độc, có khả năng gây ảnh hưởng mạnh. Chất khí này bao gồm nitro và oxy. Trong số các loại nito oxit, oxit nitric (NO) và nitro dioxide (NO2) là 2 chất khí nguy hiểm hơn cả. Hầu hết NOx đều không có màu và không có mùi nhưng NO2 lại thường được xác định là nguyên nhân hình thành lên khói bụi màu nâu đỏ ở các thành phố hoặc khu vục bị ô nhiễm nặng.
+\n  Oxit nito được hình thành từ sự cháy của các nhiên liệu, là phản ứng giữa nito và oxy. Do đó, ở những nơi có lưu lượng xe cơ giới cao thì nồng độ NOx cũng cao. Ngoài ra, tại những nơi có các hoạt động nông nghiệp, nhà máy xử lý nước thải, … oxit nito cũng xuất hiện với mức độ lớn.
+\n  Trong các khu đô thị, các phương tiện giao thông thải ra khoảng 50% lượng NOx có trong không khí. Khi NOx kết hợp với Hemoglobin (Hb) sẽ tạo thành Methemoglobin (Met Hb), làm Hb không thể vận chuyển được oxy, gây ngạt cho cơ thể. Sau một thời gian tiếp xúc lâu dài có thể dẫn tới phù phổi cấp, tím tái có sự biểu hiện của co giật và hôn mê.
+\n  Khi tiếp xúc với NOx ở nồng độ thấp (nhiễm độc mãn tính) có các biểu hiện sau: kích ứng mắt, rối loạn tiêu hóa, viêm phế quản và gây tổn thương răng.
+\n  Các hạt nitrat tạo ra từ NOx làm cho không khí trở nên mờ và khó nhìn thấy. NOx trong khí quyển góp phần gây ô nhiễm chất dinh dưỡng ở vùng nước ven biển."
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_d"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="d. Nito Dioxit (NO2)"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text="  NO2 là một  loại khí hình thành do việc đốt cháy nhiên liệu, thuộc nhóm oxit nito NOx. Trong các NOx thì NO và NO2 được coi là những chất điển hình có thể gây ô nhiễm không khí. Các oxit nitơ khác thường tồn tại trong không khí với nồng độ rất nhỏ và không gây lo ngại về ô nhiễm
+\n  Nguồn sinh ra NO2 gồm ô tô (xe con, xe tải, xe oto buyets), từ các nhà máy nhiệt điện chạy than và những thiết bị cố định khác.
+\n  Hít thở không khí với nồng độ NO2 cao có thể gây kích ứng đường thở trong hệ hô hấp của con người. Phơi nhiễm NO2 trong thời gian ngắn có thể làm nặng thêm các bệnh về đường hô hấp, đặc biệt là hen suyễn, dẫn đến các triệu chứng hô hấp (như ho, khò khè hoặc khó thở) thậm chí đến mức phải đến phòng cấp cứu. Phơi nhiễm lâu hơn với nồng độ NO2 tăng cao có thể góp phần vào sự phát triển của bệnh hen suyễn và có khả năng làm tăng khả năng bị nhiễm trùng đường hô hấp. Những người mắc bệnh hen suyễn, cũng như trẻ em và người già thường có nguy cơ cao hơn đối với các ảnh hưởng sức khỏe của NO2.
+\n  NO2 và NOx tương tác với nước, oxy và các hóa chất khác trong khí quyển để tạo thành mưa axit. Mưa axit gây hại cho các hệ sinh thái nhạy cảm như hồ và rừng.
+\n  Tiêu chuẩn WHO: 40 µg/m3 hàng năm, 200 µg/m3 mỗi 1h"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_e"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="e. Amoniac (NH3) "
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text=" Amoniac (NH3) là chất hóa học tự nhiên trong bầu không khí, như một hóa chất nhân tạo cần thiết cho cuộc sống và sản xuất. Ở nhiệt độ phòng, amoniac là khí không màu, có mùi hăng khai và nhẹ hơn không khí, dễ dàng hòa tan trong nước. Trong tự nhiên, amoniac sinh ra trong quá trình bài tiết và xác sinh vật thối rữa. NH3 còn xuất phát từ các nguồn khí và nước thải trong nông nghiệp, công nghiệp, được xem là chất gây độc hại môi trường. NH3 cũng một tác nhân góp phần tạo nên bụi mịn.
+\n  Trên thực tế trong môi trường sống, lao động và sinh hoạt hằng ngày, hầu hết mọi người đều có thể hít phải khí NH3 qua đường hô hấp, chúng cũng có thể xâm nhập qua đường tiêu hóa hoặc tiếp xúc trực tiếp qua da. Nếu nồng độ NH3 vượt quá ngưỡng cho phép quy định thì có khả năng gây nhiễm độc cho con người.
+\n  Khi xâm nhập vào cơ thể, NH3 tác dụng với nước trong cơ thể tạo thành amoni hydroxit. Hóa chất này có tính ăn mòn và làm tổn thương tế bào. Các mô tổn thương lại bị thoát dịch, sẽ làm biến đổi amoniac thành amoni hydroxit tiếp tục gây phỏng da, mắt, đường hô hấp, tiêu hóa. Chất này còn phá hủy các nhung mao và niêm mạc đường hô hấp là những cơ quan bảo vệ cơ thể chống lại sự nhiễm trùng. Các tổn thương ở đường hô hấp có thể bị thay thê bởi mô hạt và để lại di chứng bệnh phổi mạn tính về sau. Đồng thời các chất tiết, mô bị hoại tử, xác tế bào bị chết... kết hợp với trạng thái sưng phù, phản ứng co cơ trơn của đường hô hấp nên có khả năng gây ra tình trạng tắc nghẽn đường hô hấp gây khó thở
+\n  Tổ chức Quản lý An toàn và sức khỏe nghề nghiệp Mỹ (OSHA) qui định: Giới hạn tiếp xúc với NH3 trong không khí tối đa là 15 phút ở nồng độ NH3 35 ppm, 8h ở nồng độ 25 ppm. "
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_f"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="f. Cacbon Monoxit (CO)"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text="  Carbon monoxide có công thức hóa học là CO, là một chất khí không màu, không mùi, bắt cháy và có độc tính cao. Nó là sản phẩm chính trong sự cháy không hoàn toàn của carbon và các hợp chất chứa carbon.
+\n  Có nhiều nguồn sinh ra carbon monoxide. Ví dụ như khí thải của động cơ đốt trong tạo ra. Carbon monoxide cũng tồn tại với một lượng đáng kể trong khói thuốc lá. Trong gia đình, khí CO được tạo ra khi các nguồn nhiên liệu như xăng, hơi đốt, dầu hay gỗ không cháy hết trong các thiết bị dùng chúng làm nhiên liệu như xe máy, ô tô, lò sưởi và bếp lò v.v. Khí carbon monoxide có thể thấm qua bê tông hàng giờ sau khi xe cộ đã rời khỏi ga ra.
+\n  Carbon monoxide là cực kỳ nguy hiểm, do việc hít thở phải một lượng quá lớn CO sẽ dẫn tới thương tổn do giảm oxy trong máu hay tổn thương hệ thần kinh cũng như có thể gây tử vong. Với nồng độ chỉ khoảng 0,01% carbon monoxide trong không khí cũng có thể là nguy hiểm đến tính mạng.
+CO là chất khí không màu, không mùi và không gây kích ứng nên rất nguy hiểm vì người ta không cảm nhận được sự hiện diện của CO trong không khí. CO có tính liên kết với hemoglobin (Hb) trong hồng cầu mạnh gấp 250-280 lần so với oxy nên khi được hít vào phổi CO sẽ gắn chặt với Hb thành HbCO do đó máu không thể chuyên chở oxy đến tế bào. CO còn gây tổn thương tim do gắn kết với myoglobin.
+\n  Triệu chứng ngộ độc CO thường bắt đầu bằng cảm giác thất thần, nhức đầu, buồn nôn, khó thở rồi từ từ đi vào hôn mê. Nếu ngộ độc CO xảy ra khi đang ngủ say hoặc uống rượu say thì người bị ngộ độc sẽ hôn mê từ từ, ngưng thở và tử vong.
+Ngộ độc CO có thể xảy ra ở những trường hợp chạy máy nổ phát điện trong nhà kín, nằm lò than trong phòng kín, ngủ trong xe hơi đang nổ máy trong nhà hoặc gara...
+\n Tiêu chuẩn WHO: 7 µg/m3 mỗi 24h"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_g"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="g. Sulfur Dioxit (SO2)"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text="  Dioxit lưu huỳnh (SO2) là một khí vô cơ không màu, nặng hơn không khí, là một trong các chất chủ yếu gây ô nhiễm môi trường không khí. Nó được sinh ra do sự đốt cháy các nhiên liệu hóa thạch (than dầu khí đốt). SO2 cũng được sinh ra từ tự nhiên như trong các vụ phun trào núi lửa, các quá trình phân hủy, thối rữa xác động thực vật tự nhiên cũng phát thải nhiều chất khí, các phản ứng hóa học giữa những khí tự nhiên hình thành các khí sunfua, nitrit…. gây nên ô nhiễm không khí.
+\n  Khí SO2 xâm nhập vào cơ thể qua đường hô hấp hoặc hoà tan với nước bọt, từ đó qua đường tiêu hoá để ngấm vào máu. SO2 có thể kết hợp với các hạt nước nhỏ hoặc bụi ẩm để tạo thành các hạt axít H2SO4 nhỏ li ti, xâm nhập qua phổi vào hệ thống bạch huyết. Trong máu, SO2 tham gia nhiều phản ứng hoá học để làm giảm dự trữ kiềm trong máu gây rối loạn chuyển hoá đường và protêin, gây thiếu vitamin B và C, gây tắc nghẽn mạch máu cũng như làm giảm khả năng vận chuyển ôxy của hồng cầu, gây co hẹp dây thanh quản, khó thở.
+\n  SO2  thoát vào bầu khí quyển và là một trong những nguyên nhân chính gây mưa axit. Mưa axit tàn phá nhiều rừng cây, công trình kiến trúc bằng đá và kim loại, biến đất đai trồng trọt thành những vùng hoang mạc.
+\n  Tiêu chuẩn WHO: 40 µg/m3 mỗi 24h"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+
+
+            <TextView
+                android:id="@+id/tv_h"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="h. Ozone (O3)"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text="  O3 có màu xanh nhạt, mùi mạnh ở điều kiện áp suất và nhiệt độ tiêu chuẩn. Ở điều kiện bình thường, O3 là chất khí không màu, có mùi hơi tanh.
+\n  Ozon thuộc tầng ozon được tạo ra bởi tia cực tím tác động trực tiếp lên oxi. Ngoài ra, còn được sinh ra khi có sét đánh. Như đã nói ở trên, oxi cũng được sinh ra dưới hành động chủ động hoặc bị động của con người. Chủ động – hành động sản xuất của ozon phục vụ các ứng dụng của nó. Bị động được tạo ra trong quá trình đốt, tiêu thụ nhiên liệu hóa thạch,…
+\n  Ozon khi ở trên cao có tác dụng ngăn tia cực tím từ bức xạ mặt trời. Tuy nhiên khi ở gần mặt đất, Ozon gây ra những ảnh hưởng xấu đến môi trường không khí.
+\n  Ozone được sinh ra là do tác dụng của ánh nắng mặt trời với hai chất: hydrocarbon và nitrogen oxide (NO), được thải ra từ khói xe và các nhà máy. Khi nhiệt độ tăng cao và “đứng gió”, nồng độ ozone trong không khí sẽ tăng cao.
+\n  Vì nguyên tử oxi (O) được tạo ra có khả năng oxi hóa cực mạnh. Do đó, nếu hít phải khí ozone, nó gây tổn thương các tế bào biểu mô lót của đường hô hấp, gây viêm, dẫn đến ho, ngứa họng, làm giảm chức năng phổi. Từ đó làm cho bệnh hen suyễn, khí phế thũng, viêm phế quản mạn, bệnh phổi tắc nghẽn mạn tính… nặng lên, làm giảm sức đề kháng của cơ thể với bệnh tật. Đối với bệnh nhân bị rung nhĩ do rối loạn nhịp tim, nguy cơ tử vong tăng cao hơn do ô nhiễm ozone.
+\n  Tiêu chuẩn WHO: 100 µg/m3 mỗi 8h"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_k"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="k. Benzene"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text="  Benzen là một hydrocacbon thơm, trong điều kiện thường là một chất lỏng không màu, mùi dịu ngọt dễ chịu, dễ cháy. Benzen được sử dụng rộng rãi trong đời sống, là dung môi quan trọng trong công nghiệp, là chất để điều chế dược phẩm, cao su tổng hợp, thuốc nhuộm, sơn, sơn chống thấm… Và đó cũng là nguồn phát tán benzene vào không khí chủ yếu. Ngoài ra, benzen còn được phát tán ra không khí từ khói thuốc lá, mực máy in, máy fax và thuốc tẩy.
+\n  Benzen là một trong những chất gây ung thư ở người rất cao. Benzen xâm nhập vào cơ thể người qua quá trình trao đổi chất ở gan và tủy, mà tủy sống là nơi hình thành hồng cầu, bạch cầu và tiểu cầu, hình thành độc tố qua tổ chức tạo máu. Benzen gây kích ứng với da, mắt và đường hô hấp trên. Việc hít phải benzen ở đạng chất lỏng ảnh hưởng nghiêm trọng tới sức khỏe, có thể gây ra sưng và xuất huyết phổi, khiến da bị khô, xuất hiện các nốt ban đỏ, mụn nước trên da.
+\n  Nếu hấp thu quá nhiều benzen nồng độ cao có thể gây ngô độc cấp tính, trong thời gian ngắn, ngoài niêm mạc và phổi bị kích ứng, trung khu thần kinh cũng bị ức chế, xuất hiện hiện tượng đau đầu, buồn nôn, đi đứng không vững, hôn mê, co giật và loạn nhịp tim… Người bị phơi nhiễm nặng có thể tử vong.
+\n  Tiêu chuẩn WHO: 5-20 µg/m3"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_l"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="l. Toluene"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text="  Toluen là một đồng đẳng của Benzen, có cấu tạo và tính chất hoá học tương tự như Benzen. Do đó, Toluen cũng là một chất gây nguy hiểm đến sức khoẻ con người.
+\n  Tiếp xúc Toluen với mắt và da sẽ gây nên tình trạng kích ứng. Nếu trong thời gian dài có thể gây nghiêm trọng. Khi hít phải Toluen thì có thể gây đau đầu, ngủ gật, vô thức, ảnh hưởng đến trung tâm thần kinh, hỏng não và có thể gây chết. Khi nuốt phải cực kỳ nguy hiểm có thể gây chết. Ngoài ra, Toluen là chất lỏng dễ cháy có thể bay hơi và tạo thành hỗn hợp nổ."
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_m"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="m. Xylene"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20dp"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-light"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="2dp"
+                android:text=" Tương tự như Toluen, Xylen là một đồng đẳng của Benzen. Do đó cũng có cấu tạo và tính chất hoá học tương tự. Xylen có nhiều ứng dụng trong công nghiệp và đời sống. Tuy nhiên đây là một chất độc với sức khoẻ con người
+\n  Xylen là chất lỏng dễ bay hơi, hơi Xylene rất nguy hiểm, gây kích ứng mạnh với da và mắt. Nếu người khỏe mạnh hít phải hơi Xylene sẽ gây nên những tổn thương nghiêm trọng cho tế bào phổi, tế bào gan, làm hư thận và hệ thần kinh trung ương.
+\n  Ngoài ra khi Xylene không được kiểm soát sẽ gây ô nhiễm môi trường."
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"/>
+
+
+
+
+
+
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Bảng chất lượng không khí theo AQI"
+                android:text=""
                 android:textStyle="italic"
                 android:gravity="center"
                 android:textSize="17dp"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif"
+
+
                 />
 
 
@@ -99,8 +614,10 @@ AQI tính toán cho từng trạm quan trắc không khí tự động liên t�
         android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.847"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.893" />
+        app:layout_constraintVertical_bias="0.9"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
