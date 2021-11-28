@@ -134,34 +134,36 @@ public class FirebaseService extends Service {
                                 String date = hourlyAirQuality.getDatetime().split(" ")[0];
                                 String time = hourlyAirQuality.getDatetime().split(" ")[1];
                                 if (time.equals("23:00:00")) {
-                                    double sumAqi = 0;
-                                    int count = 0;
-                                    List<HourlyAirQuality> hourlyAirQualityList = hourlyAirQualityDAO
-                                            .getListByLocationIDAndDate(locationID, date);
-                                    for (HourlyAirQuality hourly : hourlyAirQualityList) {
-                                        if (hourly.getDatetime().contains(date)) {
-                                            sumAqi += hourly.getAqi();
-                                            count++;
+                                    if (dailyAirQualityDAO.findByLocationIdAndDate(locationID, date) == null){
+                                        double sumAqi = 0;
+                                        int count = 0;
+                                        List<HourlyAirQuality> hourlyAirQualityList = hourlyAirQualityDAO
+                                                .getListByLocationIDAndDate(locationID, date);
+                                        for (HourlyAirQuality hourly : hourlyAirQualityList) {
+                                            if (hourly.getDatetime().contains(date)) {
+                                                sumAqi += hourly.getAqi();
+                                                count++;
+                                            }
                                         }
+                                        double avgAqi = sumAqi / count;
+
+                                        String dailyRate = "";
+                                        if (avgAqi < 50)
+                                            dailyRate = "Tốt";
+                                        else if (avgAqi < 100)
+                                            dailyRate = "Trung bình";
+                                        else if (avgAqi < 150)
+                                            dailyRate = "Kém";
+                                        else if (avgAqi < 200)
+                                            dailyRate = "Xấu";
+                                        else if (avgAqi < 300)
+                                            dailyRate = "Rất xấu";
+                                        else if (avgAqi < 500)
+                                            dailyRate = "Nguy hại";
+
+                                        dailyAirQualityDAO
+                                                .insertAll(new DailyAirQuality(locationID, date, avgAqi, dailyRate));
                                     }
-                                    double avgAqi = sumAqi / count;
-
-                                    String dailyRate = "";
-                                    if (avgAqi < 50)
-                                        dailyRate = "Tốt";
-                                    else if (avgAqi < 100)
-                                        dailyRate = "Trung bình";
-                                    else if (avgAqi < 150)
-                                        dailyRate = "Kém";
-                                    else if (avgAqi < 200)
-                                        dailyRate = "Xấu";
-                                    else if (avgAqi < 300)
-                                        dailyRate = "Rất xấu";
-                                    else if (avgAqi < 500)
-                                        dailyRate = "Nguy hại";
-
-                                    dailyAirQualityDAO
-                                            .insertAll(new DailyAirQuality(locationID, date, avgAqi, dailyRate));
                                 }
                             }
                         }
