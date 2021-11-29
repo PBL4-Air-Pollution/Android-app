@@ -29,4 +29,7 @@ public interface HourlyAirQualityDAO {
 
     @Query("DELETE FROM HourlyAirQuality WHERE datetime LIKE :date || '%'")
     void deleteByDate(String date);
+
+    @Query("DELETE FROM HourlyAirQuality WHERE locationID=:locationID AND datetime=:datetime")
+    void deleteByLocationIDAndDatetime(int locationID, String datetime);
 }
