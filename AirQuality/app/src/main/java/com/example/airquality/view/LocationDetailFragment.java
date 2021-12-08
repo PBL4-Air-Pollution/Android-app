@@ -2,6 +2,7 @@ package com.example.airquality.view;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -102,15 +103,17 @@ public class LocationDetailFragment extends Fragment {
 
                    }
                 });
+
+
                 LocationFragment hourDetailFragment=new LocationFragment();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fl_home,hourDetailFragment)
-                        .addToBackStack(null)
                         .commit();
             }
 
         });
+        Log.d("tag",locationDAO.getListHasMark().size()+"");
 
 //        binding.spnLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override

@@ -96,7 +96,8 @@ public class HomeFragment extends Fragment {
         hourArrayList = new ArrayList<HourlyAirQuality>();
         dayArrayList = new ArrayList<DailyAirQuality>();
         locationArrayList = new ArrayList<Location>();
-        Bundle bundle=this.getArguments();
+
+        Log.d("tag",hourlyAirQualityDAO.getListByLocationIDAndDate(1 ,stringDayHour).size()+"");
         if(locationDAO.getListHasMark().size()==0){
             AsyncTask.execute(new Runnable() {
                 @Override
@@ -115,6 +116,7 @@ public class HomeFragment extends Fragment {
         {
             location = locationDAO.getListHasMark().get(0);
             locationArrayList.addAll(locationDAO.getListHasMark());
+            Log.d("tag",hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(), stringDayHour).size()+"");
             hourlyAirQuality = hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(), stringDayHour).get(0);
 
             SpinnerAdapter spinnerAdapter = new SpinnerAdapter(requireContext(), R.layout.spinner_items_category, locationArrayList);
