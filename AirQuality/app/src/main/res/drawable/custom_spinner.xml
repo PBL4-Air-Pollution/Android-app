@@ -3,7 +3,6 @@
     <item>
         <layer-list>
             <item android:drawable="@drawable/ic_baseline_location_on_24"/>
-
         </layer-list>
     </item>
 

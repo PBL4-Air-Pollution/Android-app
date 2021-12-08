@@ -23,9 +23,13 @@ public interface HourlyAirQualityDAO {
     List<HourlyAirQuality> getListByLocationID(int locationID);
     @Query("SELECT * FROM HourlyAirQuality WHERE locationID=:locationID AND datetime LIKE :date || '%'")
     List<HourlyAirQuality> getListByLocationIDAndDate(int locationID, String date);
+
     @Insert
     void insertAll(HourlyAirQuality...hourlyAirQualities);
 
     @Query("DELETE FROM HourlyAirQuality WHERE datetime LIKE :date || '%'")
     void deleteByDate(String date);
+
+    @Query("DELETE FROM HourlyAirQuality WHERE locationID=:locationID AND datetime=:datetime")
+    void deleteByLocationIDAndDatetime(int locationID, String datetime);
 }

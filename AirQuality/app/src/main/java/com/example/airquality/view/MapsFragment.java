@@ -11,19 +11,15 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -35,16 +31,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
-import com.example.airquality.databinding.FragmentLocationBinding;
 import com.example.airquality.databinding.FragmentMapsBinding;
 import com.example.airquality.model.Location;
 import com.example.airquality.viewmodel.LocationDAO;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApi;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -62,7 +53,6 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, LocationListener {
@@ -132,7 +122,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         binding.btnMyLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getUserCurrentLocation();
+                // Get last location with Google API
+//            getUserCurrentLocation();
+
+                // Set my own location
+                markUserCurrentLocation(16.074380, 108.205576);
+                moveCamera(16.074380, 108.205576);
             }
         });
     }
@@ -152,8 +147,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         // Get current user location
         if (ActivityCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
+            // Get last location with Google API
 //            myGoogleMap.setMyLocationEnabled(true);
-            getUserCurrentLocation();
+//            getUserCurrentLocation();
+
+            // Set my own location
+            markUserCurrentLocation(16.074380, 108.205576);
+            moveCamera(16.074380, 108.205576);
         }
         else{
             ActivityCompat.requestPermissions(this.requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 111);
@@ -195,7 +195,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                 .position(marker)
                 .title(markerTitle)
                 .snippet(stationInfo)
-                .icon(getBitmapFromVector(requireContext(),
+                .icon(createStationLocationPin(requireContext(),
                         ContextCompat.getColor(requireContext(), markerColor),
                         location.getAqi())));
 
@@ -239,21 +239,21 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
             @Override
             public void onSuccess(android.location.Location location) {
                 if (location != null){
-                    markUserCurrentLocation(location);
+                    markUserCurrentLocation(location.getLatitude(), location.getLongitude());
                     moveCamera(location.getLatitude(), location.getLongitude());
                 }
             }
         });
     }
 
-    private void markUserCurrentLocation(android.location.Location location){
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+    private void markUserCurrentLocation(double latitude, double longitude){
+        LatLng latLng = new LatLng(latitude, longitude);
 
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .title("You are here!")
                 .draggable(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                .icon(createUserLocationPin(requireContext(), ContextCompat.getColor(requireContext(), R.color.red)));
 
         if (currentLocationMarker != null){
             currentLocationMarker.remove();
@@ -262,8 +262,37 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         currentLocationMarker = myGoogleMap.addMarker(markerOptions);
     }
 
+    private static BitmapDescriptor createUserLocationPin(@NonNull Context context, @ColorInt int tintColor){
+        // Get drawables
+        Drawable vectorDrawableBackground = ResourcesCompat.getDrawable(
+                context.getResources(), R.drawable.ic_baseline_circle_24, null);
+        Drawable vectorDrawableForeground = ResourcesCompat.getDrawable(
+                context.getResources(), R.drawable.ic_baseline_person_pin_24, null);
+
+        if (vectorDrawableBackground == null || vectorDrawableForeground == null) {
+            return BitmapDescriptorFactory.defaultMarker();
+        }
+
+        // Create bitmap icon
+        Bitmap bitmap = Bitmap.createBitmap(150, 150, Bitmap.Config.ARGB_8888);
+
+        // Create drawing canvas
+        Canvas canvas = new Canvas(bitmap);
+
+        // Formatting drawable vectors
+        vectorDrawableBackground.setBounds(0, 0, canvas.getWidth(), canvas.getHeight() - 10);
+        vectorDrawableForeground.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        // Draw vectors on canvas
+        DrawableCompat.setTint(vectorDrawableBackground, ContextCompat.getColor(context, R.color.white));
+        DrawableCompat.setTint(vectorDrawableForeground, tintColor);
+        vectorDrawableBackground.draw(canvas);
+        vectorDrawableForeground.draw(canvas);
+
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
     private void moveCamera(double latitude, double longitude) {
-//        16.074380, 108.205576
         LatLng latLng = new LatLng(latitude, longitude);
         myGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         myGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
@@ -271,7 +300,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public void onLocationChanged(@NonNull android.location.Location location) {
-        markUserCurrentLocation(location);
+        markUserCurrentLocation(location.getLatitude(), location.getLongitude());
         moveCamera(location.getLatitude(), location.getLongitude());
     }
 
@@ -279,12 +308,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 111){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                getUserCurrentLocation();
+                // Get last location with Google API
+//            getUserCurrentLocation();
+
+                // Set my own location
+                markUserCurrentLocation(16.074380, 108.205576);
+                moveCamera(16.074380, 108.205576);
             }
         }
     }
 
-    public static BitmapDescriptor getBitmapFromVector(@NonNull Context context,
+    public static BitmapDescriptor createStationLocationPin(@NonNull Context context,
                                                        @ColorInt int tintColor,
                                                        double aqi) {
         // Get drawables
@@ -298,28 +332,30 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         }
 
         // Create bitmap icon
-        Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(150, 150, Bitmap.Config.ARGB_8888);
 
         // Create drawing canvas
         Canvas canvas = new Canvas(bitmap);
 
         // Formatting drawable vectors
         vectorDrawableBackground.setBounds(0, 10, canvas.getWidth(), canvas.getHeight());
-        vectorDrawableForeground.setBounds(10, 15, canvas.getWidth() - 10, canvas.getHeight() - 12);
+        vectorDrawableForeground.setBounds(15, 20, canvas.getWidth() - 15, canvas.getHeight() - 20);
 
         // Draw vectors on canvas
+        DrawableCompat.setTint(vectorDrawableBackground, ContextCompat.getColor(context, R.color.white));
         DrawableCompat.setTint(vectorDrawableForeground, tintColor);
         vectorDrawableBackground.draw(canvas);
         vectorDrawableForeground.draw(canvas);
 
         // Show AQI on canvas
         Paint text = new Paint();
-        text.setTextSize(30);
+        text.setTextSize(54);
         text.setColor(Color.WHITE);
+        text.setStrokeWidth(10);
         int x = 0;
-        if (aqi < 100) x = 33;
-        else x = 23;
-        canvas.drawText((int)aqi + "", x, 62, text);
+        if (aqi < 100) x = 45;
+        else x = 28;
+        canvas.drawText((int)aqi + "", x, 93, text);
 
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }

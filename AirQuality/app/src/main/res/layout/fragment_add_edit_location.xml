@@ -2,44 +2,152 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".view.AddEditLocationFragment">
-
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <Spinner
-            android:padding="10dp"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_locationEdit"
             android:layout_width="match_parent"
-            android:id="@+id/spn_location"
-            android:background="@android:color/transparent"
+            android:background="@color/dark_green"
             android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_alignParentStart="true">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/app_logo"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="10pt"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="Edit location"/>
+            </LinearLayout>
 
-        </Spinner>
+
+        </androidx.appcompat.widget.Toolbar>
+        <TextView
+            android:layout_width="match_parent"
+            android:textSize="14pt"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_location_name"
+            android:layout_marginTop="5dp"/>
+
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="92dp"
+                android:layout_height="wrap_content"
+                android:text="Nhãn       : "
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:id="@+id/tv_label"
+                android:maxLength="10"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AQI          : "
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_add_aqi" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate        : "
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_add_rate">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mo ta: "
+                android:text="Mô tả      : "
                 android:textSize="20dp"
-                android:textStyle="bold">
-
-            </TextView>
+                android:textStyle="bold"/>
             <TextView
-                android:id="@+id/tv_mota"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:textSize="20dp"
+                android:textStyle="bold"
                 android:layout_height="wrap_content"
-                android:hint="ex's house">
+                android:id="@+id/tv_add_describe">
 
             </TextView>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:text="Lưu"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="8pt"
+            android:backgroundTint="@color/dark_green">
+        </Button>
 
     </LinearLayout>
 

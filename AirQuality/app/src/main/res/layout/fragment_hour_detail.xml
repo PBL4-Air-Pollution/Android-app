@@ -24,13 +24,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp">
                     <ImageView
                         android:id="@+id/btn_back"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/ic_baseline_keyboard_backspace_24"/>
-
                 </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
             <LinearLayout
@@ -131,7 +131,7 @@
                             android:id="@+id/view_PM2.5"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -149,13 +149,13 @@
                                     android:layout_height="wrap_content"
                                     android:text="PM2.5 "
                                     android:textSize="8pt"
-                                    android:textStyle="bold"></TextView>
+                                    android:textStyle="bold"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
 
                             <TextView
@@ -163,7 +163,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="50"
-                                android:textSize="10pt"></TextView>
+                                android:textSize="10pt"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -179,7 +179,7 @@
                             android:id="@+id/view_O3"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -197,13 +197,13 @@
                                     android:layout_height="wrap_content"
                                     android:text="O3 "
                                     android:textSize="8pt"
-                                    android:textStyle="bold"></TextView>
+                                    android:textStyle="bold"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
 
                             <TextView
@@ -211,7 +211,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="50"
-                                android:textSize="10pt"></TextView>
+                                android:textSize="10pt"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -227,7 +227,7 @@
                             android:id="@+id/view_SO2"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -245,13 +245,13 @@
                                     android:layout_height="wrap_content"
                                     android:text="SO2 "
                                     android:textSize="8pt"
-                                    android:textStyle="bold"></TextView>
+                                    android:textStyle="bold"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
 
                             <TextView
@@ -259,7 +259,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="50"
-                                android:textSize="10pt"></TextView>
+                                android:textSize="10pt"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -273,7 +273,7 @@
                             android:id="@+id/view_NO"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -288,19 +288,19 @@
                                     android:layout_height="wrap_content"
                                     android:text="NO "
                                     android:textStyle="bold"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
                             <TextView
                                 android:id="@+id/tv_NO"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="10pt"
-                                android:text="50"></TextView>
+                                android:text="50"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -329,19 +329,19 @@
                                     android:layout_height="wrap_content"
                                     android:text="NH3 "
                                     android:textStyle="bold"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
                             <TextView
                                 android:id="@+id/tv_NH3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="10pt"
-                                android:text="50"></TextView>
+                                android:text="50"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -357,7 +357,7 @@
                             android:id="@+id/view_toluene"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -375,13 +375,13 @@
                                     android:layout_height="wrap_content"
                                     android:text="Toluene "
                                     android:textSize="8pt"
-                                    android:textStyle="bold"></TextView>
+                                    android:textStyle="bold"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
 
                             <TextView
@@ -389,7 +389,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="50"
-                                android:textSize="10pt"></TextView>
+                                android:textSize="10pt"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -408,7 +408,7 @@
                             android:id="@+id/view_PM10"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -423,19 +423,19 @@
                                     android:layout_height="wrap_content"
                                     android:text="PM10 "
                                     android:textStyle="bold"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
                             <TextView
                                 android:id="@+id/tv_PM10"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="10pt"
-                                android:text="50"></TextView>
+                                android:text="50"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -449,7 +449,7 @@
                             android:id="@+id/view_NO2"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -464,19 +464,19 @@
                                     android:layout_height="wrap_content"
                                     android:text="NO2 "
                                     android:textStyle="bold"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
                             <TextView
                                 android:id="@+id/tv_NO2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="10pt"
-                                android:text="50"></TextView>
+                                android:text="50"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -490,7 +490,7 @@
                             android:id="@+id/view_CO"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -505,19 +505,19 @@
                                     android:layout_height="wrap_content"
                                     android:text="CO "
                                     android:textStyle="bold"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
                             <TextView
                                 android:id="@+id/tv_CO"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="10pt"
-                                android:text="50"></TextView>
+                                android:text="50"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -531,7 +531,7 @@
                             android:id="@+id/view_NOx"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -546,19 +546,19 @@
                                     android:layout_height="wrap_content"
                                     android:text="NOx "
                                     android:textStyle="bold"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
                             <TextView
                                 android:id="@+id/tv_NOx"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="10pt"
-                                android:text="50"></TextView>
+                                android:text="50"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -572,7 +572,7 @@
                             android:id="@+id/view_Benzen"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -587,19 +587,19 @@
                                     android:layout_height="wrap_content"
                                     android:text="Benzen "
                                     android:textStyle="bold"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
                             <TextView
                                 android:id="@+id/tv_Benzen"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="10pt"
-                                android:text="50"></TextView>
+                                android:text="50"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -613,7 +613,7 @@
                             android:id="@+id/view_Xylene"
                             android:layout_width="3dp"
                             android:layout_height="match_parent"
-                            android:background="@color/green"></View>
+                            android:background="@color/green"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -628,19 +628,19 @@
                                     android:layout_height="wrap_content"
                                     android:text="Xylene "
                                     android:textStyle="bold"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="µg/m³"
-                                    android:textSize="8pt"></TextView>
+                                    android:textSize="8pt"/>
                             </LinearLayout>
                             <TextView
                                 android:id="@+id/tv_Xylene"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="10pt"
-                                android:text="50"></TextView>
+                                android:text="50"/>
                         </LinearLayout>
 
                     </LinearLayout>

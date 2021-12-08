@@ -14,13 +14,16 @@ public interface DailyAirQualityDAO {
     @Query("SELECT * FROM DailyAirQuality")
     List<DailyAirQuality> getAll();
 
-    @Query("SELECT * FROM DailyAirQuality WHERE id = :id")
+    @Query("SELECT * FROM DailyAirQuality WHERE id=:id")
     DailyAirQuality getOneByID(int id);
 
     @Query("SELECT * FROM DailyAirQuality WHERE locationID=:locationID")
     List<DailyAirQuality> getListByLocationID(int locationID);
-    @Query("SELECT * FROM DailyAirQuality WHERE locationID=:locationID AND  date LIKE :date")
-    List<DailyAirQuality> getListByLocationIDAndDate(int locationID,String date);
+    @Query("SELECT * FROM DailyAirQuality WHERE locationID=:locationID AND date LIKE :date")
+    List<DailyAirQuality> getListByLocationIDAndDate(int locationID, String date);
+
+    @Query("SELECT * FROM DailyAirQuality WHERE locationID=:locationID AND date=:date")
+    DailyAirQuality findByLocationIdAndDate(int locationID, String date);
 
     @Insert
     void insertAll(DailyAirQuality... dailyAirQualities);

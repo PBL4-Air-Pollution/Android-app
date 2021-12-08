@@ -1,7 +1,6 @@
 package com.example.airquality.view;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,20 +32,19 @@ import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
-    private SpinnerAdapter spinnerAdapter;
-    private Location location;
+    private Location currentLocation;
     private LocationDAO locationDAO;
     private ArrayList<Location> locationArrayList;
 
     private HourlyAirQualityDAO hourlyAirQualityDAO;
     private ArrayList<HourlyAirQuality> hourArrayList;
-    private HourlyAirQuality hourlyAirQuality;
+    private HourlyAirQuality currentHourlyData;
 
     private ArrayList<DailyAirQuality> dayArrayList;
 
@@ -64,7 +61,6 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
 
         }
-
     }
 
     @Nullable
@@ -72,7 +68,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
-
         return binding.getRoot();
     }
 
@@ -80,31 +75,38 @@ public class HomeFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.tbHome.inflateMenu(R.menu.menu_home);
         stringDay = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         stringDayHour = new SimpleDateFormat("dd/MM/yyyy HH:00:00").format(new Date());
 
+        // Hourly air quality list (Horizontal)
+        binding.tbHome.inflateMenu(R.menu.menu_home);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         binding.rvHours.setLayoutManager(layoutManager);
         binding.rvDays.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // Set up app database
         appDatabase = AppDatabase.Instance(requireContext().getApplicationContext());
         locationDAO = appDatabase.locationDAO();
         hourlyAirQualityDAO = appDatabase.hourlyAirQualityDAO();
 
+        // Get UI data
         hourArrayList = new ArrayList<HourlyAirQuality>();
         dayArrayList = new ArrayList<DailyAirQuality>();
         locationArrayList = new ArrayList<Location>();
 
-        Log.d("tag",hourlyAirQualityDAO.getListByLocationIDAndDate(1 ,stringDayHour).size()+"");
-        if(locationDAO.getListHasMark().size()==0){
+        if (locationDAO.getListHasMark().size() == 0){
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
-                    location=locationDAO.getAll().get(0);
-                    hourArrayList.addAll(hourlyAirQualityDAO.getListByLocationID(location.getId()));
-                    hourlyAirQuality=hourArrayList.get(0);
+                    // Get first station to show if no station marked
+                    currentLocation = locationDAO.getAll().get(0);
+
+                    // Lấy data của giờ hiện tại để hiển thị thông tin cuối trang
+                    List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
+                    if (currentDateData.size() > 1){
+                        currentHourlyData = currentDateData.get(currentDateData.size() - 1);
+                    }
 
                     loadHome();
                     loadHours();
@@ -112,19 +114,27 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
-        else
-        {
-            location = locationDAO.getListHasMark().get(0);
-            locationArrayList.addAll(locationDAO.getListHasMark());
-            Log.d("tag",hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(), stringDayHour).size()+"");
-            hourlyAirQuality = hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(), stringDayHour).get(0);
+        else {
+            // Get first marked station to load to UI
+            currentLocation = locationDAO.getListHasMark().get(0);
 
+            List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
+            if (currentDateData.size() > 1){
+                currentHourlyData = currentDateData.get(currentDateData.size() - 1);
+            }
+
+            loadHome();
+            loadHours();
+            loadDays();
+
+            // Setup spinner data
+            locationArrayList.addAll(locationDAO.getListHasMark());
             SpinnerAdapter spinnerAdapter = new SpinnerAdapter(requireContext(), R.layout.spinner_items_category, locationArrayList);
             binding.snLocation.setAdapter(spinnerAdapter);
             binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    location = locationArrayList.get(i);
+                    currentLocation = locationArrayList.get(i);
                     loadHome();
                     loadHours();
                     loadDays();
@@ -133,38 +143,38 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
                 }
-
             });
-            loadHome();
-            loadHours();
-            loadDays();
         }
-
-
     }
     @SuppressLint("DefaultLocale")
     private void loadHome() {
-            binding.tvLocation.setText(location.getStationName());
-            binding.tvAqi.setText(String.format("%.0f", location.getAqi()));
-            binding.tvRate.setText(location.getRated());
-            setBackgroundColor(location.getRated());
+        // Card view top
+        binding.tvLocation.setText(currentLocation.getStationName());
+        binding.tvAqi.setText(String.format("%.0f", currentLocation.getAqi()));
+        binding.tvRate.setText(currentLocation.getRated());
 
-            binding.tvPM25.setText(String.format("%.1f", hourlyAirQuality.getPm25()));
-            setViewColorPM25(hourlyAirQuality.getPm25());
-            binding.tvPM10.setText(String.format("%.1f", hourlyAirQuality.getPm10()));
-            setViewColorPM10(hourlyAirQuality.getPm10());
-            binding.tvO3.setText(String.format("%.1f", hourlyAirQuality.getO3()));
-            setViewColorO3(hourlyAirQuality.getO3());
-            binding.tvNO2.setText(String.format("%.1f", hourlyAirQuality.getNo2()));
-            setViewColorNO2(hourlyAirQuality.getNo2());
-            binding.tvSO2.setText(String.format("%.1f", hourlyAirQuality.getSo2()));
-            setViewColorSO2(hourlyAirQuality.getSo2());
-            binding.tvCO.setText(String.format("%.1f", hourlyAirQuality.getCo()));
-            setViewColorCO(hourlyAirQuality.getCo());
+        setBackgroundColor(currentLocation.getRated());
+
+        // Set up air quality info bottom
+        if (currentHourlyData != null) {
+            binding.tvPM25.setText(String.format("%.1f", currentHourlyData.getPm25()));
+            setViewColorPM25(currentHourlyData.getPm25());
+            binding.tvPM10.setText(String.format("%.1f", currentHourlyData.getPm10()));
+            setViewColorPM10(currentHourlyData.getPm10());
+            binding.tvO3.setText(String.format("%.1f", currentHourlyData.getO3()));
+            setViewColorO3(currentHourlyData.getO3());
+            binding.tvNO2.setText(String.format("%.1f", currentHourlyData.getNo2()));
+            setViewColorNO2(currentHourlyData.getNo2());
+            binding.tvSO2.setText(String.format("%.1f", currentHourlyData.getSo2()));
+            setViewColorSO2(currentHourlyData.getSo2());
+            binding.tvCO.setText(String.format("%.1f", currentHourlyData.getCo()));
+            setViewColorCO(currentHourlyData.getCo());
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void loadHours() {
+        // On click listener go to hour detail fragment
         HourAdapter.HourClickListener hourClickListener = new HourAdapter.HourClickListener() {
             @Override
             public void onCLick(View view, int i) {
@@ -177,10 +187,11 @@ public class HomeFragment extends Fragment {
                         .replace(R.id.fl_home, hourDetailFragment).addToBackStack(null).commit();
             }
         };
-        hourArrayList.clear();
 
+        // Get hourly data of current station
+        hourArrayList.clear();
         HourAdapter hoursAdapter = new HourAdapter(hourArrayList, hourClickListener);
-        hourArrayList.addAll(hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(), stringDay));
+        hourArrayList.addAll(hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay));
         Collections.reverse(hourArrayList);
         hoursAdapter.notifyDataSetChanged();
         binding.rvHours.setAdapter(hoursAdapter);
@@ -188,6 +199,7 @@ public class HomeFragment extends Fragment {
 
     @SuppressLint("NotifyDataSetChanged")
     private void loadDays() {
+        // On click listener go to day detail fragment
         DayAdapter.DayClickListener dayClickListener = new DayAdapter.DayClickListener() {
             @Override
             public void onCLick(View view, int i) {
@@ -200,11 +212,12 @@ public class HomeFragment extends Fragment {
                         .replace(R.id.fl_home, dayDetailFragment).addToBackStack(null).commit();
             }
         };
+
+        // Get daily data of current station
         dayArrayList.clear();
         DayAdapter daysAdapter = new DayAdapter(dayArrayList, dayClickListener);
-        appDatabase = AppDatabase.Instance(requireContext().getApplicationContext());
         DailyAirQualityDAO dailyAirQualityDAO = appDatabase.dailyAirQualityDAO();
-        dayArrayList.addAll(dailyAirQualityDAO.getListByLocationID(location.getId()));
+        dayArrayList.addAll(dailyAirQualityDAO.getListByLocationID(currentLocation.getId()));
         daysAdapter.notifyDataSetChanged();
         binding.rvDays.setAdapter(daysAdapter);
     }
