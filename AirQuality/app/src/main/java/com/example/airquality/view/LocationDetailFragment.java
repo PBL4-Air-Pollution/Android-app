@@ -121,6 +121,7 @@ public class LocationDetailFragment extends Fragment {
             }
 
         });
+        Log.d("tag",locationDAO.getListHasMark().size()+"");
 
 
     }
