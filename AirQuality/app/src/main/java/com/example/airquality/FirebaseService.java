@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -28,7 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class FirebaseService extends Service {
     private DatabaseReference mDatabase;
@@ -85,7 +88,6 @@ public class FirebaseService extends Service {
                     @Override
                     public void run() {
                         HourlyAirQuality hourlyAirQuality = snapshot.getValue(HourlyAirQuality.class);
-
                         if (hourlyAirQuality != null) {
                             if (hourlyAirQualityDAO.findByLocationIdAndDatetime(hourlyAirQuality.getLocationID(),
                                     hourlyAirQuality.getDatetime()) == null) {

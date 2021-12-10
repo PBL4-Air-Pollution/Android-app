@@ -2,6 +2,7 @@ package com.example.airquality.view;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -33,6 +34,9 @@ import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentMapsBinding;
 import com.example.airquality.model.Location;
+import com.example.airquality.modules.DirectionFinder;
+import com.example.airquality.modules.DirectionFinderListener;
+import com.example.airquality.modules.Route;
 import com.example.airquality.viewmodel.LocationDAO;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
@@ -47,22 +51,30 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class MapsFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, LocationListener {
+public class MapsFragment extends Fragment
+        implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, LocationListener, DirectionFinderListener {
 
     private GoogleMap myGoogleMap;
     private FusedLocationProviderClient client;
 
+    private Marker userLocationMarker;
     private Marker currentLocationMarker;
 
     private FragmentMapsBinding binding;
+
+    private List<Polyline> polylinePaths;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -101,7 +113,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
                         currentLocationMarker = myGoogleMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(address.getLatitude(), address.getLongitude()))
-                                .title(txtSearch));
+                                .title(address.getAddressLine(0)));
+
+                        if (polylinePaths != null) {
+                            for (Polyline polyline : polylinePaths) {
+                                polyline.remove();
+                            }
+                        }
 
                         moveCamera(address.getLatitude(), address.getLongitude());
                     } else {
@@ -130,6 +148,31 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                 moveCamera(16.074380, 108.205576);
             }
         });
+
+        // Find direction button
+        binding.btnDirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentLocationMarker != null) {
+                    sendRequest();
+                }
+                else {
+                    Toast.makeText(requireContext(), "Please enter the destination name!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public void sendRequest(){
+        String startLocation = userLocationMarker.getPosition().latitude + "," + userLocationMarker.getPosition().longitude;
+        String destination = currentLocationMarker.getPosition().latitude + "," + currentLocationMarker.getPosition().longitude;
+
+        try {
+            new DirectionFinder(this, startLocation, destination).execute();
+        }
+        catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -255,11 +298,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                 .draggable(true)
                 .icon(createUserLocationPin(requireContext(), ContextCompat.getColor(requireContext(), R.color.red)));
 
-        if (currentLocationMarker != null){
-            currentLocationMarker.remove();
+        if (userLocationMarker != null){
+            userLocationMarker.remove();
         }
 
-        currentLocationMarker = myGoogleMap.addMarker(markerOptions);
+        userLocationMarker = myGoogleMap.addMarker(markerOptions);
     }
 
     private static BitmapDescriptor createUserLocationPin(@NonNull Context context, @ColorInt int tintColor){
@@ -372,5 +415,36 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentMapsBinding.inflate(getLayoutInflater());
         return binding.getRoot();
+    }
+
+    private ProgressDialog progressDialog;
+
+    @Override
+    public void onDirectionFinderStart() {
+        progressDialog = ProgressDialog.show(this.getContext(), "Please wait...",
+                "Finding direction...", true);
+    }
+
+    @Override
+    public void onDirectionFinderSuccess(List<com.example.airquality.modules.Route> routes) {
+        progressDialog.dismiss();
+        polylinePaths = new ArrayList<>();
+
+        for (Route route : routes) {
+            myGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 16));
+//            ((TextView) findViewById(R.id.tvDuration)).setText(route.duration.text);
+//            ((TextView) findViewById(R.id.tvDistance)).setText(route.distance.text);
+
+            PolylineOptions polylineOptions = new PolylineOptions().
+                    geodesic(true).
+                    color(Color.BLUE).
+                    width(10);
+
+            for (int i = 0; i < route.points.size(); i++){
+                polylineOptions.add(route.points.get(i));
+            }
+
+            polylinePaths.add(myGoogleMap.addPolyline(polylineOptions));
+        }
     }
 }
