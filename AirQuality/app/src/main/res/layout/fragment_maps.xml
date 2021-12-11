@@ -13,14 +13,77 @@
         tools:context=".view.MapsFragment" />
 
     <SearchView
+        android:id="@+id/sv_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sv_map"
-        android:queryHint="Search..."
-        android:iconifiedByDefault="false"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_search_view"
         android:elevation="2dp"
-        android:background="@drawable/bg_search_view"/>
+        android:iconifiedByDefault="false"
+        android:queryHint="Search..." />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="15dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tvDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"/>
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_baseline_directions_bike_24"
+                android:layout_marginEnd="10dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="15dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tvDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"/>
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_baseline_access_time_24"
+                android:layout_marginEnd="10dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_my_location"
@@ -33,9 +96,9 @@
         android:backgroundTint="@color/white"
         android:clickable="true"
         android:focusable="true"
-        app:srcCompat="@android:drawable/ic_menu_mylocation"
         app:maxImageSize="36dp"
-        app:tint="@color/blue"/>
+        app:srcCompat="@android:drawable/ic_menu_mylocation"
+        app:tint="@color/blue" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_direct"
@@ -51,4 +114,5 @@
         app:srcCompat="@android:drawable/ic_menu_directions"
         app:maxImageSize="36dp"
         app:tint="@color/white" />
+
 </RelativeLayout>

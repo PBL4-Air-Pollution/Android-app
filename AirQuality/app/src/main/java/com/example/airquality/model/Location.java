@@ -33,6 +33,9 @@ public class Location {
     @ColumnInfo
     private String rated;
 
+    @ColumnInfo
+    private boolean favourite;
+
     public Location(String stationName, double viDo, double kinhDo, String describe, String label, boolean marked, double aqi, String rated) {
         this.stationName = stationName;
         this.viDo = viDo;
@@ -42,6 +45,7 @@ public class Location {
         this.marked = marked;
         this.aqi = aqi;
         this.rated = rated;
+        this.favourite = false;
     }
 
     public int getId() {
@@ -114,5 +118,13 @@ public class Location {
 
     public void setRated(String rated) {
         this.rated = rated;
+    }
+
+    public boolean isFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
     }
 }

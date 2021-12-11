@@ -25,11 +25,17 @@ public interface LocationDAO {
     @Query("SELECT * FROM Location WHERE marked = 1 ")
     List<Location> getListHasMark();
 
-    @Query("SELECT stationName FROM Location WHERE marked = 0")
-    List<String> getListNameHasNotMark();
+    @Query("SELECT * FROM Location WHERE favourite = 1")
+    Location getFavouriteLocation();
 
     @Query("UPDATE Location SET aqi=:aqi, rated=:rate WHERE id=:id")
     void updateAqiAndRate(int id, double aqi, String rate);
+
+    @Query("UPDATE Location SET favourite = 0")
+    void clearFavourite();
+
+    @Query("UPDATE Location SET favourite = 1 WHERE id=:id")
+    void setFavourite(int id);
 
     @Insert
     void insertLocations(Location... locations);

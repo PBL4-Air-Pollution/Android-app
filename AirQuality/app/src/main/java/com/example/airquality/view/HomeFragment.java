@@ -95,65 +95,50 @@ public class HomeFragment extends Fragment {
         dayArrayList = new ArrayList<DailyAirQuality>();
         locationArrayList = new ArrayList<Location>();
 
-        if (locationDAO.getListHasMark().size() == 0){
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    // Get first station to show if no station marked
-                    currentLocation = locationDAO.getAll().get(0);
+        locationArrayList.addAll(locationDAO.getAll());
+        currentLocation = locationArrayList.get(0);
 
-                    // Lấy data của giờ hiện tại để hiển thị thông tin cuối trang
-                    List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
-                    if (currentDateData.size() > 1){
-                        currentHourlyData = currentDateData.get(currentDateData.size() - 1);
-                    }
-
-                    loadHome();
-                    loadHours();
-                    loadDays();
-                }
-            });
-        }
-        else {
-            // Get first marked station to load to UI
-            currentLocation = locationDAO.getListHasMark().get(0);
-
-            List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
-            if (currentDateData.size() > 1){
-                currentHourlyData = currentDateData.get(currentDateData.size() - 1);
+        // Setup spinner data
+        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(requireContext(), R.layout.spinner_items_category, locationArrayList);
+        binding.snLocation.setAdapter(spinnerAdapter);
+        binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                currentLocation = locationArrayList.get(i);
+                loadHome();
+                loadHours();
+                loadDays();
             }
 
-            loadHome();
-            loadHours();
-            loadDays();
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
-            // Setup spinner data
-            locationArrayList.addAll(locationDAO.getListHasMark());
-            SpinnerAdapter spinnerAdapter = new SpinnerAdapter(requireContext(), R.layout.spinner_items_category, locationArrayList);
-            binding.snLocation.setAdapter(spinnerAdapter);
-            binding.snLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    currentLocation = locationArrayList.get(i);
-                    loadHome();
-                    loadHours();
-                    loadDays();
-                }
+        // Get first marked station to load to UI if there is no favourite location
+        if (locationDAO.getFavouriteLocation() == null) binding.snLocation.setSelection(0);
+        else binding.snLocation.setSelection(locationDAO.getFavouriteLocation().getId() - 1);
 
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
-            });
+
+        List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
+        if (currentDateData.size() > 1){
+            currentHourlyData = currentDateData.get(currentDateData.size() - 1);
         }
+
+        loadHome();
+        loadHours();
+        loadDays();
+
+
     }
     @SuppressLint("DefaultLocale")
     private void loadHome() {
         // Card view top
         binding.tvLocation.setText(currentLocation.getStationName());
-        binding.tvAqi.setText(String.format("%.0f", currentLocation.getAqi()));
         binding.tvRate.setText(currentLocation.getRated());
 
         setBackgroundColor(currentLocation.getRated());
+        binding.tvAqi.setText(String.format("%.0f", currentLocation.getAqi()));
 
         // Set up air quality info bottom
         if (currentHourlyData != null) {

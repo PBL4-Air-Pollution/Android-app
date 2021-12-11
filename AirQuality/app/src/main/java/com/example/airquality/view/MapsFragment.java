@@ -115,10 +115,13 @@ public class MapsFragment extends Fragment
                                 .position(new LatLng(address.getLatitude(), address.getLongitude()))
                                 .title(address.getAddressLine(0)));
 
+                        // Clear polyline and distance, duration text view
                         if (polylinePaths != null) {
                             for (Polyline polyline : polylinePaths) {
                                 polyline.remove();
                             }
+                            binding.tvDistance.setText("");
+                            binding.tvDuration.setText("");
                         }
 
                         moveCamera(address.getLatitude(), address.getLongitude());
@@ -431,9 +434,9 @@ public class MapsFragment extends Fragment
         polylinePaths = new ArrayList<>();
 
         for (Route route : routes) {
-            myGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 16));
-//            ((TextView) findViewById(R.id.tvDuration)).setText(route.duration.text);
-//            ((TextView) findViewById(R.id.tvDistance)).setText(route.distance.text);
+            myGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 14));
+            binding.tvDistance.setText(route.distance.text);
+            binding.tvDuration.setText(route.duration.text);
 
             PolylineOptions polylineOptions = new PolylineOptions().
                     geodesic(true).

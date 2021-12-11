@@ -9,10 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airquality.AppDatabase;
@@ -40,7 +42,7 @@ import java.util.Date;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder>{
     private ArrayList<Location> mlistLocation;
     private Context context;
-    private HourlyAirQuality hourlyAirQuality;
+
     public LocationAdapter(ArrayList<Location> mlistLocation) {
         this.mlistLocation = mlistLocation;
     }
@@ -63,14 +65,18 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         }
         AppDatabase appDatabase=AppDatabase.Instance(context);
         HourlyAirQualityDAO hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
+        LocationDAO locationDAO = appDatabase.locationDAO();
+
         ArrayList<HourlyAirQuality> hourList = new ArrayList<HourlyAirQuality>();
         hourList.addAll(hourlyAirQualityDAO.getListByLocationID(location.getId()));
-//        String stringDayHour=LocalDateTime.now().getDayOfMonth()+"/"+LocalDateTime.now().getMonthValue()+"/"+LocalDateTime.now().getYear()+" "+LocalDateTime.now().getHour()+":00:00";
-//        HourlyAirQuality hourlyAirQuality=hourlyAirQualityDAO.getListByLocationIDAndDate(location.getId(),stringDayHour).get(0);
+
         holder.binding.tvLocation.setText(location.getStationName());
         holder.binding.tvAqi.setText((int)location.getAqi() + "");
-        holder.binding.tvRate.setText(location.getRated());
+        if (location.getRated().equals("Trung bình")) holder.binding.tvRate.setText("T.Bình");
+        else holder.binding.tvRate.setText(location.getRated());
         holder.binding.tvLable.setText(location.getLabel());
+        if (location.isFavourite()) holder.binding.btnFavourite.setColorFilter(R.color.dark_green);
+
         if(location.getAqi()<=50){
            holder.binding.llAvatar.setBackgroundResource(R.color.green);
            holder.binding.llText.setBackgroundResource(R.drawable.custom_green);
@@ -78,30 +84,46 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         }
         else if(location.getAqi()<=100) {
            holder.binding.llAvatar.setBackgroundResource(R.color.yellow);
-            holder.binding.llText.setBackgroundResource(R.drawable.custom_yellow);
+           holder.binding.llText.setBackgroundResource(R.drawable.custom_yellow);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_yellow);
         }
         else if(location.getAqi()<=150){
            holder.binding.llAvatar.setBackgroundResource(R.color.orange);
-            holder.binding.llText.setBackgroundResource(R.drawable.custom_orange);
+           holder.binding.llText.setBackgroundResource(R.drawable.custom_orange);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_orange);
         }
         else if(location.getAqi()<=200){
            holder.binding.llAvatar.setBackgroundResource(R.color.red);
-            holder.binding.llText.setBackgroundResource(R.drawable.custom_red);
+           holder.binding.llText.setBackgroundResource(R.drawable.custom_red);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_red);
         }
         else if(location.getAqi()<=300) {
            holder.binding.llAvatar.setBackgroundResource(R.color.purple);
-            holder.binding.llText.setBackgroundResource(R.drawable.custom_purple);
+           holder.binding.llText.setBackgroundResource(R.drawable.custom_purple);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_purple);
         }
         else if(location.getAqi()<=500) {
            holder.binding.llAvatar.setBackgroundResource(R.color.brown);
-            holder.binding.llText.setBackgroundResource(R.drawable.custom_brown);
+           holder.binding.llText.setBackgroundResource(R.drawable.custom_brown);
            holder.binding.ivAvatar.setImageResource(R.drawable.avatar_brown);
         }
 
+        holder.binding.btnFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (location.isFavourite()) locationDAO.clearFavourite();
+                else {
+                    locationDAO.clearFavourite();
+                    locationDAO.setFavourite(location.getId());
+                }
+
+                // Refresh location fragment
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                LocationFragment locationFragment = new LocationFragment();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, locationFragment).addToBackStack(null).commit();
+            }
+        });
+        
         int _position=position;
         holder.binding.locationDelete.setOnClickListener(new View.OnClickListener() {
             @Override
