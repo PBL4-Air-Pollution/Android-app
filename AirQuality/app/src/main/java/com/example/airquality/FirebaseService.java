@@ -111,35 +111,37 @@ public class FirebaseService extends Service {
                                 dailyAirQualityDAO.deleteByDate(deleteDate);
 
                                 // Check AQI -> push notification
-                                Location location=locationDAO.getListByID(hourlyAirQuality.getLocationID()).get(0);
-                                if(location.isFavourite()){
-                                    NotificationManager manager = (NotificationManager) getSystemService(
-                                            NOTIFICATION_SERVICE);
-                                    if (Build.VERSION.SDK_INT >= 26) {
-                                        // When sdk version is larger than26
-                                        String id = "channel_1";
-                                        String description = "143";
-                                        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar_green);
-                                        int importance = NotificationManager.IMPORTANCE_LOW;
-                                        NotificationChannel channel = new NotificationChannel(id, description, importance);
-                                        manager.createNotificationChannel(channel);
-                                        Notification notification = new Notification.Builder(getApplicationContext(), id)
-                                                .setCategory(Notification.CATEGORY_MESSAGE)
-                                                .setSmallIcon(R.drawable.app_logo)
-                                                .setLargeIcon(getCroppedBitmap(location.getRated()))
-                                                .setContentTitle("AQI :"+(int)location.getAqi()+" - "+location.getRated())
-                                                .setContentText(getRecommended(location.getRated()))
-                                                .setSubText(location.getStationName())
-                                                .setAutoCancel(true).build();
-                                        manager.notify(1, notification);
-                                    } else {
-                                        // When sdk version is less than26
-                                        Notification notification = new NotificationCompat.Builder(getApplicationContext())
-                                                .setContentTitle("This is content title")
-                                                .setContentText("This is content text").setSmallIcon(R.mipmap.ic_launcher)
-                                                .build();
-                                        manager.notify(1, notification);
-                                    }
+                                Location location;
+
+                                if (locationDAO.getFavouriteLocation() == null) location = locationDAO.getByID(1);
+                                else location = locationDAO.getFavouriteLocation();
+
+                                NotificationManager manager = (NotificationManager) getSystemService(
+                                        NOTIFICATION_SERVICE);
+                                if (Build.VERSION.SDK_INT >= 26) {
+                                    // When sdk version is larger than26
+                                    String id = "channel_1";
+                                    String description = "143";
+                                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.avatar_green);
+                                    int importance = NotificationManager.IMPORTANCE_LOW;
+                                    NotificationChannel channel = new NotificationChannel(id, description, importance);
+                                    manager.createNotificationChannel(channel);
+                                    Notification notification = new Notification.Builder(getApplicationContext(), id)
+                                            .setCategory(Notification.CATEGORY_MESSAGE)
+                                            .setSmallIcon(R.drawable.app_logo)
+                                            .setLargeIcon(getCroppedBitmap(location.getRated()))
+                                            .setContentTitle("AQI :"+(int)location.getAqi()+" - "+location.getRated())
+                                            .setContentText(getRecommended(location.getRated()))
+                                            .setSubText(location.getStationName())
+                                            .setAutoCancel(false).setOngoing(true).build();
+                                    manager.notify(1, notification);
+                                } else {
+                                    // When sdk version is less than26
+                                    Notification notification = new NotificationCompat.Builder(getApplicationContext())
+                                            .setContentTitle("This is content title")
+                                            .setContentText("This is content text").setSmallIcon(R.mipmap.ic_launcher)
+                                            .build();
+                                    manager.notify(1, notification);
                                 }
 
                                 // Update currentAQI and Rated of location
@@ -210,6 +212,7 @@ public class FirebaseService extends Service {
             }
         });
     }
+
     public Bitmap getCroppedBitmap(String rate) {
         Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar_green);;
         switch (rate) {
@@ -256,7 +259,6 @@ public class FirebaseService extends Service {
         switch (rate) {
             case "Tốt": // Xanh lá
                 recommended="Không ảnh hướng tới sức khỏe";
-
                 break;
             case "Trung bình": // Vàng
                 recommended="Nhóm nhạy cảm nên hạn chế thời gian ở bên ngoài";
