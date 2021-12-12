@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.RemoteViews;
 
 import com.example.airquality.Adapters.DayAdapter;
 import com.example.airquality.Adapters.HourAdapter;
