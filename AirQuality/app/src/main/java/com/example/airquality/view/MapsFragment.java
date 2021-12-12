@@ -194,12 +194,12 @@ public class MapsFragment extends Fragment
         if (ActivityCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             // Get last location with Google API
-//            myGoogleMap.setMyLocationEnabled(true);
-//            getUserCurrentLocation();
+            myGoogleMap.setMyLocationEnabled(true);
+            getUserCurrentLocation();
 
-            // Set my own location
-            markUserCurrentLocation(16.074380, 108.205576);
-            moveCamera(16.074380, 108.205576);
+//            // Set my own location
+//            markUserCurrentLocation(16.074380, 108.205576);
+//            moveCamera(16.074380, 108.205576);
         }
         else{
             ActivityCompat.requestPermissions(this.requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 111);
@@ -211,7 +211,7 @@ public class MapsFragment extends Fragment
         LatLng marker = new LatLng(location.getViDo(), location.getKinhDo());
 
         String markerTitle = "Trạm: " + location.getStationName();
-        String stationInfo = "AQI: " + location.getAqi() + "\n" +
+        String stationInfo = "AQI: " + (int)location.getAqi() + "\n" +
                             "Đánh giá: " + location.getRated() + "\n" +
                             "Nhãn: " + location.getLabel();
 
