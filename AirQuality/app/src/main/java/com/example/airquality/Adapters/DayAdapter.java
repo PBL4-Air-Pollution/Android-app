@@ -38,7 +38,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DailyAirQuality day = dayArrayList.get(position);
         holder.binding.tvDate.setText(day.getDate());
-        holder.binding.tvAqi.setText(String.format("%.0f", day.getAqi()));
+        holder.binding.tvAqi.setText((int)day.getAqi()+"");
         holder.binding.tvRate.setText(day.getRated());
         switch (day.getRated()){
             case "Tốt": // Xanh lá

@@ -90,10 +90,10 @@ public class DayDetailFragment extends Fragment {
         dailyAirQualityDAO=appDatabase.dailyAirQualityDAO();
         hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
 
-        dailyAirQuality=dailyAirQualityDAO.getListByLocationIDAndDate(locationID,stringDay).get(0);
+        dailyAirQuality=dailyAirQualityDAO.getListByLocationIDAndDate(locationID,stringDay);
         binding.tvDate.setText(stringDay);
-        binding.tvLocation.setText(locationDAO.getByID(1).getStationName());
-        binding.tvAqi.setText(String.format("%.0f", dailyAirQuality.getAqi()));
+        binding.tvLocation.setText(locationDAO.getByID(dailyAirQuality.getLocationID()).getStationName());
+        binding.tvAqi.setText((int)dailyAirQuality.getAqi()+"");
         binding.tvRate.setText(dailyAirQuality.getRated());
         setBackgroundColor(dailyAirQuality.getAqi());
 

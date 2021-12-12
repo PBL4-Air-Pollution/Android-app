@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.airquality.AppDatabase;
+import com.example.airquality.Notifications;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentAddEditLocationBinding;
 import com.example.airquality.databinding.ItemCardviewBinding;
@@ -118,6 +119,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                 }
 
                 // Refresh location fragment
+                Notifications notifications=new Notifications(context);
+                notifications.setUpNotification();
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 LocationFragment locationFragment = new LocationFragment();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, locationFragment).addToBackStack(null).commit();

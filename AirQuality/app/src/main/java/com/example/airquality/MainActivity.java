@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+        Notifications notifications=new Notifications(this);
+        notifications.setUpNotification();
 
         Intent intent = new Intent(this, FirebaseService.class);
         startService(intent);
@@ -57,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         setUpBottomNavBar();
 
-        setUpLocalDatabase();
 
-        setUpNotification();
     }
 
     private void setUpViewPager() {
@@ -138,109 +138,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setUpLocalDatabase() {
-        AppDatabase appDatabase = AppDatabase.Instance(getApplicationContext());
-        locationDAO = appDatabase.locationDAO();
-    }
-
-    private void setUpNotification() {
-        Location location;
-
-        if (locationDAO.getFavouriteLocation() == null) location = locationDAO.getByID(1);
-        else location = locationDAO.getFavouriteLocation();
-
-        NotificationManager manager = (NotificationManager) getSystemService(
-                NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= 26) {
-            // When sdk version is larger than26
-            String id = "channel_1";
-            String description = "143";
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.avatar_green);
-            int importance = NotificationManager.IMPORTANCE_LOW;
-            NotificationChannel channel = new NotificationChannel(id, description, importance);
-            manager.createNotificationChannel(channel);
-            Notification notification = new Notification.Builder(getApplicationContext(), id)
-                    .setCategory(Notification.CATEGORY_MESSAGE)
-                    .setSmallIcon(R.drawable.app_logo)
-                    .setLargeIcon(getCroppedBitmap(location.getRated()))
-                    .setContentTitle("AQI :"+(int)location.getAqi()+" - "+location.getRated())
-                    .setContentText(getRecommended(location.getRated()))
-                    .setSubText(location.getStationName())
-                    .setAutoCancel(false).setOngoing(true).build();
-            manager.notify(1, notification);
-        } else {
-            // When sdk version is less than26
-            Notification notification = new NotificationCompat.Builder(getApplicationContext())
-                    .setContentTitle("This is content title")
-                    .setContentText("This is content text").setSmallIcon(R.mipmap.ic_launcher)
-                    .build();
-            manager.notify(1, notification);
-        }
-    }
-
-    public Bitmap getCroppedBitmap(String rate) {
-        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar_green);;
-        switch (rate) {
-            case "Tốt": // Xanh lá
-                bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar_green);
-                break;
-            case "Trung bình": // Vàng
-                bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar_yellow);
-                break;
-            case "Kém": // Cam
-                bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar_orange);
-                break;
-            case "Xấu": // Đỏ
-                bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar_red);
-                break;
-            case "Rất xấu": // Tím
-                bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar_purple);
-                break;
-            case "Nguy hại": // Nâu
-                bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.avatar_brown);
-                break;
-        }
-
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
-                bitmap.getWidth() / 2, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-        return output;
-    }
-    public String getRecommended(String rate){
-        String recommended="";
-        switch (rate) {
-            case "Tốt": // Xanh lá
-                recommended="Không ảnh hướng tới sức khỏe";
-                break;
-            case "Trung bình": // Vàng
-                recommended="Nhóm nhạy cảm nên hạn chế thời gian ở bên ngoài";
-                break;
-            case "Kém": // Cam
-                recommended="Nhóm nhạy cảm hạn chế thời gian ở bên ngoài";
-                break;
-            case "Xấu": // Đỏ
-                recommended="Nhóm nhạy cảm tránh ra ngoài. Những người khác hạn chế ra ngoài";
-                break;
-            case "Rất xấu": // Tím
-                recommended="Nhóm nhạy cảm tránh ra ngoài. Những người khác hạn chế ra ngoài";
-                break;
-            case "Nguy hại": // Nâu
-                recommended="Mọi người nên ở nhà";
-                break;
-        }
-        return recommended;
-    }
 }

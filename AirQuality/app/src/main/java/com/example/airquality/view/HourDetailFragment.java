@@ -76,7 +76,7 @@ public class HourDetailFragment extends Fragment {
         binding.tvHour.setText(stringHour[0]+":00");
         binding.tvLocation.setText(locationDAO.getByID(Integer.parseInt(locationID)).getStationName());
         binding.tvRate.setText(hourlyAirQuality.getRated());
-        binding.tvAqi.setText(String.format("%.0f",hourlyAirQuality.getAqi()));
+        binding.tvAqi.setText((int)hourlyAirQuality.getAqi()+"");
         setBackgroundColor(hourlyAirQuality.getAqi());
         setText(hourlyAirQuality);
 

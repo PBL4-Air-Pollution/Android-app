@@ -139,7 +139,7 @@ public class HomeFragment extends Fragment {
         binding.tvRate.setText(currentLocation.getRated());
 
         setBackgroundColor(currentLocation.getRated());
-        binding.tvAqi.setText(String.format("%.0f", currentLocation.getAqi()));
+        binding.tvAqi.setText((int)currentLocation.getAqi()+"");
 
         // Set up air quality info bottom
         if (currentHourlyData != null) {

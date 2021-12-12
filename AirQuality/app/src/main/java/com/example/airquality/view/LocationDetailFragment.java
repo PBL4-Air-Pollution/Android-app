@@ -89,7 +89,7 @@ public class LocationDetailFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 location=locationArrayList.get(i);
                 binding.tvLocationName.setText(location.getStationName());
-                binding.tvAqiDetail.setText(String.format("%.1f", location.getAqi()));
+                binding.tvAqiDetail.setText((int)location.getAqi()+"");
                 binding.tvDescribe.setText(String.format( location.getDescribe()));
                 binding.tvRateDetail.setText(String.format( location.getRated()));
             }
