@@ -25,9 +25,6 @@ public class SpinnerAdapter extends ArrayAdapter<Location> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.spinner_items_category,parent,false);
-//        Location location=getItem(position);
-//        TextView textView=(TextView) convertView.findViewById(R.id.spn_location);
-//        textView.setText(location.getStationName());
         return view;
 
     }

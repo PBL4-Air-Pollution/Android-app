@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +12,6 @@ import com.example.airquality.R;
 import com.example.airquality.databinding.ItemHourBinding;
 import com.example.airquality.model.HourlyAirQuality;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
@@ -84,9 +81,10 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder>{
 
         @Override
         public void onClick(View view) {
-            onClickListener.onCLick(view,getBindingAdapterPosition());
+            onClickListener.onCLick(view, getBindingAdapterPosition());
         }
     }
+
     public interface HourClickListener{
         void onCLick(View view,int i);
     }

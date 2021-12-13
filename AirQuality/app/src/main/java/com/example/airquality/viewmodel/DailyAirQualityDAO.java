@@ -6,7 +6,6 @@ import androidx.room.Query;
 
 import com.example.airquality.model.DailyAirQuality;
 
-import java.util.Date;
 import java.util.List;
 
 @Dao

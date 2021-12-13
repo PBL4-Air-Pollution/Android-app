@@ -7,7 +7,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.airquality.model.Location;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 

@@ -1,23 +1,15 @@
 package com.example.airquality.view;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.databinding.adapters.AbsListViewBindingAdapter;
 import androidx.fragment.app.Fragment;
 
-import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentInfoBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class InfoFragment extends Fragment {
     private FragmentInfoBinding binding;

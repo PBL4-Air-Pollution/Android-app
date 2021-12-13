@@ -1,31 +1,16 @@
 package com.example.airquality;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.IBinder;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 
 import com.example.airquality.model.DailyAirQuality;
 import com.example.airquality.model.HourlyAirQuality;
-import com.example.airquality.model.Location;
 import com.example.airquality.viewmodel.DailyAirQualityDAO;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
@@ -38,9 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class FirebaseService extends Service {
     private DatabaseReference mDatabase;
@@ -111,7 +94,7 @@ public class FirebaseService extends Service {
                                 dailyAirQualityDAO.deleteByDate(deleteDate);
 
                                 // Check AQI -> push notification
-                                Notifications notifications=new Notifications(getApplicationContext());
+                                Notifications notifications = new Notifications(getApplicationContext());
                                 notifications.setUpNotification();
 
                                 // Update currentAQI and Rated of location

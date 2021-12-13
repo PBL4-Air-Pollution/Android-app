@@ -4,10 +4,8 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.airquality.model.DailyAirQuality;
 import com.example.airquality.model.HourlyAirQuality;
 
-import java.util.Date;
 import java.util.List;
 
 @Dao

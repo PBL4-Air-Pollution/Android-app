@@ -178,11 +178,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ItemCardviewBinding binding;
-//        public FragmentAddEditLocationBinding binding2;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = ItemCardviewBinding.bind(itemView);
-//            binding2= FragmentAddEditLocationBinding.bind(itemView);
         }
     }
 }

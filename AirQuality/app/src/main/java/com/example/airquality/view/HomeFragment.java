@@ -1,7 +1,6 @@
 package com.example.airquality.view;
 
 import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,7 +16,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.RemoteViews;
 
 import com.example.airquality.Adapters.DayAdapter;
 import com.example.airquality.Adapters.HourAdapter;
@@ -129,9 +127,8 @@ public class HomeFragment extends Fragment {
         loadHome();
         loadHours();
         loadDays();
-
-
     }
+
     @SuppressLint("DefaultLocale")
     private void loadHome() {
         // Card view top

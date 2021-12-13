@@ -1,17 +1,7 @@
 package com.example.airquality;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,7 +10,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -29,25 +18,22 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.airquality.Adapters.ViewPagerAdapter;
 import com.example.airquality.databinding.ActivityMainBinding;
-import com.example.airquality.model.Location;
 import com.example.airquality.view.HomeFragment;
 import com.example.airquality.view.InfoFragment;
 import com.example.airquality.view.LocationFragment;
 import com.example.airquality.view.MapsFragment;
-import com.example.airquality.viewmodel.LocationDAO;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
-
-    private LocationDAO locationDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        Notifications notifications=new Notifications(this);
+
+        Notifications notifications = new Notifications(this);
         notifications.setUpNotification();
 
         Intent intent = new Intent(this, FirebaseService.class);
@@ -58,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setUpViewPager();
 
         setUpBottomNavBar();
-
-
     }
 
     private void setUpViewPager() {

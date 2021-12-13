@@ -1,6 +1,5 @@
 package com.example.airquality.view;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,20 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.airquality.Adapters.SpinnerAdapter;
 import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentLocationDetailBinding;
-import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.model.Location;
 import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;

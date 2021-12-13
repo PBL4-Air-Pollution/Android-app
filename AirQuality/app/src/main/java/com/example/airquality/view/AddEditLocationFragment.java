@@ -14,32 +14,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.example.airquality.Adapters.DayDetailAdapter;
-import com.example.airquality.Adapters.LocationAdapter;
 import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentAddEditLocationBinding;
-import com.example.airquality.databinding.FragmentDayDetailBinding;
-import com.example.airquality.databinding.FragmentHourDetailBinding;
-import com.example.airquality.model.DailyAirQuality;
-import com.example.airquality.model.HourlyAirQuality;
 import com.example.airquality.model.Location;
-import com.example.airquality.viewmodel.DailyAirQualityDAO;
-import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
-
-import java.util.ArrayList;
 
 public class AddEditLocationFragment extends Fragment {
     private FragmentAddEditLocationBinding binding;
 
     private AppDatabase appDatabase;
-    private LocationAdapter locationAdapter;
     private LocationDAO locationDAO;
-    private ArrayList<Location> locationArrayList;
     private Location location;
-
-    private String locationID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
