@@ -4,9 +4,11 @@
  
 Ứng dụng theo dõi chất lượng không khí Air Quality được xây dựng nhằm giúp người dùng có thể theo dõi chất lượng không khí ở thành phố Đà Nẵng một cách trực quan, chính xác và đầy đủ nhất có thể. Người dùng có thể dễ dàng thêm, chỉnh sửa những tùy chọn theo dõi các địa điểm quan trọng trong mục Location và xem dữ liệu thống kê của từng trạm, từng ngày, từng giờ trên giao diện chính trong thời gian thực với màu sắc được đặt tương ứng với từng mốc AQI. Ngoài ra người dùng có thể sử dụng chức năng Google Map để xem vị trí các trạm, phạm vi không khí đo được, vị trí hiện tại của mình và tìm đường đi đến một địa điểm nào đó trong mục Map. Nếu muốn tìm hiểu thêm về các chất độc có trong không khí hay sự ảnh hưởng của chúng đến sức khỏe cũng như các khuyến cáo y tế cụ thể, người dùng có thể xem trong mục Infomation.
 
+![app_logo](https://user-images.githubusercontent.com/87163945/145819848-c1805bc0-bff9-49a3-b23b-881380db1d3d.png)
+
 ## Project's components: 
 
-### Firebase realtime database:
+### Firebase realtime database: https://pbl4-airquality-default-rtdb.firebaseio.com/
 
 ### AI model predict AQI:
 
