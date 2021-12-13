@@ -211,9 +211,7 @@ public class MapsFragment extends Fragment
         LatLng marker = new LatLng(location.getViDo(), location.getKinhDo());
 
         String markerTitle = "Trạm: " + location.getStationName();
-        String stationInfo = "AQI: " + (int)location.getAqi() + "\n" +
-                            "Đánh giá: " + location.getRated() + "\n" +
-                            "Nhãn: " + location.getLabel();
+        String stationInfo = "Nhãn: " + location.getLabel();
 
         int markerColor = R.color.green;
         switch (location.getRated()) {
