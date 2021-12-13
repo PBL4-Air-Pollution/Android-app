@@ -114,9 +114,18 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Get first marked station to load to UI if there is no favourite location
-        if (locationDAO.getFavouriteLocation() == null) binding.snLocation.setSelection(0);
-        else binding.snLocation.setSelection(locationDAO.getFavouriteLocation().getId() - 1);
+        // Get first marked station to load to UI if there is no marked and favourite location
+        Location favouriteLocation = locationDAO.getFavouriteLocation();
+        if (favouriteLocation == null){
+            List<Location> markedLocation = locationDAO.getListHasMark();
+            if (markedLocation.size() == 0){
+                binding.snLocation.setSelection(0);
+            }
+            else {
+                binding.snLocation.setSelection(markedLocation.get(0).getId() - 1);
+            }
+        }
+        else binding.snLocation.setSelection(favouriteLocation.getId() - 1);
 
 
         List<HourlyAirQuality> currentDateData = hourlyAirQualityDAO.getListByLocationIDAndDate(currentLocation.getId(), stringDay);
