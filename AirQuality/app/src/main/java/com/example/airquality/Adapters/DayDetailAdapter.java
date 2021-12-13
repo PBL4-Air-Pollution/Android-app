@@ -17,8 +17,10 @@ import java.util.ArrayList;
 
 public class DayDetailAdapter extends RecyclerView.Adapter<DayDetailAdapter.ViewHolder>{
     private ArrayList<HourlyAirQuality> hourArrayList;
-    public DayDetailAdapter(ArrayList<HourlyAirQuality> hourArrayList) {
+    private HourAdapter.HourClickListener hourClickListener;
+    public DayDetailAdapter(ArrayList<HourlyAirQuality> hourArrayList, HourAdapter.HourClickListener hourClickListener) {
         this.hourArrayList = hourArrayList;
+        this.hourClickListener=hourClickListener;
     }
     @SuppressLint("ResourceAsColor")
     @NonNull
@@ -65,12 +67,24 @@ public class DayDetailAdapter extends RecyclerView.Adapter<DayDetailAdapter.View
         return hourArrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ItemDayDetailBinding binding;
+
         @SuppressLint("ResourceAsColor")
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = ItemDayDetailBinding.bind(itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            hourClickListener.onCLick(view, getBindingAdapterPosition());
         }
     }
+
+    public interface HourClickListener{
+        void onCLick(View view,int i);
+    }
+
 }

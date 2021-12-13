@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.airquality.Adapters.DayDetailAdapter;
+import com.example.airquality.Adapters.HourAdapter;
 import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentDayDetailBinding;
@@ -23,6 +24,7 @@ import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DayDetailFragment extends Fragment {
     private FragmentDayDetailBinding binding;
@@ -60,12 +62,7 @@ public class DayDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rvDayDetail.setLayoutManager(layoutManager);
-        binding.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
         Bundle bundle = this.getArguments();
         String[] data = (bundle.getString("Date-LocationID")).split(",");
@@ -83,8 +80,22 @@ public class DayDetailFragment extends Fragment {
         binding.tvRate.setText(dailyAirQuality.getRated());
         setBackgroundColor(dailyAirQuality.getAqi());
 
+        HourAdapter.HourClickListener hourClickListener = new HourAdapter.HourClickListener() {
+            @Override
+            public void onCLick(View view, int i) {
+                Bundle bundle = new Bundle();
+                HourlyAirQuality hour = hourArrayList.get(i);
+                bundle.putString("Date-LocationID", hour.getDatetime() + "," + hour.getLocationID());
+                HourDetailFragment hourDetailFragment = new HourDetailFragment();
+                hourDetailFragment.setArguments(bundle);
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fl_home, hourDetailFragment).addToBackStack(null).commit();
+            }
+        };
+
+        // Get hourly data of current station
         hourArrayList = new ArrayList<HourlyAirQuality>();
-        dayDetailAdapter = new DayDetailAdapter(hourArrayList);
+        dayDetailAdapter = new DayDetailAdapter(hourArrayList,hourClickListener);
         hourArrayList.addAll(hourlyAirQualityDAO.getListByLocationIDAndDate(locationID,stringDay));
         dayDetailAdapter.notifyDataSetChanged();
         binding.rvDayDetail.setAdapter(dayDetailAdapter);
