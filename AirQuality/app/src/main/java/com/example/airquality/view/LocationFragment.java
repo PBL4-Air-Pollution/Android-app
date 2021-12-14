@@ -22,16 +22,12 @@ import com.example.airquality.AppDatabase;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentLocationBinding;
 import com.example.airquality.model.Location;
-import com.example.airquality.viewmodel.HourlyAirQualityDAO;
 import com.example.airquality.viewmodel.LocationDAO;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class LocationFragment extends Fragment {
     private FragmentLocationBinding binding;
-    private HourlyAirQualityDAO hourlyAirQualityDAO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +48,6 @@ public class LocationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         binding.tbLocation.inflateMenu(R.menu.menu_location);
-        String stringDayHour = new SimpleDateFormat("dd/MM/yyyy hh:00:00").format(new Date());
         binding.tbLocation.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -72,8 +67,6 @@ public class LocationFragment extends Fragment {
         LocationAdapter locationAdapter = new LocationAdapter(locationArrayList);
         AppDatabase appDatabase = AppDatabase.Instance(requireContext().getApplicationContext());
         LocationDAO locationDAO = appDatabase.locationDAO();
-        hourlyAirQualityDAO = appDatabase.hourlyAirQualityDAO();
-
         locationArrayList.addAll(locationDAO.getListHasMark());
         locationAdapter.notifyDataSetChanged();
         binding.rcvLocation.setAdapter(locationAdapter);

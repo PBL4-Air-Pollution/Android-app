@@ -154,7 +154,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         holder.binding.locationEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 AppDatabase appDatabase=AppDatabase.Instance(context);
                 LocationDAO locationDAO=appDatabase.locationDAO();
                 Location location =mlistLocation.get(_position);

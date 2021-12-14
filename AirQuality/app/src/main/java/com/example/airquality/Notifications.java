@@ -17,6 +17,8 @@ import androidx.core.app.NotificationCompat;
 import com.example.airquality.model.Location;
 import com.example.airquality.viewmodel.LocationDAO;
 
+import java.util.List;
+
 
 public class Notifications {
     private Context context;
@@ -29,8 +31,16 @@ public class Notifications {
         LocationDAO locationDAO = appDatabase.locationDAO();
         Location location;
 
-        if (locationDAO.getFavouriteLocation() == null) location = locationDAO.getByID(1);
-        else location = locationDAO.getFavouriteLocation();
+        Location favouriteLocation = locationDAO.getFavouriteLocation();
+        if (favouriteLocation == null) {
+            List<Location> markedLocation = locationDAO.getListHasMark();
+            if (markedLocation.size() == 0) {
+                location = locationDAO.getByID(1);
+            } else {
+                location = markedLocation.get(0);
+            }
+        }
+        else location = favouriteLocation;
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= 26) {

@@ -86,7 +86,7 @@ public class FirebaseService extends Service {
                                 // Add into local database
                                 hourlyAirQualityDAO.insertAll(hourlyAirQuality);
 
-                                // Delete the 7 days earlier data
+                                // Delete the 7 days earlier data   
                                 Calendar cal = Calendar.getInstance();
                                 cal.add(Calendar.DATE, -7);
                                 String deleteDate = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());

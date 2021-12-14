@@ -32,14 +32,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+        setContentView(view);
 
         Notifications notifications = new Notifications(this);
         notifications.setUpNotification();
 
         Intent intent = new Intent(this, FirebaseService.class);
         startService(intent);
-
-        setContentView(view);
 
         setUpViewPager();
 
