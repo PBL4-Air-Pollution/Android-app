@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.airquality.Adapters.SpinnerAdapter;
 import com.example.airquality.AppDatabase;
+import com.example.airquality.Notifications;
 import com.example.airquality.R;
 import com.example.airquality.databinding.FragmentLocationDetailBinding;
 import com.example.airquality.model.Location;
@@ -33,7 +34,6 @@ public class LocationDetailFragment extends Fragment {
     private AppDatabase appDatabase;
     private ArrayList<Location> locationArrayList;
     private ArrayList<String> listLocationName;
-    private String locationName;
     private Location location;
 
     @Override
@@ -70,19 +70,20 @@ public class LocationDetailFragment extends Fragment {
             }
         });
 
-        listLocationName = new ArrayList<String>();
-        appDatabase=AppDatabase.Instance(getContext().getApplicationContext());
-        locationDAO=appDatabase.locationDAO();
-        hourlyAirQualityDAO=appDatabase.hourlyAirQualityDAO();
-        locationArrayList=new ArrayList<Location>();
+        appDatabase = AppDatabase.Instance(getContext().getApplicationContext());
+        locationDAO = appDatabase.locationDAO();
+        hourlyAirQualityDAO = appDatabase.hourlyAirQualityDAO();
+
+        locationArrayList = new ArrayList<Location>();
         locationArrayList.addAll(locationDAO.getListHasNotMark());
-        location=locationArrayList.get(0);
+        location = locationArrayList.get(0);
+
         SpinnerAdapter spinnerAdapter=new SpinnerAdapter(getContext(),R.layout.spinner_items_category,locationArrayList);
         binding.spnLocation.setAdapter(spinnerAdapter);
         binding.spnLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                location=locationArrayList.get(i);
+                location = locationArrayList.get(i);
                 binding.tvLocationName.setText(location.getStationName());
                 binding.tvAqiDetail.setText((int)location.getAqi()+"");
                 binding.tvDescribe.setText(String.format( location.getDescribe()));
@@ -107,6 +108,11 @@ public class LocationDetailFragment extends Fragment {
 
                    }
                 });
+
+                // Refresh notification
+                Notifications notifications = new Notifications(getContext());
+                notifications.setUpNotification();
+
                 LocationFragment locationFragment=new LocationFragment();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()

@@ -21,7 +21,7 @@ public interface LocationDAO {
     @Query("SELECT * FROM Location WHERE marked = 0")
     List<Location> getListHasNotMark( );
 
-    @Query("SELECT * FROM Location WHERE marked = 1 ")
+    @Query("SELECT * FROM Location WHERE marked = 1")
     List<Location> getListHasMark();
 
     @Query("SELECT * FROM Location WHERE favourite = 1")

@@ -112,11 +112,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         holder.binding.btnFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (location.isFavourite()) locationDAO.clearFavourite();
-                else {
-                    locationDAO.clearFavourite();
-                    locationDAO.setFavourite(location.getId());
-                }
+                locationDAO.clearFavourite();
+                if (!location.isFavourite()) locationDAO.setFavourite(location.getId());
 
                 // Refresh notification
                 Notifications notifications = new Notifications(context);
@@ -142,6 +139,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                         location.setMarked(false);
                         location.setLabel("");
                         locationDAO.updateLocations(location);
+
+                        // Refresh notification
+                        Notifications notifications = new Notifications(context);
+                        notifications.setUpNotification();
+
                         LocationFragment hourDetailFragment=new LocationFragment();
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();
                         activity.getSupportFragmentManager()
