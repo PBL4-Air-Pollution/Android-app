@@ -118,9 +118,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                     locationDAO.setFavourite(location.getId());
                 }
 
-                // Refresh location fragment
-                Notifications notifications=new Notifications(context);
+                // Refresh notification
+                Notifications notifications = new Notifications(context);
                 notifications.setUpNotification();
+
+                // Refresh location fragment
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 LocationFragment locationFragment = new LocationFragment();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, locationFragment).addToBackStack(null).commit();

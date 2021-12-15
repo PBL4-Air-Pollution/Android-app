@@ -23,7 +23,6 @@ public class InfoFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentInfoBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
         return binding.getRoot();
 
 
