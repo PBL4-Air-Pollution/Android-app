@@ -105,13 +105,12 @@ public class LocationDetailFragment extends Fragment {
                             location.setLabel(binding.tvLabel.getText().toString());
                             locationDAO.updateLocations(location);
                         }
-
+                        
+                        // Refresh notification
+                        Notifications notifications = new Notifications(getContext());
+                        notifications.setUpNotification();
                    }
                 });
-
-                // Refresh notification
-                Notifications notifications = new Notifications(getContext());
-                notifications.setUpNotification();
 
                 LocationFragment locationFragment=new LocationFragment();
                 getActivity().getSupportFragmentManager()

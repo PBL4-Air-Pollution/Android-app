@@ -78,11 +78,10 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder>{
 
         @Override
         public void onClick(View view) {
-            listener.onCLick(view,getAdapterPosition() );
+            listener.onCLick(view,getAdapterPosition());
         }
     }
     public interface DayClickListener{
         void onCLick(View view,int i);
-
     }
 }

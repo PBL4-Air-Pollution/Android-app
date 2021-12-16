@@ -219,10 +219,4 @@ public class HourDetailFragment extends Fragment {
         else if(xylene<=1600) binding.viewXylene.setBackgroundColor(getResources().getColor(R.color.purple));
         else binding.viewXylene.setBackgroundColor(getResources().getColor(R.color.brown));
     }
-
-
-
-
-
-
 }
