@@ -14,6 +14,10 @@ Chúng tôi đã train một model đơn giản bằng mô hình Kneighbors vớ
 
 ![image](https://user-images.githubusercontent.com/87163945/145823506-9662b0f9-c07d-4bce-ac01-d93385182b7b.png)
 
+Đánh giá nồng độ của từng khí theo tiêu chuẩn AQI của Mỹ:
+
+![image](https://user-images.githubusercontent.com/87163945/146383961-ee333c25-2376-4b79-872b-8ee6b0c65e97.png)
+
 ### Firebase realtime database: https://pbl4-airquality-default-rtdb.firebaseio.com/
 
 Chúng tôi sử dụng Realtime Database của Firebase như một nơi đễ lưu trữ những dữ liệu chất lượng không khí trong thời gian thực. Firebase sẽ đóng vai trò như một lớp trung gian đứng giữa Android App và Server thu dữ liệu đo được từ các trạm thiết bị đo, được sử dụng để đẩy dữ liệu về database trên áp và tạo thông báo đẩy.
