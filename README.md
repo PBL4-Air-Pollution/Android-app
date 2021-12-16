@@ -14,8 +14,9 @@ Chúng tôi đã train một model đơn giản bằng mô hình Kneighbors vớ
 
 ![image](https://user-images.githubusercontent.com/87163945/145823506-9662b0f9-c07d-4bce-ac01-d93385182b7b.png)
 
-Đánh giá nồng độ của từng khí theo tiêu chuẩn AQI Mỹ:
-![image](https://user-images.githubusercontent.com/87163945/146383770-20e8a06d-a7a3-4bcf-a656-46fc397d214e.png)
+Đánh giá nồng độ của từng khí theo tiêu chuẩn AQI của Mỹ:
+
+![image](https://user-images.githubusercontent.com/87163945/146383961-ee333c25-2376-4b79-872b-8ee6b0c65e97.png)
 
 ### Firebase realtime database: https://pbl4-airquality-default-rtdb.firebaseio.com/
 
