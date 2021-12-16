@@ -318,6 +318,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -467,6 +468,136 @@
                             </LinearLayout>
 
                         </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <View
+                                android:id="@+id/view_NO"
+                                android:layout_width="3dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/green"/>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="NO "
+                                        android:textStyle="bold"
+                                        android:textSize="8pt"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="µg/m³"
+                                        android:textSize="8pt"/>
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/tv_NO"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="10pt"
+                                    android:text="50"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <View
+                                android:id="@+id/view_NH3"
+                                android:layout_width="3dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/green"></View>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="NH3 "
+                                        android:textStyle="bold"
+                                        android:textSize="8pt"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="µg/m³"
+                                        android:textSize="8pt"/>
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/tv_NH3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="10pt"
+                                    android:text="50"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:id="@+id/view_toluene"
+                                android:layout_width="3dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/green"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Toluene "
+                                        android:textSize="8pt"
+                                        android:textStyle="bold"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="µg/m³"
+                                        android:textSize="8pt"/>
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/tv_toluene"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="50"
+                                    android:textSize="10pt"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -593,6 +724,130 @@
                                     android:textSize="10pt"
                                     android:text="50"/>
                             </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <View
+                                android:id="@+id/view_NOx"
+                                android:layout_width="3dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/green"/>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="NOx "
+                                        android:textStyle="bold"
+                                        android:textSize="8pt"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="µg/m³"
+                                        android:textSize="8pt"/>
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/tv_NOx"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="10pt"
+                                    android:text="50"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <View
+                                android:id="@+id/view_Benzen"
+                                android:layout_width="3dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/green"/>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Benzen "
+                                        android:textStyle="bold"
+                                        android:textSize="8pt"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="µg/m³"
+                                        android:textSize="8pt"/>
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/tv_Benzen"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="10pt"
+                                    android:text="50"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <View
+                                android:id="@+id/view_Xylene"
+                                android:layout_width="3dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/green"/>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Xylene "
+                                        android:textStyle="bold"
+                                        android:textSize="8pt"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="µg/m³"
+                                        android:textSize="8pt"/>
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/tv_Xylene"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="10pt"
+                                    android:text="50"/>
+                            </LinearLayout>
+
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
