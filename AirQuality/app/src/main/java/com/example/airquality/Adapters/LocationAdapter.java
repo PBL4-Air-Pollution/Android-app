@@ -56,8 +56,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         context=parent.getContext();
         return  new ViewHolder(view);
     }
-   @RequiresApi(api = Build.VERSION_CODES.O)
-   @SuppressLint("ResourceAsColor")
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Location location =mlistLocation.get(position);
@@ -125,8 +126,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, locationFragment).addToBackStack(null).commit();
             }
         });
-        
-        int _position=position;
+
         holder.binding.locationDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,7 +135,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
-                        Location location=mlistLocation.get(_position);
                         location.setMarked(false);
                         location.setLabel("");
                         locationDAO.updateLocations(location);
@@ -158,9 +157,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         holder.binding.locationEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppDatabase appDatabase=AppDatabase.Instance(context);
-                LocationDAO locationDAO=appDatabase.locationDAO();
-                Location location =mlistLocation.get(_position);
                 Bundle bundle = new Bundle();
                 bundle.putString("LocationID",String.valueOf(location.getId()));
                 AddEditLocationFragment addEditLocationFragment=new AddEditLocationFragment();
